@@ -1,5 +1,5 @@
 import { useState } from "react";
-import GlobalStyle from "../../GlobalStyle";
+import GlobalStyle from "../GlobalStyle";
 import Router from "../Router";
 // import { ThemeProvider } from "styled-components";
 // import { Context } from "./Context";

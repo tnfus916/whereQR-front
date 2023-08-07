@@ -1,4 +1,4 @@
-whereQR-front/whereQR-front/
+cd whereQR-front/whereQR-front/
 
 npm install
 

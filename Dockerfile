@@ -2,14 +2,23 @@ FROM node:alpine as builder
 
 WORKDIR /builder
 
-COPY package*.json ./
+COPY package.json .
 
 RUN npm install --legacy-peer-deps
 
-COPY . .
+RUN npm run dev
 
-RUN npm run build
+COPY ./build ./build
+
+FROM nginx:latest as runner
+
+WORKDIR /app
+
+COPY --from=builder /builder/build ./build
+
+RUN rm /etc/nginx/conf.d/default.conf
+COPY ./nginx.conf /etc/nginx/conf.d
 
 EXPOSE 3000
 
-CMD ["npm", "run", "dev"]
+CMD ["nginx", "-g", "daemon off;"]

@@ -15,7 +15,7 @@ export const ContentsContainer = styled.div`
   justify-content: space-between;
   padding: 0.5rem calc((100vw - 1000px) / 2);
   z-index: 10;
-  background: black;
+  background: white;
   // background-image : url(../logo192.png);
   // background-size: cover;
 `;
@@ -23,7 +23,7 @@ export const ContentsContainer = styled.div`
 export const Contents = styled.p`
   font-size: 2.2rem;
   font-weight: 800;
-  color: #15cdfc;
+  color: orange;
   display: table;
   margin-top: 250px;
   margin-left: auto;

@@ -55,8 +55,8 @@ function Header() {
         </NavLink>
         <NavContainer>
           <NavLink to="/mypage">MyPage</NavLink>
-          <button onClick={Logout}>Logout</button>
-          <NavLink to="/scan">Scan</NavLink>
+          {/* <button onClick={Logout}>Logout</button> */}
+          <NavLink to="/qrscan">Scan</NavLink>
         </NavContainer>
       </HeaderContainer>
     );

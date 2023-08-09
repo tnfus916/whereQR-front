@@ -5,7 +5,7 @@ export const HeaderContainer = styled.div`
   display: flex;
   justify-content: space-around;
   align-items: center;
-  background-color: black;
+  background-color: white;
   height: 140px;
   width: 100%;
   position: relative;
@@ -32,7 +32,7 @@ white-space: nowrap; */
 `;
 
 export const NavLink = styled(Link)`
-  color: #15cdfc;
+  color: orange;
   display: flex;
   align-items: center;
   text-decoration: none;

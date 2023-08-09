@@ -1,3 +1,5 @@
-whereQR-front/whereQR-front/
+cd whereQR-front
+
 npm install
+
 npm run dev

@@ -1,4 +1,3 @@
-import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Landing from "./src/components/landing/Landing";
 import NotFound from "./src/NotFound";
@@ -9,7 +8,7 @@ import MyPage from "./src/components/account/MyPage";
 import QRScan from "./src/components/qrcode/QRScan";
 import QRDetail from "./src/components/qrcode/QRDetail";
 import QREdit from "./src/components/qrcode/QREdit";
-import QRSave from "./src/components/qrcode/QRsave";
+import QRSave from "./src/components/qrcode/QRSave";
 
 function Router() {
   return (

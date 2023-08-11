@@ -8,7 +8,7 @@ RUN npm install --legacy-peer-deps
 
 COPY . ./build
 
-RUN npm run dev
+RUN npm run build
 
 FROM nginx:latest as runner
 

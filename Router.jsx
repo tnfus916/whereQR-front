@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Landing from "./src/components/landing/Landing";
-import NotFound from "./src/NotFound";
+import NotFound from "./src/components/notfound/NotFound";
 import Layout from "./src/components/layout/Layout";
 import Join from "./src/components/account/Join";
 import Login from "./src/components/account/Login";

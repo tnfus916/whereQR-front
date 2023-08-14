@@ -41,7 +41,7 @@ function Header() {
         <NavContainer>
           <NavLink to="/signup">Sign Up</NavLink>
           <NavLink to="/signin">Sign in</NavLink>
-          <NavLink to="/scan">Scan</NavLink>
+          <NavLink to="/qrscan">Scan</NavLink>
         </NavContainer>
       </HeaderContainer>
     );

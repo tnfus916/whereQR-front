@@ -20,11 +20,9 @@ export const ContentsContainer = styled.div`
 `;
 
 export const Contents = styled.p`
-  font-size: 2.2rem;
-  font-weight: 800;
+  font-size: 1rem;
+  font-weight: 600;
   color: orange;
   display: table;
-  margin-top: 250px;
-  margin-left: auto;
-  margin-right: auto;
+  margin: auto;
 `;

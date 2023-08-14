@@ -6,29 +6,23 @@ export const HeaderContainer = styled.div`
   justify-content: space-around;
   align-items: center;
   background-color: white;
-  height: 140px;
+  height: 90px;
   width: 100%;
   position: relative;
-  /* top: -10px; */
   z-index: 10;
-  /* padding: 10px; */
-  /* gap: 420px; */
+  font-size: 0.9rem;
+  font-weight: 700;
+  box-shadow: 0 0 10px 0 rgba(159, 13, 13, 0.1);
 `;
 
 export const NavContainer = styled.div`
-  font-size: 1rem;
-  font-weight: 700;
   display: flex;
   align-items: center;
-  margin-right: -24px;
-  /* Second Nav */
-  /* margin-right: 24px; */
-  /* Third Nav */
-  /* width: 100vw;
-white-space: nowrap; */
-  @media screen and (max-width: 768px) {
+  white-space: nowrap;
+  font-size: 0.7rem;
+  /* @media screen and (max-width: 768px) {
     display: none;
-  }
+  } */
 `;
 
 export const NavLink = styled(Link)`
@@ -36,7 +30,7 @@ export const NavLink = styled(Link)`
   display: flex;
   align-items: center;
   text-decoration: none;
-  padding: 0 2rem;
+  padding: 0 0.4rem;
   height: 100%;
   /* cursor: pointer;
   &.active {

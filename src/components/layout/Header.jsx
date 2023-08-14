@@ -37,12 +37,10 @@ function Header() {
   if (!user) {
     return (
       <HeaderContainer>
-        <NavLink to="/">
-          <h1>whereQR</h1>
-        </NavLink>
+        <NavLink to="/">whereQR</NavLink>
         <NavContainer>
           <NavLink to="/signup">Sign Up</NavLink>
-          <NavLink to="/signin">SIgn in</NavLink>
+          <NavLink to="/signin">Sign in</NavLink>
           <NavLink to="/scan">Scan</NavLink>
         </NavContainer>
       </HeaderContainer>
@@ -50,9 +48,7 @@ function Header() {
   } else {
     return (
       <HeaderContainer>
-        <NavLink to="/">
-          <h1>whereQR</h1>
-        </NavLink>
+        <NavLink to="/">whereQR</NavLink>
         <NavContainer>
           <NavLink to="/mypage">MyPage</NavLink>
           {/* <button onClick={Logout}>Logout</button> */}

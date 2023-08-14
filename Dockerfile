@@ -1,6 +1,6 @@
 FROM node:alpine as builder
 
-WORKDIR /app
+WORKDIR /builder
 
 COPY package.json ./
 
@@ -10,11 +10,13 @@ COPY . ./build
 
 RUN npm run build
 
+COPY ./build ./build
+
 FROM nginx:latest as runner
 
-WORKDIR /usr/share/nginx/html
+WORKDIR /app
 
-COPY --from=builder /app/build .
+COPY --from=builder /builder/build ./build
 
 RUN rm /etc/nginx/conf.d/default.conf
 

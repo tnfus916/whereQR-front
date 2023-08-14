@@ -7,6 +7,8 @@ import {
   AccountPageContainer,
   Input,
   Button,
+  AccountForm,
+  AccountFormContainer,
 } from "./AccountStyle";
 axios.defaults.withCredentials = true;
 
@@ -119,33 +121,35 @@ function Login() {
   return (
     <>
       <AccountPageContainer className="signin">
-        <Div2>
-          <Label className="label">이메일</Label>
-          <Input
-            className="user"
-            name="user-id"
-            value={email}
-            required
-            onChange={onChangeEmail}
-          />
-          <br />
-          <Label className="label">비밀번호</Label>
-          <Input
-            className="user"
-            name="user-password"
-            type="password"
-            value={password}
-            required
-            onChange={onChangePassword}
-          />
-          <br />
-          <Button className="button" type="primary" onClick={Login}>
-            로그인
-          </Button>
-          <Button className="button" type="primary" onClick={Signup}>
-            회원가입
-          </Button>
-        </Div2>
+        <AccountFormContainer>
+          <AccountForm>
+            <Label className="label">이메일</Label>
+            <Input
+              className="user"
+              name="user-id"
+              value={email}
+              required
+              onChange={onChangeEmail}
+            />
+            <br />
+            <Label className="label">비밀번호</Label>
+            <Input
+              className="user"
+              name="user-password"
+              type="password"
+              value={password}
+              required
+              onChange={onChangePassword}
+            />
+            <br />
+            <Button className="button" type="primary" onClick={Login}>
+              로그인
+            </Button>
+            <Button className="button" type="primary" onClick={Signup}>
+              회원가입
+            </Button>
+          </AccountForm>
+        </AccountFormContainer>
       </AccountPageContainer>
     </>
   );

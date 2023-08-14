@@ -1,7 +1,18 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useParams, useNavigate } from "react-router-dom";
-import { QDiv, Button, Table, Div3, TH, TD, Image } from "./QRStyle";
+import {
+  QDiv,
+  Button,
+  Table,
+  Div3,
+  TH,
+  TD,
+  Image,
+  QRPageContainer,
+  QRForm,
+  QRFormContainer,
+} from "./QRStyle";
 
 function QRDetail() {
   let navigate = useNavigate();
@@ -47,10 +58,10 @@ function QRDetail() {
 
   return (
     <>
-      <QDiv>
-        <Div3>
+      <QRPageContainer>
+        <QRFormContainer>
           <Image src={image} />
-          <Table>
+          <QRForm>
             <tr>
               <TH>제목</TH>
               <TD>{title}</TD>
@@ -67,7 +78,7 @@ function QRDetail() {
               <TH>연락처</TH>
               <TD>{phonenum}</TD>
             </tr>
-          </Table>
+          </QRForm>
           {IsUser && (
             <div>
               <Button className="button" type="primary" onClick={Modify}>
@@ -75,8 +86,8 @@ function QRDetail() {
               </Button>
             </div>
           )}
-        </Div3>
-      </QDiv>
+        </QRFormContainer>
+      </QRPageContainer>
     </>
   );
 }

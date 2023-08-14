@@ -3,7 +3,15 @@ import axios from "axios";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 // import { QDiv, Label, Div2, Input, Button, P, QLink } from "./QRStyle";
-import { QDiv, Label, Div2, Input, Button } from "./QRStyle";
+import {
+  QDiv,
+  Label,
+  Div2,
+  Input,
+  Button,
+  QRPageContainer,
+  QRFormContainer,
+} from "./QRStyle";
 
 const BaseURL = "http://127.0.0.1:8080/qrcode/";
 
@@ -81,8 +89,8 @@ function QREdit() {
   };
   return (
     <>
-      <QDiv className="modifyQR">
-        <Div2>
+      <QRPageContainer className="modifyQR">
+        <QRFormContainer>
           <Label className="title">제목</Label>
           <Input
             className="title"
@@ -122,8 +130,8 @@ function QREdit() {
           <Button className="button" type="primary" onClick={onSubmit}>
             변경하기
           </Button>
-        </Div2>
-      </QDiv>
+        </QRFormContainer>
+      </QRPageContainer>
     </>
   );
 }

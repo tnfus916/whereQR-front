@@ -1,37 +1,72 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { QrReader } from "react-qr-reader";
+import styled from "styled-components";
 
 function QRScan() {
-  let navigate = useNavigate();
-  const [data, setData] = useState("No result");
+  const navigate = useNavigate();
+  const [data, setData] = useState("");
 
   const getData = (data) => {
-    if (data != "No result") {
+    if (data !== "") {
       console.log(data);
       navigate(`/qrscan/${data}`);
     }
   };
 
   useEffect(() => {
-    console.log("값이 바뀜");
+    console.log("scan data change");
     getData(data);
   }, [data]);
 
   return (
-    <QrReader
-      onResult={(result, error) => {
-        if (!result) {
-          setData(result?.text);
-        }
+    <>
+      <QRReaderContainer>
+        <QRReaderTitle>QR코드를 인식해주세요</QRReaderTitle>
+        <QrReader
+          onResult={(result, error) => {
+            if (result) {
+              console.log(result);
+              setData(result?.text);
+            }
 
-        if (!error) {
-          console.info(error);
-        }
-      }}
-      style={{ width: "100%" }}
-    />
+            // if (error) {
+            //   console.info(error);
+            // }
+          }}
+          containerStyle={{
+            width: "700px",
+            height: "700px",
+          }}
+          videoContainerStyle={{
+            width: "100%",
+            height: "100%",
+          }}
+          videoStyle={{
+            width: "100%",
+            height: "100%",
+            border: "15px solid orange",
+          }}
+          scanDelay={300}
+        />
+      </QRReaderContainer>
+    </>
   );
 }
 
 export default QRScan;
+
+export const QRReaderContainer = styled.div`
+  width: 80%;
+  height: 80%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`;
+
+export const QRReaderTitle = styled.h1`
+  font-size: 2rem;
+  margin-bottom: 2rem;
+  color: orange;
+`;

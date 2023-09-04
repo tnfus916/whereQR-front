@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { HeaderContainer, NavLink, NavContainer } from "./HeaderStyle";
+import { HeaderContainer, NavLink, NavContainer, Button } from "./HeaderStyle";
 import axios from "axios";
 
 const BaseURL = "http://127.0.0.1:8080/user/";
@@ -41,7 +41,7 @@ function Header() {
         <NavContainer>
           <NavLink to="/signup">Sign Up</NavLink>
           <NavLink to="/signin">Sign in</NavLink>
-          <NavLink to="/qrscan">Scan</NavLink>
+          <NavLink to="/qrscan">QR Scan</NavLink>
         </NavContainer>
       </HeaderContainer>
     );
@@ -51,8 +51,8 @@ function Header() {
         <NavLink to="/">whereQR</NavLink>
         <NavContainer>
           <NavLink to="/mypage">MyPage</NavLink>
-          {/* <button onClick={Logout}>Logout</button> */}
-          <NavLink to="/qrscan">Scan</NavLink>
+          <NavLink to="/qrscan">QRScan</NavLink>
+          <Button onClick={Logout}>Logout</Button>
         </NavContainer>
       </HeaderContainer>
     );

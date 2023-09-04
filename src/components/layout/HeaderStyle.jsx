@@ -37,3 +37,12 @@ export const NavLink = styled(Link)`
     color: #15cdfc;
   } */
 `;
+
+export const Button = styled.button`
+  border: none;
+  color: orange;
+  font-size: 0.7rem;
+  font-weight: 700;
+  background-color: white;
+  white-space: nowrap;
+`;

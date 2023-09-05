@@ -1,5 +1,9 @@
-cd whereQR-front
+## whereQr-front 
 
-npm install
+### 실행 방법
 
-npm run dev
+`cd whereQR-front`
+
+`npm install`
+
+`npm run dev`

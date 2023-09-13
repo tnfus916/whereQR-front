@@ -6,11 +6,9 @@ COPY package.json ./
 
 RUN npm install --legacy-peer-deps
 
-COPY . ./build
+COPY . ./
 
 RUN npm run build
-
-COPY ./build ./build
 
 FROM nginx:latest as runner
 

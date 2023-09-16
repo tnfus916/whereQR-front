@@ -4,7 +4,7 @@ services:
   builder:
     image: whereqr-front
     build:
-      context: .
+      context: builder/
       dockerfile: Dockerfile
     volumes:
       - "./src:/builder/src"

@@ -8,13 +8,13 @@ RUN npm install --legacy-peer-deps
 
 COPY . ./
 
-RUN npm run build
+RUN npm run build 
 
 FROM nginx:latest as runner
 
 WORKDIR /app
 
-COPY --from=builder /builder/build ./build
+COPY --from=builder /builder/dist ./build
 
 RUN rm /etc/nginx/conf.d/default.conf
 

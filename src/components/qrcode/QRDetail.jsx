@@ -1,14 +1,11 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import { useParams, useNavigate } from "react-router-dom";
 import {
-  QDiv,
-  Button,
-  Table,
-  Div3,
+  // Button,
   TH,
   TD,
-  Image,
+  // Image,
   QRPageContainer,
   QRForm,
   QRFormContainer,
@@ -16,51 +13,67 @@ import {
 
 function QRDetail() {
   let navigate = useNavigate();
-  let key = useParams().ID;
-  console.log(key);
+  let { id } = useParams();
+  console.log(id);
 
-  const [address, setAdd] = useState("No result");
-  const [memo, setMemo] = useState("No result");
-  const [phonenum, setPhonenum] = useState("No result");
   const [title, setTitle] = useState("No result");
-  const [image, setImage] = useState("No result");
-  const [IsUser, setIsUser] = useState(false);
+  const [memo, setMemo] = useState("No result");
+  // const [address, setAddress] = useState("No result");
+  const [phonenum, setPhonenum] = useState("No result");
+  // const [image, setImage] = useState("No result");
+  // const [IsUser, setIsUser] = useState(false);
 
-  const saveQR = (key) => {
-    navigate(`/qrsave/${key}`);
+  const scanQR = () => {
+    navigate(`/qrscan`);
   };
+
+  // const saveQR = (key) => {
+  //   navigate(`/qrsave/${key}`);
+  // };
 
   useEffect(() => {
     axios
-      .get("http://127.0.0.1:8080/qrcode/data/", { params: { key: key } })
+      .get("http://127.0.0.1:8080/qrcode/qrcode-list/", {
+        params: { key: id },
+      })
       .then((response) => {
         console.log("response", response);
 
         if (Number(response.data["is_null"]) === 0) {
-          setTitle(response.data["title"]);
-          setAdd(response.data["address"]);
-          setMemo(response.data["memo"]);
-          setPhonenum(response.data["phonenumber"]);
-          setImage(response.data["image"]);
-          if ((response.data["user"] = localStorage.getItem("user"))) {
-            setIsUser(true);
+          if (response.data["user"] === localStorage.getItem("user")) {
+            // setIsUser(true);
+            window.alert(
+              "본인이 소지한 qr코드로는 분실 신고를 할 수 없습니다~!"
+            );
+            scanQR();
+          } else {
+            setTitle(response.data["title"]);
+            setMemo(response.data["memo"]);
+            setPhonenum(response.data["phonenumber"]);
+            window.alert("해당 연락처로 연락해주세요!");
           }
         } else {
-          console.log("등록된 정보가 없습니다.");
-          saveQR(key);
+          // console.log("등록된 정보가 없습니다.");
+          // //등록하시겠습니끼? yes->qrsave no->qrscan
+          // if (window.confirm("등록된 정보가 없습니다. 등록하시겠습니까?")) {
+          //   scanQR();
+          // } else {
+          //   saveQR(id);
+          // }
+          window.alert("등록된 정보가 없는 qr code입니다.");
         }
       });
   }, []);
 
-  const Modify = () => {
-    navigate(`/qredit/${key}`);
-  };
+  // const Modify = () => {
+  //   navigate(`/qredit/${id}`);
+  // };
 
   return (
     <>
       <QRPageContainer>
         <QRFormContainer>
-          <Image src={image} />
+          {/* <Image src={image} /> */}
           <QRForm>
             <tr>
               <TH>제목</TH>
@@ -70,22 +83,22 @@ function QRDetail() {
               <TH>메모</TH>
               <TD>{memo}</TD>
             </tr>
-            <tr>
+            {/* <tr>
               <TH>주소</TH>
               <TD>{address}</TD>
-            </tr>
+            </tr> */}
             <tr>
               <TH>연락처</TH>
               <TD>{phonenum}</TD>
             </tr>
           </QRForm>
-          {IsUser && (
+          {/* {IsUser && (
             <div>
               <Button className="button" type="primary" onClick={Modify}>
                 수정하기
               </Button>
             </div>
-          )}
+          )} */}
         </QRFormContainer>
       </QRPageContainer>
     </>

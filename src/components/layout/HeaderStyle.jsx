@@ -6,7 +6,7 @@ export const HeaderContainer = styled.div`
   justify-content: space-around;
   align-items: center;
   background-color: white;
-  height: 90px;
+  height: 8%;
   width: 100%;
   position: relative;
   z-index: 10;
@@ -20,6 +20,7 @@ export const NavContainer = styled.div`
   align-items: center;
   white-space: nowrap;
   font-size: 0.7rem;
+  margin-left: 3rem;
   /* @media screen and (max-width: 768px) {
     display: none;
   } */

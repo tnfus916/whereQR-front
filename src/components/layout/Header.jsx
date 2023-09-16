@@ -40,8 +40,8 @@ function Header() {
         <NavLink to="/">whereQR</NavLink>
         <NavContainer>
           <NavLink to="/signup">Sign Up</NavLink>
-          <NavLink to="/signin">Sign in</NavLink>
-          <NavLink to="/qrscan">QR Scan</NavLink>
+          <NavLink to="/signin">Login</NavLink>
+          <NavLink to="/qrscan">분실물 신고</NavLink>
         </NavContainer>
       </HeaderContainer>
     );

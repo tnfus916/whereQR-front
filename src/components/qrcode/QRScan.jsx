@@ -6,6 +6,7 @@ import styled from "styled-components";
 function QRScan() {
   const navigate = useNavigate();
   const [data, setData] = useState("");
+  const [isScan, setIsScan] = useState(false);
 
   const getData = (data) => {
     if (data !== "") {
@@ -25,14 +26,15 @@ function QRScan() {
         <QRReaderTitle>QR코드를 인식해주세요</QRReaderTitle>
         <QrReader
           onResult={(result, error) => {
-            if (result) {
+            if (result && isScan === false) {
               console.log(result);
+              setIsScan(true);
               setData(result?.text);
             }
 
-            // if (error) {
-            //   console.info(error);
-            // }
+            if (error) {
+              console.info(error);
+            }
           }}
           containerStyle={{
             width: "700px",

@@ -1,17 +1,24 @@
-version: "3.7"
+version: "3.8"
+
+networks:
+  application:
+    driver: bridge
 
 services:
-  frontend:
-    image: whereqr-front
-    build:
-      context: .
-      dockerfile: Dockerfile
-    volumes:
-      - ".:/app"
+
+  react-app:
+    image: tnfus916/whereqr-front:latest
     ports:
-      - "3000:3000"
-    environment:
-      - NODE_ENV=development
-    stdin_open: true
-    tty: true
+      - 3000:80
+    networks:
+      - application
+
+  app:
+    container_name: backend
+    image: baeksujin/whereqr:v2
+    user: root
+    ports:
+      - 8080:8080
     restart: always
+    networks:
+      - application

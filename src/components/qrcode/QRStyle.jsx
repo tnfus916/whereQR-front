@@ -3,14 +3,14 @@ import styled from "styled-components";
 export const QRPageContainer = styled.div`
   width: 100%;
   height: 100vh;
-  // background:linear-gradient(to right top,white,#15cdfc);
-  background: #ffbc40;
+  /* background: #ffbc40; */
   box-sizing: border-box;
   display: flex;
   justify-content: center;
   align-items: center;
 `;
 
+// qrscan, qradd page -----------------------------
 export const QRReaderContainer = styled.div`
   width: 80%;
   height: 80%;
@@ -21,15 +21,16 @@ export const QRReaderContainer = styled.div`
 `;
 
 export const QRReaderTitle = styled.h1`
-  font-size: 1.2rem;
+  font-size: 1rem;
   margin: 2rem;
   color: orange;
 `;
 
+// qredit page -------------------------------------
 export const QRFormContainer = styled.div`
   width: 60%;
   height: 60%;
-  /* padding: 50px 15px; */
+  padding: 50px 15px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -37,7 +38,9 @@ export const QRFormContainer = styled.div`
   background: white;
   border-radius: 5px;
   color: black;
+  box-shadow: 0 0 10px 0 rgba(255, 148, 60, 0.4);
 `;
+
 export const QRForm = styled.div`
   width: 100%;
   height: 80%;
@@ -48,25 +51,25 @@ export const QRForm = styled.div`
   background: white;
   border-radius: 20px;
   color: black;
-  /* border: 1px solid #256ce1; */
 `;
 
 export const Image = styled.img`
   width: 5rem;
   height: 5rem;
 `;
+
 export const Label = styled.label`
-  width: 70%;
   color: black;
   border-radius: 8px;
-  font-size: 1.4rem;
+  font-size: 0.7rem;
   font-weight: 700;
-  padding-left: 0.1rem;
+  margin-bottom: 0.5rem;
   padding-right: 0.1rem;
   display: flex;
   justify-content: space-between;
   z-index: 10;
 `;
+
 export const Input = styled.input`
   width: 70%;
   border: 1px solid;
@@ -78,6 +81,43 @@ export const Input = styled.input`
   display: flex;
   justify-content: space-between;
   z-index: 10;
+`;
+
+// qrdetail page -------------------------------------
+
+export const DataListContainer = styled.div`
+  width: 80%;
+  height: 90%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background: white;
+  box-shadow: 0 0 10px 0 rgba(255, 148, 60, 0.4);
+  padding: 50px 15px;
+`;
+
+export const DataContainer = styled.div`
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin: 5px;
+`;
+
+export const Data = styled.div`
+  width: 100%;
+  height: 10px;
+  border: 0px;
+  border-bottom: 1px solid black;
+  line-height: 1rem;
+  font-size: 1rem;
+  display: flex;
+  justify-content: space-between;
+  z-index: 10;
+  margin-bottom: 0.5rem;
+  padding-bottom: 20px;
 `;
 
 export const Button = styled.button`
@@ -103,6 +143,14 @@ export const Button = styled.button`
     font-weight: 700;
   } */
 `;
+
+export const Title = styled.p`
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #15cdfc;
+  display: flex;
+`;
+
 export const Div = styled.div`
   width: 50%;
   height: 70%;
@@ -171,13 +219,6 @@ export const P = styled.p`
   cursor: pointer;
   transition: all 0.1s ease-in-out;
   text-decoration: none;
-`;
-
-export const Title = styled.p`
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: #15cdfc;
-  display: flex;
 `;
 
 export const TD2 = styled.td`

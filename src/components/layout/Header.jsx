@@ -39,9 +39,9 @@ function Header() {
       <HeaderContainer>
         <NavLink to="/">whereQR</NavLink>
         <NavContainer>
-          <NavLink to="/signup">Sign Up</NavLink>
-          <NavLink to="/signin">Login</NavLink>
-          <NavLink to="/qrscan">Report!</NavLink>
+          <NavLink to="/signup">회원가입</NavLink>
+          <NavLink to="/signin">로그인</NavLink>
+          <NavLink to="/qrscan">분실물 신고</NavLink>
         </NavContainer>
       </HeaderContainer>
     );
@@ -50,9 +50,9 @@ function Header() {
       <HeaderContainer>
         <NavLink to="/">whereQR</NavLink>
         <NavContainer>
-          <NavLink to="/qrscan">Report!</NavLink>
-          <NavLink to="/mypage">MyPage</NavLink>
-          <Button onClick={Logout}>Logout</Button>
+          <NavLink to="/qrscan">분실물 신고</NavLink>
+          <NavLink to="/mypage">마이페이지</NavLink>
+          <Button onClick={Logout}>로그아웃</Button>
         </NavContainer>
       </HeaderContainer>
     );

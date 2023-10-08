@@ -11,9 +11,24 @@ export const QRPageContainer = styled.div`
   align-items: center;
 `;
 
+export const QRReaderContainer = styled.div`
+  width: 80%;
+  height: 80%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`;
+
+export const QRReaderTitle = styled.h1`
+  font-size: 1.2rem;
+  margin: 2rem;
+  color: orange;
+`;
+
 export const QRFormContainer = styled.div`
   width: 60%;
-  height: 90%;
+  height: 60%;
   /* padding: 50px 15px; */
   display: flex;
   justify-content: center;
@@ -33,35 +48,9 @@ export const QRForm = styled.div`
   background: white;
   border-radius: 20px;
   color: black;
-  border: 1px solid #256ce1;
+  /* border: 1px solid #256ce1; */
 `;
 
-export const TD = styled.td`
-  margin-top: 1%;
-  border: 1px solid;
-  border-radius: 8px;
-  line-height: 1.3rem;
-  font-size: 1rem;
-  /* padding-left: 0.5rem;
-  padding-right: 0.5rem; */
-  display: flex;
-  justify-content: space-between;
-  z-index: 10;
-  margin-bottom: 3%;
-  text-align: left;
-`;
-
-export const TH = styled.th`
-  /* width: 20%; */
-  // color: #15cdfc;
-  border-radius: 8px;
-  font-size: 1rem;
-  /* font-weight: 600; */
-  /* padding-left: 0.1rem;
-  padding-right: 0.1rem; */
-  justify-content: space-between;
-  z-index: 10;
-`;
 export const Image = styled.img`
   width: 5rem;
   height: 5rem;

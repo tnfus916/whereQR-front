@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { HeaderContainer, NavLink, NavContainer, Button } from "./HeaderStyle";
 import axios from "axios";
 
-const BaseURL = "http://127.0.0.1:8080/user/";
+const BaseURL = "http://localhost:8080/user/";
 
 const axiosInstance = axios.create({
   baseURL: BaseURL,
@@ -15,14 +15,14 @@ const axiosInstance = axios.create({
 });
 
 function Header() {
-  const [user, setUser] = useState({});
+  const [user, setUser] = useState();
 
   useEffect(() => {
     setInterval(() => {
       const token = localStorage.getItem("token");
       setUser(token);
-    }, []);
-  }, 5000);
+    }, 5000);
+  }, []);
 
   const Logout = () => {
     console.log(localStorage.getItem("token"));
@@ -41,7 +41,7 @@ function Header() {
         <NavContainer>
           <NavLink to="/signup">Sign Up</NavLink>
           <NavLink to="/signin">Login</NavLink>
-          <NavLink to="/qrscan">분실물 신고</NavLink>
+          <NavLink to="/qrscan">Report!</NavLink>
         </NavContainer>
       </HeaderContainer>
     );
@@ -50,8 +50,8 @@ function Header() {
       <HeaderContainer>
         <NavLink to="/">whereQR</NavLink>
         <NavContainer>
+          <NavLink to="/qrscan">Report!</NavLink>
           <NavLink to="/mypage">MyPage</NavLink>
-          <NavLink to="/qrscan">QRScan</NavLink>
           <Button onClick={Logout}>Logout</Button>
         </NavContainer>
       </HeaderContainer>

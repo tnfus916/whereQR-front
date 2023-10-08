@@ -4,7 +4,7 @@ export const AccountPageContainer = styled.div`
   width: 100%;
   height: 100vh;
   // background:linear-gradient(to right top,white,#15cdfc);
-  background: #ffbc40;
+  /* background: #ffbc40; */
   box-sizing: border-box;
   display: flex;
   justify-content: center;
@@ -22,6 +22,7 @@ export const AccountFormContainer = styled.div`
   background: white;
   border-radius: 5px;
   color: black;
+  box-shadow: 0 0 10px 0 rgba(255, 148, 60, 0.4);
 `;
 export const AccountForm = styled.form`
   width: 100%;

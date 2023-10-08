@@ -1,34 +1,30 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-// import { QDiv, Label, Div2, Input, Button, P, QLink } from "./QRStyle";
 import {
-  QDiv,
   Label,
-  Div2,
   Input,
   Button,
   QRPageContainer,
   QRFormContainer,
 } from "./QRStyle";
 
-const BaseURL = "http://127.0.0.1:8080/qrcode/";
-
-const axiosInstance = axios.create({
-  baseURL: BaseURL,
-  timeout: 5000,
-  headers: {
-    Authorization: "Token",
-    "Content-Type": "application/json",
-    accept: "application/json",
-  },
-});
-
 function QREdit() {
-  let navigate = useNavigate();
-  let key = useParams().ID;
-  console.log(key);
+  const navigate = useNavigate();
+  const { id } = useParams();
+
+  const BaseURL = "http://localhost:8080/qrcode/";
+
+  const axiosInstance = axios.create({
+    baseURL: BaseURL,
+    timeout: 5000,
+    headers: {
+      Authorization: "Token",
+      "Content-Type": "application/json",
+      accept: "application/json",
+    },
+  });
 
   const [title, setTitle] = useState("No Title");
   const [memo, setMemo] = useState("No result");
@@ -50,7 +46,7 @@ function QREdit() {
 
   useEffect(() => {
     axios
-      .get("http://127.0.0.1:8080/qrcode/data/", { params: { key: key } })
+      .get("http://localhost:8080/qrcode/data/", { params: { id: id } })
       .then((response) => {
         console.log(response);
 
@@ -69,7 +65,7 @@ function QREdit() {
     e.preventDefault();
 
     const data = {
-      key: key,
+      id: id,
       title: title,
       text: memo,
       address: address,
@@ -109,15 +105,7 @@ function QREdit() {
             onChange={onChangeMemo}
           />
           <br />
-          <Label className="address">주소</Label>
-          <Input
-            className="address"
-            name="qr-address"
-            value={address}
-            required
-            onChange={onChangeAdd}
-          />
-          <br />
+
           <Label className="phonenum">연락처</Label>
           <Input
             className="phonenum"

@@ -4,7 +4,8 @@ import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { QDiv, Label, Div2, Input, Button } from "./QRStyle";
 
-const BaseURL = "http://127.0.0.1:8080/qrcode/";
+// const BaseURL = "http://127.0.0.1:8080/qrcode/";
+const BaseURL = "http://localhost:8080";
 
 const axiosInstance = axios.create({
   baseURL: BaseURL,

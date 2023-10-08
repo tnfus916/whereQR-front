@@ -13,14 +13,15 @@ export const ContentsContainer = styled.div`
   width: 100%;
   display: flex;
   justify-content: space-between;
-  padding: 0.5rem calc((100vw - 1000px) / 2);
+  /* padding: 0.5rem calc((100vw - 1000px) / 2); */
+  padding: 5px;
   background: white;
   // background-image : url(../logo192.png);
   // background-size: cover;
 `;
 
 export const Contents = styled.p`
-  font-size: 1rem;
+  font-size: 0.8rem;
   font-weight: 600;
   color: orange;
   display: table;

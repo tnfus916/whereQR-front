@@ -87,37 +87,38 @@ function QREdit() {
     <>
       <QRPageContainer className="modifyQR">
         <QRFormContainer>
-          <Label className="title">제목</Label>
-          <Input
-            className="title"
-            name="qr-title"
-            value={title}
-            required
-            onChange={onChangeTitle}
-          />
-          <br />
-          <Label className="memo">메모</Label>
-          <Input
-            className="memo"
-            name="qr-memo"
-            value={memo}
-            required
-            onChange={onChangeMemo}
-          />
-          <br />
-
-          <Label className="phonenum">연락처</Label>
-          <Input
-            className="phonenum"
-            name="qr-phonenum"
-            value={phonenum}
-            required
-            onChange={onChangePhone}
-          />
-          <br />
-          <Button className="button" type="primary" onClick={onSubmit}>
-            변경하기
-          </Button>
+          <QRForm>
+            <Label className="title">제목</Label>
+            <Input
+              className="title"
+              name="qr-title"
+              value={title}
+              required
+              onChange={onChangeTitle}
+            />
+            <br />
+            <Label className="memo">메모</Label>
+            <Input
+              className="memo"
+              name="qr-memo"
+              value={memo}
+              required
+              onChange={onChangeMemo}
+            />
+            <br />
+            <Label className="phonenum">연락처</Label>
+            <Input
+              className="phonenum"
+              name="qr-phonenum"
+              value={phonenum}
+              required
+              onChange={onChangePhone}
+            />
+            <br />
+            <Button className="button" type="primary" onClick={onSubmit}>
+              변경하기
+            </Button>
+          </QRForm>
         </QRFormContainer>
       </QRPageContainer>
     </>

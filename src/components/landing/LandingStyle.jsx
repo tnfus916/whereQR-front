@@ -9,15 +9,12 @@ export const LandingContainer = styled.div`
 
 export const ContentsContainer = styled.div`
   text-align: center;
-  height: 100%;
-  width: 100%;
+  height: 80%;
+  width: 90%;
   display: flex;
   justify-content: space-between;
-  /* padding: 0.5rem calc((100vw - 1000px) / 2); */
   padding: 5px;
   background: white;
-  // background-image : url(../logo192.png);
-  // background-size: cover;
 `;
 
 export const Contents = styled.p`
@@ -26,4 +23,16 @@ export const Contents = styled.p`
   color: orange;
   display: table;
   margin: auto;
+`;
+
+export const Paragraph = styled.div`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  margin-bottom: 10px;
+  div {
+    padding: 3px;
+  }
 `;

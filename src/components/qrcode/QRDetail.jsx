@@ -28,7 +28,7 @@ function QRDetail() {
   // };
 
   useEffect(() => {
-    console.log(id);
+    console.log(id["ID"]);
     const getDetail = async () => {
       await axios
         .get("http://localhost:8080/qrcode/scan", {

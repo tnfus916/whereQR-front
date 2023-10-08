@@ -4,8 +4,11 @@ import styled from "styled-components";
 import { useParams, useNavigate } from "react-router-dom";
 import {
   // Button,
-  // Image,
   QRPageContainer,
+  DataListContainer,
+  DataContainer,
+  Label,
+  Data,
 } from "./QRStyle";
 
 function QRDetail() {
@@ -15,129 +18,67 @@ function QRDetail() {
   const [title, setTitle] = useState("No result");
   const [memo, setMemo] = useState("No result");
   const [phonenum, setPhonenum] = useState("No result");
-  // const [address, setAddress] = useState("No result");
-  // const [image, setImage] = useState("No result");
-  // const [IsUser, setIsUser] = useState(false);
 
   const scanQR = () => {
     navigate(`/qrscan`);
   };
-
-  // const saveQR = (key) => {
-  //   navigate(`/qrsave/${key}`);
-  // };
 
   useEffect(() => {
     console.log(id["ID"]);
     const getDetail = async () => {
       await axios
         .get("http://localhost:8080/qrcode/scan", {
-          params: { id: id },
+          params: { id: id["ID"] },
         })
-        .then((response) => {
-          console.log("response", response);
-          if (Number(response.data["is_null"]) === 0) {
-            if (response.data["user"] === localStorage.getItem("user")) {
-              // setIsUser(true);
+        .then((res) => {
+          console.log("res", res);
+          if (res.data["qrStatus"] === "New") {
+            if (window.confirm("등록된 정보가 없습니다. 등록하시겠습니까?")) {
+              //왜 두번뜰까
+              scanQR();
+            } else {
+              // saveQR(id);
+              console.log("저장페이지로 이동");
+            }
+          } else {
+            if (res.data["user"] === localStorage.getItem("user")) {
               window.alert(
                 "본인이 소지한 qr코드로는 분실 신고를 할 수 없습니다~!"
               );
               scanQR();
             } else {
-              setTitle(response.data["title"]);
-              setMemo(response.data["memo"]);
-              setPhonenum(response.data["phonenumber"]);
+              setTitle(res.data["title"]);
+              setMemo(res.data["memo"]);
+              setPhonenum(res.data["phonenumber"]);
               window.alert("해당 연락처로 연락해주세요!");
             }
-          } else {
-            // console.log("등록된 정보가 없습니다.");
-            // //등록하시겠습니끼? yes->qrsave no->qrscan
-            // if (window.confirm("등록된 정보가 없습니다. 등록하시겠습니까?")) {
-            //   scanQR();
-            // } else {
-            //   saveQR(id);
-            // }
-            window.alert("등록된 정보가 없는 qr code입니다.");
           }
+        })
+        .catch((err) => {
+          console.log(err);
+          window.alert("유효하지 않은 qr코드입니다.");
         });
-      //   axios
-      //     .get("http://localhost:8080/qrcode/scan", { params: { id: id } })
-      //     .then((res) => {
-      //       console.log("res", res);
-
-      //       if (Number(res.data["is_null"]) === 0) {
-      //         if (res.data["user"] === localStorage.getItem("user")) {
-      //           window.alert("본인 소지품은 분실신고를 할 수 없습니다!");
-      //           scanQR();
-      //         } else {
-      //           setTitle(res.data["title"]);
-      //           setMemo(res.data["memo"]);
-      //           setPhonenum(res.data["phonenumber"]);
-      //           window.alert("해당 연락처로 연락해주세요!");
-      //         }
-      //       } else {
-      //         // console.log("등록된 정보가 없습니다.");
-      //         // //등록하시겠습니끼? yes->qrsave no->qrscan
-      //         // if (window.confirm("등록된 정보가 없습니다. 등록하시겠습니까?")) {
-      //         //   scanQR();
-      //         // } else {
-      //         //   saveQR(id);
-      //         // }
-      //         window.alert("등록된 정보가 없는 qr code입니다.");
-      //       }
-      //     });
-      //   // .catch((error) => {
-      //   //   console.log(error);
-      //   // });
     };
-
     getDetail();
   }, []);
-
-  // const Modify = () => {
-  //   navigate(`/qredit/${id}`);
-  // };
 
   return (
     <>
       <QRPageContainer>
-        {/* <Image src={image} /> */}
-        {/* <QRForm>
-            <TR>
-              <TH>제목</TH>
-              <TD>{title}</TD>
-            </TR>
-            <TR>
-              <TH>메모</TH>
-              <TD>{memo}</TD>
-            </TR>
-            <TR>
-              <TH>연락처</TH>
-              <TD>{phonenum}</TD>
-            </TR>
-          </QRForm>
-           */}
-        <InfoTable>
-          <TR>
-            <TH>제목</TH>
-            <TD>{title}</TD>
-          </TR>
-          <TR>
-            <TH>메모</TH>
-            <TD>{memo}</TD>
-          </TR>
-          <TR>
-            <TH>연락처</TH>
-            <TD>{phonenum}</TD>
-          </TR>
-        </InfoTable>
-        {/* {IsUser && (
-            <div>
-              <Button className="button" type="primary" onClick={Modify}>
-                수정하기
-              </Button>
-            </div>
-          )} */}
+        <DataListContainer>
+          <DataContainer>
+            <Label>제목</Label>
+            <Data>{title}</Data>
+          </DataContainer>
+          <DataContainer>
+            <Label>메모</Label>
+            <Data>{memo}</Data>
+          </DataContainer>
+          <DataContainer>
+            <Label>연락처</Label>
+            <Data>{phonenum}</Data>
+          </DataContainer>
+        </DataListContainer>
       </QRPageContainer>
     </>
   );

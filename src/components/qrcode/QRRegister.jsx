@@ -13,7 +13,9 @@ import axiosInstance from "../../api/api";
 
 function QRRegister() {
   const navigate = useNavigate();
-  const id = useParams();
+  const currentUrl = window.location.href;
+  const id = currentUrl.split("/")[4];
+  console.log(id);
 
   const [title, setTitle] = useState("No Title");
   const [memo, setMemo] = useState("No result");
@@ -33,7 +35,7 @@ function QRRegister() {
     e.preventDefault();
 
     const data = {
-      id: id["ID"],
+      id: id,
       title: title,
       memo: memo,
       createDate: "2021-09-01",
@@ -64,15 +66,13 @@ function QRRegister() {
   };
 
   useEffect(() => {
-    axiosInstance
-      .get("/qrcode/scan", { params: { id: id["ID"] } })
-      .then((res) => {
-        console.log(res);
+    axiosInstance.get("/qrcode/scan", { params: { id: id } }).then((res) => {
+      console.log(res);
 
-        setTitle(res.data["title"]);
-        setMemo(res.data["memo"]);
-        setPhonenum(res.data["phoneNumber"]);
-      });
+      setTitle(res.data["title"]);
+      setMemo(res.data["memo"]);
+      setPhonenum(res.data["phoneNumber"]);
+    });
   }, []);
 
   return (

@@ -11,7 +11,9 @@ import axios from "axios";
 
 function QRDetail() {
   const navigate = useNavigate();
-  const id = useParams();
+  const currentUrl = window.location.href;
+  const id = currentUrl.split("/")[4];
+  console.log(id);
 
   const [title, setTitle] = useState("No result");
   const [memo, setMemo] = useState("No result");
@@ -21,12 +23,12 @@ function QRDetail() {
     navigate(`/qrscan`);
   };
 
+  // axios.defaults.headers["Access-Control-Allow-Origin"] = "*";
   useEffect(() => {
-    console.log(id["ID"]);
     const getDetail = async () => {
       await axios
         .get("http://localhost:8080/qrcode/scan", {
-          params: { id: id["ID"] },
+          params: { id: id },
         })
         .then((res) => {
           console.log("res", res);

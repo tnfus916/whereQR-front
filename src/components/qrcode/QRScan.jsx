@@ -5,12 +5,13 @@ import { QRReaderContainer, QRReaderTitle } from "./QRStyle";
 
 function QRScan() {
   const navigate = useNavigate();
-  const [id, setId] = useState("");
+  const [url, setUrl] = useState("");
   const [isScan, setIsScan] = useState(false);
 
-  const getData = (id) => {
-    if (id !== "") {
-      console.log(id);
+  const getData = (url) => {
+    if (url !== "") {
+      console.log(url);
+      const id = url.split("/")[4];
       navigate(`/qrscan/${id}`);
     }
   };
@@ -18,15 +19,15 @@ function QRScan() {
   const handleScan = (result) => {
     if (result && isScan === false) {
       console.log("qr scanned");
-      setId(result?.text);
+      setUrl(result?.text);
       setIsScan(true);
     }
   };
 
   useEffect(() => {
     console.log("render");
-    getData(id);
-  }, [id]);
+    getData(url);
+  }, [url]);
 
   return (
     <>

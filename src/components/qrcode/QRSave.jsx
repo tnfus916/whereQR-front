@@ -1,23 +1,18 @@
 import { useEffect, useState } from "react";
-// import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { QrReader } from "react-qr-reader";
 import { QRReaderContainer, QRReaderTitle } from "./QRStyle";
 
-//   get from qrlist whose id is scanned qr's id
-//   if 존재 and status==new then,
-// move to other qr save page and change status
-
 const QRSave = () => {
   const navigate = useNavigate();
-  const [id, setId] = useState("No result");
+  const [url, setUrl] = useState("");
   const [isScan, setIsScan] = useState(false);
 
-  const getData = (id) => {
-    if (id !== "No result") {
-      console.log(id);
-      console.log(isScan);
-      navigate(`/qrsave/${id}`);
+  const getData = (url) => {
+    if (url !== "") {
+      console.log(url);
+      const id = url.split("/")[4];
+      navigate(`/qrs/${id}`);
     }
   };
 
@@ -25,15 +20,15 @@ const QRSave = () => {
     if (result && isScan === false) {
       console.log("qr scanned");
       console.log(result);
-      setId(result?.text);
+      setUrl(result?.text);
       setIsScan(true);
     }
   };
 
   useEffect(() => {
     console.log("render");
-    getData(id);
-  }, [id]);
+    getData(url);
+  }, [url]);
 
   return (
     <QRReaderContainer>

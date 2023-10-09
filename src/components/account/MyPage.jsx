@@ -23,7 +23,7 @@ function Mypage() {
   };
 
   const editClick = () => {
-    navigate("/qredit/:id");
+    navigate(`/qredit/${qrcode["id"]}`);
   };
 
   useEffect(() => {

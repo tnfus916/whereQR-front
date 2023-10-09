@@ -22,43 +22,18 @@ export const AccountFormContainer = styled.div`
   color: black;
   box-shadow: 0 0 10px 0 rgba(255, 148, 60, 0.4);
 `;
+
 export const AccountForm = styled.form`
   width: 100%;
   height: 80%;
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
   flex-direction: column;
   background: white;
   border-radius: 20px;
   color: black;
 `;
-
-// export const Div = styled.div`
-//   width: 60%;
-//   height: 80%;
-//   padding: 50px 15px;
-//   display: flex;
-//   justify-content: center;
-//   align-items: center;
-//   flex-direction: column;
-//   background: white;
-//   border-radius: 20px;
-//   color: black;
-// `;
-
-// export const Div2 = styled.div`
-//   width: 60%;
-//   height: 52%;
-//   padding: 50px 15px;
-//   display: flex;
-//   justify-content: center;
-//   align-items: center;
-//   flex-direction: column;
-//   color: black;
-//   background: white;
-//   border-radius: 20px;
-// `;
 
 export const Label = styled.label`
   width: 90%;
@@ -68,11 +43,14 @@ export const Label = styled.label`
   display: inline-block;
   justify-content: space-between;
   z-index: 10;
+  .red {
+    color: red;
+  }
 `;
 
 export const Input = styled.input`
   margin-top: 1%;
-  width: 90%;
+  width: 100%;
   border: 0px;
   border-bottom: 1px solid black;
   /* border-radius: 5px; */

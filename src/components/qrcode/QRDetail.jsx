@@ -35,7 +35,7 @@ function QRDetail() {
           // user=> memberId
           if (res.data["qrStatus"] === "New") {
             window.alert("등록된 정보가 없습니다. ");
-            //왜 두번뜰까: react strict mode
+            //두번 실행됨->  main.jsx react strict mode 제거
           } else {
             if (res.data["user"] === localStorage.getItem("user")) {
               window.alert(

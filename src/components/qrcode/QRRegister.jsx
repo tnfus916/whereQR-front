@@ -17,9 +17,9 @@ function QRRegister() {
   const id = currentUrl.split("/")[4];
   console.log(id);
 
-  const [title, setTitle] = useState("No Title");
-  const [memo, setMemo] = useState("No result");
-  const [phonenum, setPhonenum] = useState("No result");
+  const [title, setTitle] = useState("");
+  const [memo, setMemo] = useState("");
+  const [phonenum, setPhonenum] = useState("");
 
   const onChangeMemo = (e) => {
     setMemo(e.target.value);

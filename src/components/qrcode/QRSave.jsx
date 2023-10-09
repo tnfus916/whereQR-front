@@ -12,14 +12,14 @@ const QRSave = () => {
     if (url !== "") {
       console.log(url);
       const id = url.split("/")[4];
-      navigate(`/qrs/${id}`);
+      navigate(`/qrscan/${id}`);
     }
   };
 
   const handleScan = (result) => {
     if (result && isScan === false) {
       console.log("qr scanned");
-      console.log(result);
+      console.log(result?.text);
       setUrl(result?.text);
       setIsScan(true);
     }

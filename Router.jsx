@@ -9,6 +9,7 @@ import QRScan from "./src/components/qrcode/QRScan";
 import QRDetail from "./src/components/qrcode/QRDetail";
 import QREdit from "./src/components/qrcode/QREdit";
 import QRSave from "./src/components/qrcode/QRSave";
+import QRRegister from "./src/components/qrcode/QRRegister";
 
 function Router() {
   return (
@@ -19,9 +20,10 @@ function Router() {
           <Route path="/qrscan" element={<QRScan />} />
           <Route path="/qrscan/:ID" element={<QRDetail />} />
           <Route path="/signup" element={<Join />} />
-          <Route path="/signin" element={<KakaoLogin />} />
+          <Route path="/login" element={<KakaoLogin />} />
           <Route path="/mypage" element={<MyPage />} />
           <Route path="/qrsave" element={<QRSave />} />
+          <Route path="/qrsave/:ID" element={<QRRegister />} />
           <Route path="/qredit/:ID" element={<QREdit />} />
           <Route path="/qrlist" />
           {/* <Route path="/qrlist/:ID" /> */}

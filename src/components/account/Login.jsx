@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import axiosInstance from "../../api/api";
 import {
-  Div2,
   Label,
   AccountPageContainer,
   Input,
@@ -20,14 +19,14 @@ function Login() {
     navigate(`/signup`);
   };
 
-  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
   const Login = (e) => {
     e.preventDefault();
 
     const user_data = {
-      email: email,
+      username: username,
       password: password,
     };
 
@@ -101,8 +100,8 @@ function Login() {
     }
   );
 
-  const onChangeEmail = (e) => {
-    setEmail(e.target.value);
+  const onChangeUsername = (e) => {
+    setUsername(e.target.value);
   };
   const onChangePassword = (e) => {
     setPassword(e.target.value);
@@ -112,13 +111,13 @@ function Login() {
       <AccountPageContainer className="signin">
         <AccountFormContainer>
           <AccountForm>
-            <Label className="label">이메일</Label>
+            <Label className="label">아이디</Label>
             <Input
               className="user"
               name="user-id"
-              value={email}
+              value={username}
               required
-              onChange={onChangeEmail}
+              onChange={onChangeUsername}
             />
             <br />
             <Label className="label">비밀번호</Label>

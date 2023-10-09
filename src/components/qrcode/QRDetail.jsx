@@ -1,15 +1,13 @@
 import { useState, useEffect } from "react";
-import axios from "axios";
-import styled from "styled-components";
 import { useParams, useNavigate } from "react-router-dom";
 import {
-  // Button,
   QRPageContainer,
   DataListContainer,
   DataContainer,
   Label,
   Data,
 } from "./QRStyle";
+import axios from "axios";
 
 function QRDetail() {
   const navigate = useNavigate();
@@ -32,14 +30,10 @@ function QRDetail() {
         })
         .then((res) => {
           console.log("res", res);
+          // user=> memberId
           if (res.data["qrStatus"] === "New") {
-            if (window.confirm("등록된 정보가 없습니다. 등록하시겠습니까?")) {
-              //왜 두번뜰까
-              scanQR();
-            } else {
-              // saveQR(id);
-              console.log("저장페이지로 이동");
-            }
+            window.alert("등록된 정보가 없습니다. ");
+            //왜 두번뜰까: react strict mode
           } else {
             if (res.data["user"] === localStorage.getItem("user")) {
               window.alert(
@@ -50,7 +44,7 @@ function QRDetail() {
               setTitle(res.data["title"]);
               setMemo(res.data["memo"]);
               setPhonenum(res.data["phonenumber"]);
-              window.alert("해당 연락처로 연락해주세요!");
+              // window.alert("해당 연락처로 연락해주세요!");
             }
           }
         })

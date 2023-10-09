@@ -1,18 +1,6 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { HeaderContainer, NavLink, NavContainer, Button } from "./HeaderStyle";
-import axios from "axios";
-
-const BaseURL = "http://localhost:8080/user/";
-
-const axiosInstance = axios.create({
-  baseURL: BaseURL,
-  timeout: 5000,
-  headers: {
-    Authorization: "Token ",
-    "Content-Type": "application/json",
-    accept: "application/json",
-  },
-});
+import axiosInstance from "../../api/api";
 
 function Header() {
   const [user, setUser] = useState();
@@ -27,7 +15,7 @@ function Header() {
   const Logout = () => {
     console.log(localStorage.getItem("token"));
     axiosInstance.defaults.headers["Authorization"] = "Token " + user;
-    axiosInstance.post("logout/").then(() => {
+    axiosInstance.post("/user/logout/").then(() => {
       console.log("logout을 진행");
       localStorage.removeItem("token");
       localStorage.removeItem("user");
@@ -40,7 +28,7 @@ function Header() {
         <NavLink to="/">whereQR</NavLink>
         <NavContainer>
           <NavLink to="/signup">회원가입</NavLink>
-          <NavLink to="/signin">로그인</NavLink>
+          <NavLink to="/login">로그인</NavLink>
           <NavLink to="/qrscan">분실물 신고</NavLink>
         </NavContainer>
       </HeaderContainer>

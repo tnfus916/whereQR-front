@@ -1,13 +1,11 @@
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import axios from "axios";
 import { useEffect, useState } from "react";
 
 function Mypage() {
   // const user = localStorage.getItem("token");
   const navigate = useNavigate();
   const user = localStorage.getItem("user");
-  const BaseURL = "http://localhost:8080";
 
   const [isRegistered, setIsRegistered] = useState(false);
   const [username, setUsername] = useState("");
@@ -18,35 +16,6 @@ function Mypage() {
   const [qrcodeMemo, setQrcodeMemo] = useState("");
   const [qrcodeImage, setQrcodeImage] = useState("");
 
-  const axiosInstance = axios.create({
-    baseURL: BaseURL,
-    timeout: 5000,
-    headers: {
-      Authorization: "Token",
-      "Content-Type": "application/json",
-      accept: "application/json",
-    },
-  });
-
-  useEffect(() => {
-    axiosInstance
-      .get("/memeber/detail/", { params: { user: user } })
-      .then((res) => {
-        console.log(res.data);
-        // qrcodes에서 qrcode 이미지, 제목, 메모, 연락처 가져오기
-        // 2개 이상일 때는 map 사용(버전1에서는 인당 qrcode 하나.)
-        setUsername(res.data.username);
-        setPhonenum(res.data.phoneNumber);
-        setEmail(res.data.email);
-        //만약에 qrcode가 없다면 그건 어떻게 할건가.
-        // res.data.qrcodes===null이라면
-        //  setIsRegistered(false);
-        // else
-        //  setIsRegistered(true);
-        // 가능한 코드인가 res.data.qrcodes 가져와서 그 안에거를 코드로 끄집어내야할까
-        setQrcodeId(res.data.qrcodes.id);
-      });
-  }, []);
 
   const addClick = () => {
     navigate("/qrsave");
@@ -56,23 +25,23 @@ function Mypage() {
     navigate("/qredit/:id");
   };
 
-  // const deleteClick = () => {
-  //   window.alert(
-  //     "qr코드를 정말 삭제하시겠습니까?\n삭제된 qr코드는 복구할 수 없습니다."
-  //   );
+  useEffect(() => {
+    axiosInstance
+      .get("/memeber/detail/", { params: { user: user } })
+      .then((res) => {
+        console.log(res.data);
+        setUsername(res.data["username"]);
+        setAge(res.data["age"]);
+        setPhonenum(res.data["phoneNumber"]);
+        if (res.data["qrcodes"] === null) {
+          setIsRegistered(false);
+        } else {
+          setIsRegistered(true);
+          setQrcode(res.data["qrcodes"]);
+        }
+      });
+  }, []);
 
-  //   axiosInstance
-  //     .delete("qrcode/qrlist/", { params: { user: user } })
-  //     .then((res) => {
-  //       console.log(res.data);
-  //       navigate(`/`);
-  //     })
-  //     .catch((error) => {
-  //       console.log(error);
-  //     });
-  // };
-
-  const id = "sdewr8dfsdfjs";
   return (
     <>
       <PageContainer>

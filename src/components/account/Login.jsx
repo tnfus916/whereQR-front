@@ -1,6 +1,7 @@
 import { useState } from "react";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import axiosInstance from "../../api/api";
 import {
   Div2,
   Label,
@@ -11,18 +12,6 @@ import {
   AccountFormContainer,
 } from "./AccountStyle";
 axios.defaults.withCredentials = true;
-
-const BaseURL = "http://13.124.184.159:8080/user/";
-
-const axiosInstance = axios.create({
-  baseURL: BaseURL,
-  timeout: 5000,
-  headers: {
-    Authorization: "Token",
-    "Content-Type": "application/json",
-    accept: "application/json",
-  },
-});
 
 function Login() {
   let navigate = useNavigate();
@@ -43,7 +32,7 @@ function Login() {
     };
 
     axiosInstance
-      .post("login/", user_data)
+      .post("/user/login/", user_data)
       .then((res) => {
         // 서버에서 받아온 리소스 중 access token
         const token = res.data.token;

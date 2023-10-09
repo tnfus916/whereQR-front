@@ -1,5 +1,4 @@
 import { useState } from "react";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import {
   Label,
@@ -9,6 +8,7 @@ import {
   AccountFormContainer,
   AccountForm,
 } from "./AccountStyle";
+import axios from "axios";
 
 function Join() {
   let navigate = useNavigate();
@@ -59,11 +59,14 @@ function Join() {
     };
 
     axios
-      .post("http://13.124.184.159:8080/member/signup/", user_data)
+      .post("http://localhost:8080/member/signup", user_data)
       .then((res) => {
         console.log(res.data);
       })
-      .then(navigate(`/`)); //homepage but with the token
+      .catch((err) => {
+        console.log(err.response);
+      })
+      .then(() => navigate("/")); //homepage but with the token
   };
 
   const onChangeEmail = (e) => {

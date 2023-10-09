@@ -13,17 +13,13 @@ import axios from "axios";
 function Join() {
   let navigate = useNavigate();
 
-  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  // const [name, setName] = useState("");
-  // const [address, setAddress] = useState("");
-  const [phonenum, setPhonenum] = useState("");
   const [passwordCheck, setPasswordCheck] = useState("");
   const [passwordError, setPasswordError] = useState(false);
-
-  const [username, setUsername] = useState("");
   const [age, setAge] = useState("");
-  const [roles, setRoles] = useState("");
+  const [roles, setRoles] = useState(["USER"]);
+  // const [phonenum, setPhonenum] = useState("");
 
   // 로그인 API 호출
   const onSubmit = (e) => {
@@ -33,29 +29,19 @@ function Join() {
       return setPasswordError(true);
     }
 
-    // console.log({
-    //   email,
-    //   password,
-    //   name,
-    //   address,
-    //   phonenum,
-    // });
+    console.log({
+      username,
+      password,
+      age,
+      roles,
+    });
 
-    // console.log({
-    //   username,
-    //   password,
-    //   age,
-    //   roles,
-    // });
     const user_data = {
-      // email: email,
-      // nickname: name,
       username: username,
       password: password,
       age: age,
-      // address: address,
-      // phonenumber: phonenum,
       roles: roles,
+      // phonenumber: phonenum,
     };
 
     axios
@@ -69,32 +55,28 @@ function Join() {
       .then(() => navigate("/")); //homepage but with the token
   };
 
-  const onChangeEmail = (e) => {
-    setEmail(e.target.value);
-  };
   const onChangeUsername = (e) => {
     setUsername(e.target.value);
   };
-  // const onChangeRoles = (e) => {
-  //   setRoles(e.target.value);
-  // };
+
   const onChangePassword = (e) => {
     setPassword(e.target.value);
   };
-  // const onChangeAddress = (e) => {
-  //   setAddress(e.target.value);
-  // };
-  // const onChangeAge = (e) => {
-  //   setAge(e.target.value);
-  // };
-  const onChangePhonenum = (e) => {
-    setPhonenum(e.target.value);
-  };
+
   const onChangePasswordChk = (e) => {
     //비밀번호를 입력할때마다 password 를 검증하는 함수
     setPasswordError(e.target.value !== password);
     setPasswordCheck(e.target.value);
   };
+
+  const onChangeAge = (e) => {
+    setAge(e.target.value);
+  };
+
+  // const onChangePhonenum = (e) => {
+  //   setPhonenum(e.target.value);
+  // };
+
   return (
     <>
       <AccountPageContainer className="signup">
@@ -108,14 +90,6 @@ function Join() {
               required
               onChange={onChangeUsername}
             />
-            {/* <Label className="label">권한</Label>
-            <Input
-              className="user"
-              name="user-nick"
-              value={roles}
-              required
-              onChange={onChangeRoles}
-            /> */}
             <Label className="label">비밀번호</Label>
             <Input
               className="user"
@@ -135,40 +109,32 @@ function Join() {
               onChange={onChangePasswordChk}
             />
             {passwordError && (
-              <div style={{ color: "red" }}>비밀번호가 일치하지 않습니다.</div>
+              <div
+                style={{
+                  color: "red",
+                  fontSize: "0.5rem",
+                  marginBottom: "15px",
+                }}
+              >
+                비밀번호가 일치하지 않습니다.
+              </div>
             )}
-            {/* <Label className="label">주소</Label>
-            <Input
-              className="user"
-              name="user-address"
-              value={address}
-              required
-              onChange={onChangeAddress}
-            /> */}
-            {/* <Label className="label">나이</Label>
+            <Label className="label">나이</Label>
             <Input
               className="user"
               name="user-address"
               value={age}
               required
               onChange={onChangeAge}
-            /> */}
-            <Label className="label">이메일</Label>
-            <Input
-              className="user"
-              name="user-id"
-              value={email}
-              required
-              onChange={onChangeEmail}
             />
-            <Label className="label">전화번호</Label>
+            {/* <Label className="label">전화번호</Label>
             <Input
               className="user"
               name="user-phonenum"
               value={phonenum}
               required
               onChange={onChangePhonenum}
-            />
+            /> */}
             <Button className="button" type="primary" onClick={onSubmit}>
               가입하기
             </Button>

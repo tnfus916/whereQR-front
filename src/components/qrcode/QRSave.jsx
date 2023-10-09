@@ -1,56 +1,39 @@
-import { useState } from "react";
-import axios from "axios";
-import { useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+// import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import { QDiv, Label, Div2, Input, Button } from "./QRStyle";
+import { QrReader } from "react-qr-reader";
+import { QRReaderContainer, QRReaderTitle } from "./QRStyle";
 
-// const BaseURL = "http://127.0.0.1:8080/qrcode/";
-const BaseURL = "http://localhost:8080";
-
-const axiosInstance = axios.create({
-  baseURL: BaseURL,
-  timeout: 5000,
-  headers: {
-    Authorization: "Token",
-    "Content-Type": "application/json",
-    accept: "application/json",
-  },
-});
+//   get from qrlist whose id is scanned qr's id
+//   if 존재 and status==new then,
+// move to other qr save page and change status
 
 const QRSave = () => {
-  let navigate = useNavigate();
-  let key = useParams().ID;
-  console.log(key);
+  const navigate = useNavigate();
+  const [id, setId] = useState("No result");
+  const [isScan, setIsScan] = useState(false);
 
-  const [title, setTitle] = useState("No Title");
-  const [memo, setMemo] = useState("No result");
-
-  const onChangeMemo = (e) => {
-    setMemo(e.target.value);
-  };
-  const onChangeTitle = (e) => {
-    setTitle(e.target.value);
-  };
-
-  const onSubmit = (e) => {
-    e.preventDefault();
-
-    const data = {
-      key: key,
-      title: title,
-      text: memo,
-    };
-    if (localStorage.getItem("token")) {
-      //로그인을 안 했다면, 로그인이 필요한 페이지라고 경고.
-      let token = localStorage.getItem("token");
-      axiosInstance.defaults.headers["Authorization"] = "Token " + token;
-      axiosInstance.post("saveQR/", data).then(() => {
-        navigate(`/UserQr`);
-      });
-    } else {
-      alert("login필요");
+  const getData = (id) => {
+    if (id !== "No result") {
+      console.log(id);
+      console.log(isScan);
+      navigate(`/qrsave/${id}`);
     }
   };
+
+  const handleScan = (result) => {
+    if (result && isScan === false) {
+      console.log("qr scanned");
+      console.log(result);
+      setId(result?.text);
+      setIsScan(true);
+    }
+  };
+
+  useEffect(() => {
+    console.log("render");
+    getData(id);
+  }, [id]);
 
   return (
     <QRReaderContainer>

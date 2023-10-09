@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { useEffect, useState } from "react";
+import axiosInstance from "../../api/api";
 
 function Mypage() {
   // const user = localStorage.getItem("token");
@@ -8,14 +9,14 @@ function Mypage() {
   const user = localStorage.getItem("user");
 
   const [isRegistered, setIsRegistered] = useState(false);
-  const [username, setUsername] = useState("");
-  const [phonenum, setPhonenum] = useState("");
-  const [email, setEmail] = useState("");
-  const [qrcodeId, setQrcodeId] = useState("");
-  const [qrcodeTitle, setQrcodeTitle] = useState("");
-  const [qrcodeMemo, setQrcodeMemo] = useState("");
-  const [qrcodeImage, setQrcodeImage] = useState("");
-
+  const [username, setUsername] = useState("No result");
+  const [age, setAge] = useState("No result");
+  const [phonenum, setPhonenum] = useState("No result");
+  const [qrcode, setQrcode] = useState({ id: "No result" });
+  // const [qrcodeId, setQrcodeId] = useState("");
+  // const [qrcodeTitle, setQrcodeTitle] = useState("");
+  // const [qrcodeMemo, setQrcodeMemo] = useState("");
+  // const [qrcodeImage, setQrcodeImage] = useState("");
 
   const addClick = () => {
     navigate("/qrsave");
@@ -49,10 +50,9 @@ function Mypage() {
           <Title>회원정보</Title>
           <ListItem>
             <ItemContainer>
-              <div>image:</div>
-              <div>id:{id}</div>
-              <div>title: </div>
-              <div>memo: sd</div>
+              <div>username: {username}</div>
+              <div>age: {age}</div>
+              <div>phone number:{phonenum}</div>
             </ItemContainer>
           </ListItem>
         </UserInfoContainer>
@@ -63,10 +63,9 @@ function Mypage() {
             </TitleContainer>
             <ListItem>
               <ItemContainer>
-                <div>image:</div>
-                <div>id:{id}</div>
-                <div>title: </div>
-                <div>memo: sd</div>
+                <QRImg src={qrcode["url"]} />
+                <div>title: {qrcode["title"]}</div>
+                <div>memo: {qrcode["memo"]} </div>
               </ItemContainer>
               <ButtonContainer>
                 <ShortButton onClick={editClick}>수정</ShortButton>
@@ -184,4 +183,11 @@ export const ShortButton = styled.button`
   margin: 3px;
   padding: 2px;
   font-size: 0.5rem;
+`;
+
+export const QRImg = styled.img`
+  width: 100px;
+  height: 100px;
+  border: 1px solid black;
+  margin: 10px;
 `;

@@ -12,7 +12,7 @@ const QRSave = () => {
     if (url !== "") {
       console.log(url);
       const id = url.split("/")[4];
-      navigate(`/qrscan/${id}`);
+      navigate(`/qrsave/${id}`);
     }
   };
 

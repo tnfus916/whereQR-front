@@ -16,9 +16,9 @@ function QREdit() {
   const navigate = useNavigate();
   const id = useParams();
 
-  const [title, setTitle] = useState("No Title");
-  const [memo, setMemo] = useState("No result");
-  const [phonenum, setPhonenum] = useState("No result");
+  const [title, setTitle] = useState("");
+  const [memo, setMemo] = useState("");
+  // const [phonenum, setPhonenum] = useState("");
 
   const onChangeMemo = (e) => {
     setMemo(e.target.value);
@@ -26,22 +26,23 @@ function QREdit() {
   const onChangeTitle = (e) => {
     setTitle(e.target.value);
   };
-  const onChangePhone = (e) => {
-    setPhonenum(e.target.value);
-  };
+  // const onChangePhone = (e) => {
+  //   setPhonenum(e.target.value);
+  // };
 
   const onSubmit = (e) => {
     e.preventDefault();
 
     const data = {
-      id: id["ID"],
       title: title,
       memo: memo,
-      phonenum: phonenum,
     };
 
-    axios
-      .post("http://localhost:8080/qrcode/update", { params: data })
+    axiosInstance.defaults.headers[
+      "Authorization"
+    ] = `Bearer ${localStorage.getItem("token")}`;
+    axiosInstance
+      .post("/qrcode/update", data, { params: { id: id["ID"] } })
       .then((res) => {
         console.log(res);
         navigate(`/mypage`);
@@ -60,14 +61,14 @@ function QREdit() {
   };
 
   useEffect(() => {
-    axiosInstance
-      .get("/qrcode/scan/", { params: { id: id["ID"] } })
+    axios
+      .get("http://localhost:8080/qrcode/scan/", { params: { id: id["ID"] } })
       .then((res) => {
         console.log(res);
 
         setTitle(res.data["title"]);
         setMemo(res.data["memo"]);
-        setPhonenum(res.data["phonenumber"]);
+        // setPhonenum(res.data["phonenumber"]);
       });
   }, []);
 
@@ -94,7 +95,7 @@ function QREdit() {
               onChange={onChangeMemo}
             />
             <br />
-            <Label className="phonenum">연락처</Label>
+            {/* <Label className="phonenum">연락처</Label>
             <Input
               className="phonenum"
               name="qr-phonenum"
@@ -102,7 +103,7 @@ function QREdit() {
               required
               onChange={onChangePhone}
             />
-            <br />
+            <br /> */}
             <Button className="button" type="primary" onClick={onSubmit}>
               수정하기
             </Button>

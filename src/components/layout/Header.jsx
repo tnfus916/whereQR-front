@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
 import { HeaderContainer, NavLink, NavContainer, Button } from "./HeaderStyle";
 import axiosInstance from "../../api/api";
+import { useNavigate } from "react-router-dom";
 
 function Header() {
-  const [user, setUser] = useState();
+  const navigate = useNavigate();
+  const [user, setUser] = useState("");
 
   useEffect(() => {
     setInterval(() => {
@@ -12,15 +14,12 @@ function Header() {
     }, 5000);
   }, []);
 
-  const Logout = () => {
+  const handleLogout = () => {
     console.log(localStorage.getItem("token"));
-    axiosInstance.defaults.headers["Authorization"] = "Token " + user;
-    axiosInstance.post("/user/logout/").then(() => {
-      console.log("logout을 진행");
-      localStorage.removeItem("token");
-      localStorage.removeItem("user");
-      axiosInstance.defaults.headers["Authorization"] = null;
-    });
+    console.log("logout을 진행");
+    localStorage.removeItem("token");
+    // localStorage.removeItem("user");
+    navigate("/");
   };
   if (!user) {
     return (
@@ -40,7 +39,7 @@ function Header() {
         <NavContainer>
           <NavLink to="/qrscan">분실물 신고</NavLink>
           <NavLink to="/mypage">마이페이지</NavLink>
-          <Button onClick={Logout}>로그아웃</Button>
+          <Button onClick={handleLogout}>로그아웃</Button>
         </NavContainer>
       </HeaderContainer>
     );

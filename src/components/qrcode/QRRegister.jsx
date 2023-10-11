@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import styled from "styled-components";
 import {
   Label,
   Input,
@@ -10,6 +11,7 @@ import {
   QRForm,
 } from "./QRStyle";
 import axiosInstance from "../../api/api";
+import axios from "axios";
 
 function QRRegister() {
   const navigate = useNavigate();
@@ -19,7 +21,6 @@ function QRRegister() {
 
   const [title, setTitle] = useState("");
   const [memo, setMemo] = useState("");
-  const [phonenum, setPhonenum] = useState("");
 
   const onChangeMemo = (e) => {
     setMemo(e.target.value);
@@ -35,21 +36,19 @@ function QRRegister() {
     e.preventDefault();
 
     const data = {
-      id: id,
-      title: title,
       memo: memo,
-      createDate: "2021-09-01",
-      updateDate: "2021-09-01",
-      phoneNumber: phonenum,
-      address: "서울시 강남구",
+      title: title,
     };
 
+    axiosInstance.defaults.headers[
+      "Authorization"
+    ] = `Bearer ${localStorage.getItem("token")}`;
     axiosInstance
-      .post("/qrcode/register", null, {
-        params: data,
+      .post("/qrcode/register", data, {
+        params: { id: id },
       })
-      .then(() => {
-        console.log(data);
+      .then((res) => {
+        console.log(res);
         navigate(`/mypage`);
       });
 
@@ -66,18 +65,19 @@ function QRRegister() {
   };
 
   useEffect(() => {
-    axiosInstance.get("/qrcode/scan", { params: { id: id } }).then((res) => {
-      console.log(res);
-
-      setTitle(res.data["title"]);
-      setMemo(res.data["memo"]);
-      setPhonenum(res.data["phoneNumber"]);
-    });
+    axios
+      .get("http://localhost:8080/qrcode/scan", { params: { id: id } })
+      .then((res) => {
+        console.log(res);
+        // setTitle(res.data["title"]);
+        // setMemo(res.data["memo"]);
+      });
   }, []);
 
   return (
     <>
       <QRPageContainer className="modifyQR">
+        <Title>QR 코드를 등록해주세요!</Title>
         <QRFormContainer>
           <QRForm>
             <Label className="title">제목</Label>
@@ -98,15 +98,6 @@ function QRRegister() {
               onChange={onChangeMemo}
             />
             <br />
-            {/* <Label className="phonenum">연락처</Label>
-            <Input
-              className="phonenum"
-              name="qr-phonenum"
-              value={phonenum}
-              required
-              onChange={onChangePhone}
-            />
-            <br /> */}
             <Button className="button" type="primary" onClick={onSubmit}>
               등록하기
             </Button>
@@ -118,3 +109,16 @@ function QRRegister() {
 }
 
 export default QRRegister;
+
+export const Title = styled.div`
+  width: 100%;
+  height: 20%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 0.8rem;
+  font-weight: bold;
+  padding-left: 10px;
+  padding-top: 10px;
+  color: orange;
+`;

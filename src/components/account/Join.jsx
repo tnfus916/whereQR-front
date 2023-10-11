@@ -17,9 +17,8 @@ function Join() {
   const [password, setPassword] = useState("");
   const [passwordCheck, setPasswordCheck] = useState("");
   const [passwordError, setPasswordError] = useState(false);
-  const [age, setAge] = useState("");
   const [roles, setRoles] = useState(["USER"]);
-  // const [phonenum, setPhonenum] = useState("");
+  const [phonenum, setPhonenum] = useState("");
 
   // 로그인 API 호출
   const onSubmit = (e) => {
@@ -32,16 +31,16 @@ function Join() {
     console.log({
       username,
       password,
-      age,
+      phonenum,
       roles,
     });
 
     const user_data = {
       username: username,
       password: password,
-      age: age,
+      // age: age,
       roles: roles,
-      // phonenumber: phonenum,
+      phoneNumber: phonenum,
     };
 
     axios
@@ -50,7 +49,7 @@ function Join() {
         console.log(res.data);
       })
       .catch((err) => {
-        console.log(err.response);
+        console.log(err);
       })
       .then(() => navigate("/")); //homepage but with the token
   };
@@ -69,39 +68,39 @@ function Join() {
     setPasswordCheck(e.target.value);
   };
 
-  const onChangeAge = (e) => {
-    setAge(e.target.value);
-  };
-
-  // const onChangePhonenum = (e) => {
-  //   setPhonenum(e.target.value);
+  // const onChangeAge = (e) => {
+  //   setAge(e.target.value);
   // };
+
+  const onChangePhonenum = (e) => {
+    setPhonenum(e.target.value);
+  };
 
   return (
     <>
       <AccountPageContainer className="signup">
         <AccountFormContainer>
           <AccountForm>
-            <Label className="label">아이디</Label>
+            <Label for="user">아이디</Label>
             <Input
-              className="user"
+              id="user"
               name="user-nick"
               value={username}
               required
               onChange={onChangeUsername}
             />
-            <Label className="label">비밀번호</Label>
+            <Label for="password">비밀번호</Label>
             <Input
-              className="user"
+              id="password"
               name="user-password"
               type="password"
               value={password}
               required
               onChange={onChangePassword}
             />
-            <Label className="label">비밀번호 재확인</Label>
+            <Label for="password-check">비밀번호 재확인</Label>
             <Input
-              className="user"
+              id="password-check"
               name="user-password-check"
               type="password"
               value={passwordCheck}
@@ -119,22 +118,22 @@ function Join() {
                 비밀번호가 일치하지 않습니다.
               </div>
             )}
-            <Label className="label">나이</Label>
+            {/* <Label className="label">나이</Label>
             <Input
               className="user"
               name="user-address"
               value={age}
               required
               onChange={onChangeAge}
-            />
-            {/* <Label className="label">전화번호</Label>
+            /> */}
+            <Label className="label">전화번호</Label>
             <Input
               className="user"
               name="user-phonenum"
               value={phonenum}
               required
               onChange={onChangePhonenum}
-            /> */}
+            />
             <Button className="button" type="primary" onClick={onSubmit}>
               가입하기
             </Button>

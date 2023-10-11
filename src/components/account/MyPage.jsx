@@ -10,7 +10,7 @@ function Mypage() {
 
   const [isRegistered, setIsRegistered] = useState(false);
   const [username, setUsername] = useState("No result");
-  const [age, setAge] = useState("No result");
+  // const [age, setAge] = useState("No result");
   const [phonenum, setPhonenum] = useState("No result");
   const [qrcode, setQrcode] = useState({ id: "No result" });
   // const [qrcodeId, setQrcodeId] = useState("");
@@ -23,24 +23,27 @@ function Mypage() {
   };
 
   const editClick = () => {
-    navigate(`/qredit/${qrcode["id"]}`);
+    console.log(qrcode[0]["id"]);
+    navigate(`/qredit/${qrcode[0]["id"]}`);
   };
 
   useEffect(() => {
-    axiosInstance
-      .get("/memeber/detail/", { params: { user: user } })
-      .then((res) => {
-        console.log(res.data);
-        setUsername(res.data["username"]);
-        setAge(res.data["age"]);
-        setPhonenum(res.data["phoneNumber"]);
-        if (res.data["qrcodes"] === null) {
-          setIsRegistered(false);
-        } else {
-          setIsRegistered(true);
-          setQrcode(res.data["qrcodes"]);
-        }
-      });
+    axiosInstance.defaults.headers[
+      "Authorization"
+    ] = `Bearer ${localStorage.getItem("token")}`;
+    axiosInstance.get("/member/detail").then((res) => {
+      console.log(res.data);
+      setUsername(res.data["username"]);
+      // setAge(res.data["age"]);
+      setPhonenum(res.data["phoneNumber"]);
+      if (res.data["qrcodes"].length === 0) {
+        setIsRegistered(false);
+      } else {
+        setIsRegistered(true);
+        setQrcode(res.data["qrcodes"]);
+        console.log(res.data["qrcodes"]);
+      }
+    });
   }, []);
 
   return (
@@ -51,7 +54,7 @@ function Mypage() {
           <ListItem>
             <ItemContainer>
               <div>username: {username}</div>
-              <div>age: {age}</div>
+              {/* <div>age: {age}</div> */}
               <div>phone number:{phonenum}</div>
             </ItemContainer>
           </ListItem>
@@ -59,13 +62,13 @@ function Mypage() {
         {isRegistered ? (
           <QRListContainer>
             <TitleContainer>
-              <Title>QR code 목록</Title>
+              <Title>내 QR code</Title>
             </TitleContainer>
             <ListItem>
               <ItemContainer>
-                <QRImg src={qrcode["url"]} />
-                <div>title: {qrcode["title"]}</div>
-                <div>memo: {qrcode["memo"]} </div>
+                {/* <QRImg src={qrcode[0]["url"]} /> */}
+                <div>title: {qrcode[0]["title"]}</div>
+                <div>memo: {qrcode[0]["memo"]} </div>
               </ItemContainer>
               <ButtonContainer>
                 <ShortButton onClick={editClick}>수정</ShortButton>
@@ -132,6 +135,7 @@ export const Title = styled.div`
   font-weight: bold;
   padding-left: 10px;
   padding-top: 10px;
+  color: orange;
 `;
 
 export const ListItem = styled.div`

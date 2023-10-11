@@ -26,10 +26,7 @@ function Landing() {
             </Paragraph>
             <Paragraph>
               <div>&lt;습득자 가이드&gt;</div>
-              <div>1. Scan 페이지에서 QR 코드를 스캔해주세요.</div>
-              <div>
-                2. 화면에 보이는 메모를 보고 분실물을 찾아주시면 됩니다!
-              </div>
+              <div>화면에 보이는 메모를 보고 분실물을 찾아주시면 됩니다!</div>
             </Paragraph>
           </Contents>
         </ContentsContainer>

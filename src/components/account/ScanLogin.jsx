@@ -14,8 +14,9 @@ import {
 // // 쿠키를 주고받기 위해 설정 ( 쿠키가 브라우저에 제대로 저장된 것이 맞는지 확인위함)
 // axios.defaults.withCredentials = true;
 
-function Login() {
+function ScanLogin() {
   let navigate = useNavigate();
+  const id = useParams();
 
   const Signup = () => {
     navigate(`/signup`);
@@ -50,72 +51,15 @@ function Login() {
         axiosInstance.defaults.headers["Authorization"] = "Bearer " + token;
         console.log(axiosInstance.defaults.headers["Authorization"]);
         localStorage.setItem("token", token);
+        console.log(id["ID"]);
+        if (id["ID"] != null) {
+          navigate(`/qrsave/${id["ID"]}`);
+        }
       })
       .catch((error) => {
         console.log(error);
       });
-    // .then(() => {
-    //   axiosInstance.get("data/").then((res) => {
-    //     console.log(res.data.user);
-    //     const user = res.data.user;
-    //     localStorage.setItem("user", user);
-    //   });
-    // });
   };
-
-  // // 토큰 갱신 후에 헤더 변경
-  // axiosInstance.interceptors.request.use(function (config) {
-  //   const token = localStorage.getItem("token");
-
-  //   if (!token) {
-  //     console.log(config.headers);
-  //     config.headers["access-token"] = null;
-  //     config.headers["refresh-token"] = null;
-  //     return config;
-  //   }
-  //   if (config.headers && token) {
-  //     const { accessToken, refreshToken } = JSON.parse(token);
-  //     config.headers["access-token"] = `Bearer ${accessToken}`;
-  //     config.headers["refresh-token"] = `Bearer ${refreshToken}`;
-  //     return config;
-  //   }
-  // });
-
-  // axiosInstance.interceptors.response.use(
-  //   // 200번대 정상적인 응답이 들어올 경우
-  //   function (response) {
-  //     return response;
-  //   },
-
-  //   async function (err) {
-  //     console.log(err);
-  //     // const originalConfig = err.config;
-
-  //     // if (err.repsonse && err.response.status === 401) {
-  //     //   const refreshToken = originalConfig.headers["refresh-token"];
-  //     //   try {
-  //     //     const data = await axios({
-  //     //       url: "http://user/refresh",
-  //     //       method: "GET",
-  //     //       headers: {
-  //     //         Authorization: refreshToken,
-  //     //       },
-  //     //     });
-  //     //     if (data) {
-  //     //       localStorage.setItem(
-  //     //         "token",
-  //     //         JSON.stringify(data.data, ["accessToken", "refreshToken"])
-  //     //       );
-  //     //       return await axiosInstance.request(originalConfig);
-  //     //     }
-  //     //   } catch (err) {
-  //     //     console.log("토큰 갱신 에러");
-  //     //   }
-  //     //   return Promise.reject(err);
-  //     // }
-  //     // return Promise.reject(err);
-  //   }
-  // );
 
   const onChangeUsername = (e) => {
     setUsername(e.target.value);
@@ -160,4 +104,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default ScanLogin;

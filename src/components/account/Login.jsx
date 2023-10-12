@@ -27,7 +27,7 @@ function Login() {
   const [password, setPassword] = useState("");
 
   const axiosInstance = axios.create({
-    baseURL: "http://localhost:8080",
+    baseURL: "http://http://27.96.130.127:8080:8080",
     timeout: 5000,
     headers: {
       "Content-Type": "application/json",

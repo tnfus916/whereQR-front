@@ -15,7 +15,7 @@ function Header() {
   }, []);
 
   const handleLogout = () => {
-    console.log(localStorage.getItem("token"));
+    // console.log(localStorage.getItem("token"));
     console.log("logout을 진행");
     localStorage.removeItem("token");
     // localStorage.removeItem("user");

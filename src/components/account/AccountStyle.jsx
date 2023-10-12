@@ -64,11 +64,18 @@ export const Input = styled.input`
   margin-bottom: 0.5rem;
 `;
 
+export const ButtonContainer = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
 export const Button = styled.button`
   background: #ffbc40;
   color: #fff;
   font-size: 0.7rem;
-  font-weight: 700;
+  font-weight: 500;
   width: 50%;
   border: 1px solid #ffbc40;
   border-radius: 4px;

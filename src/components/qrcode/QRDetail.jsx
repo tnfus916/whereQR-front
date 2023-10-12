@@ -38,7 +38,7 @@ function QRDetail() {
           params: { id: id },
         })
         .then((res) => {
-          console.log("res", res);
+          // console.log("res", res);
           setTitle(res.data["title"]);
           setMemo(res.data["memo"]);
           setPhonenum(res.data["phonenumber"]);

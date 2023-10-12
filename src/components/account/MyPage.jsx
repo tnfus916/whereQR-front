@@ -53,9 +53,9 @@ function Mypage() {
           <Title>회원정보</Title>
           <ListItem>
             <ItemContainer>
-              <Text>username: {username}</Text>
+              <Text>user: {username}</Text>
               {/* <div>age: {age}</div> */}
-              <Text>phonenum: {phonenum}</Text>
+              <Text>phone: {phonenum}</Text>
             </ItemContainer>
           </ListItem>
         </UserInfoContainer>
@@ -144,8 +144,8 @@ export const Text = styled.div`
   display: flex;
   justify-content: start;
   align-items: center;
-  font-size: 0.7rem;
-  font-weight: bold;
+  font-size: 0.8rem;
+  /* font-weight: bold; */
   margin-left: 5px;
   margin-top: 7px;
   color: orange;

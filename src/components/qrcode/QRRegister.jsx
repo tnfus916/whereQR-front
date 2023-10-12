@@ -17,7 +17,7 @@ function QRRegister() {
   const navigate = useNavigate();
   const currentUrl = window.location.href;
   const id = currentUrl.split("/")[4];
-  console.log(id);
+  // console.log(id);
 
   const [title, setTitle] = useState("");
   const [memo, setMemo] = useState("");
@@ -48,7 +48,7 @@ function QRRegister() {
         params: { id: id },
       })
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         navigate(`/mypage`);
       });
 
@@ -68,7 +68,7 @@ function QRRegister() {
     axios
       .get("http://localhost:8080/qrcode/scan", { params: { id: id } })
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         // setTitle(res.data["title"]);
         // setMemo(res.data["memo"]);
       });

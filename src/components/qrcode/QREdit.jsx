@@ -44,7 +44,7 @@ function QREdit() {
     axiosInstance
       .post("/qrcode/update", data, { params: { id: id["ID"] } })
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         navigate(`/mypage`);
       });
 
@@ -64,7 +64,7 @@ function QREdit() {
     axios
       .get("http://localhost:8080/qrcode/scan/", { params: { id: id["ID"] } })
       .then((res) => {
-        console.log(res);
+        // console.log(res);
 
         setTitle(res.data["title"]);
         setMemo(res.data["memo"]);

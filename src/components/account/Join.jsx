@@ -7,6 +7,7 @@ import {
   Button,
   AccountFormContainer,
   AccountForm,
+  ButtonContainer,
 } from "./AccountStyle";
 import axios from "axios";
 
@@ -45,7 +46,7 @@ function Join() {
     axios
       .post("http://localhost:8080/member/signup", user_data)
       .then((res) => {
-        console.log(res.data);
+        // console.log(res.data);
       })
       .catch((err) => {
         console.log(err);
@@ -133,9 +134,11 @@ function Join() {
               required
               onChange={onChangePhonenum}
             />
-            <Button className="button" type="primary" onClick={onSubmit}>
-              가입하기
-            </Button>
+            <ButtonContainer>
+              <Button className="button" type="primary" onClick={onSubmit}>
+                가입하기
+              </Button>
+            </ButtonContainer>
           </AccountForm>
         </AccountFormContainer>
       </AccountPageContainer>

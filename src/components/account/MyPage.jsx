@@ -32,7 +32,7 @@ function Mypage() {
       "Authorization"
     ] = `Bearer ${localStorage.getItem("token")}`;
     axiosInstance.get("/member/detail").then((res) => {
-      console.log(res.data);
+      // console.log(res.data);
       setUsername(res.data["username"]);
       setPhonenum(res.data["phoneNumber"]);
       if (res.data["qrcodes"].length === 0) {
@@ -40,7 +40,7 @@ function Mypage() {
       } else {
         setIsRegistered(true);
         setQrcode(res.data["qrcodes"]);
-        console.log(res.data["qrcodes"]);
+        // console.log(res.data["qrcodes"]);
         setCqr(true);
       }
     });

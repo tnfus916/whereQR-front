@@ -8,6 +8,7 @@ import {
   Button,
   AccountForm,
   AccountFormContainer,
+  ButtonContainer,
 } from "./AccountStyle";
 import { useAppContext } from "../../AppContext";
 
@@ -45,11 +46,11 @@ function Login() {
       .post("/member/login", user_data)
       .then((res) => {
         // 서버에서 받아온 리소스 중 access token
-        console.log(res);
+        // console.log(res);
         const token = res.data.accessToken;
-        console.log(token);
+        // console.log(token);
         axiosInstance.defaults.headers["Authorization"] = "Bearer " + token;
-        console.log(axiosInstance.defaults.headers["Authorization"]);
+        // console.log(axiosInstance.defaults.headers["Authorization"]);
         localStorage.setItem("token", token);
         console.log(cid);
         if (cid === null) {
@@ -59,6 +60,9 @@ function Login() {
         }
       })
       .catch((error) => {
+        window.alert(
+          "로그인과 비밀번호가 일치하지 않습니다. 다시 입력해주세요."
+        );
         console.log(error);
       });
   };
@@ -93,12 +97,14 @@ function Login() {
               onChange={onChangePassword}
             />
             <br />
-            <Button className="button" type="primary" onClick={handleLogin}>
-              로그인
-            </Button>
-            <Button className="button" type="primary" onClick={Signup}>
-              회원가입
-            </Button>
+            <ButtonContainer>
+              <Button className="button" type="primary" onClick={handleLogin}>
+                로그인
+              </Button>
+              <Button className="button" type="primary" onClick={Signup}>
+                회원가입
+              </Button>
+            </ButtonContainer>
           </AccountForm>
         </AccountFormContainer>
       </AccountPageContainer>

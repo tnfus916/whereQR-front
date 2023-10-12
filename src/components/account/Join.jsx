@@ -11,7 +11,7 @@ import {
 import axios from "axios";
 
 function Join() {
-  let navigate = useNavigate();
+  const navigate = useNavigate();
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -38,7 +38,6 @@ function Join() {
     const user_data = {
       username: username,
       password: password,
-      // age: age,
       roles: roles,
       phoneNumber: phonenum,
     };
@@ -51,7 +50,7 @@ function Join() {
       .catch((err) => {
         console.log(err);
       })
-      .then(() => navigate("/")); //homepage but with the token
+      .then(() => navigate("/login"));
   };
 
   const onChangeUsername = (e) => {

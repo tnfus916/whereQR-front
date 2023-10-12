@@ -11,8 +11,6 @@ import QREdit from "./src/components/qrcode/QREdit";
 import QRSave from "./src/components/qrcode/QRSave";
 import QRRegister from "./src/components/qrcode/QRRegister";
 import Login from "./src/components/account/Login";
-import ScanLogin from "./src/components/account/ScanLogin";
-
 function Router() {
   return (
     <BrowserRouter>
@@ -23,7 +21,6 @@ function Router() {
           <Route path="/qrscan/:ID" element={<QRDetail />} />
           <Route path="/signup" element={<Join />} />
           <Route path="/login" element={<Login />} />
-          <Route path="login/:ID" element={<ScanLogin />} />
           <Route path="/mypage" element={<MyPage />} />
           <Route path="/qrsave" element={<QRSave />} />
           <Route path="/qrsave/:ID" element={<QRRegister />} />

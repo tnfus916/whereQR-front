@@ -1,8 +1,10 @@
 import GlobalStyle from "../GlobalStyle";
 import Router from "../Router";
+import { AppProvider } from "./AppContext";
 // import { ThemeProvider } from "styled-components";
 // import { Context } from "./Context";
 import Layout from "./components/layout/Layout";
+import "./assets/fonts.css";
 
 function App() {
   return (
@@ -12,8 +14,10 @@ function App() {
           <Layout />
         </Context.Provider>
       </ThemeProvider> */}
-      <GlobalStyle />
-      <Router />
+      <AppProvider>
+        <GlobalStyle />
+        <Router />
+      </AppProvider>
     </>
   );
 }

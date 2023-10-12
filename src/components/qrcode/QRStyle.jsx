@@ -139,9 +139,16 @@ export const Button = styled.button`
   margin-top: 3%;
 `;
 
-export const Title = styled.p`
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: #15cdfc;
+export const Title = styled.div`
+  width: 100%;
+  height: 20%;
   display: flex;
+  justify-content: start;
+  align-items: center;
+  font-size: 0.8rem;
+  font-weight: bold;
+  padding-left: 10px;
+  padding-top: 10px;
+  color: orange;
+  margin-bottom: 5px;
 `;

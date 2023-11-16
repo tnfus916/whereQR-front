@@ -32,7 +32,6 @@ docker hub에 배포된 image ( tnfus916/whereqr-front:ver1.4 )
 
 1. 프리티어로 중단 -> 동국대학교 창업동아리 선정(완료). -> 지원금 활용 예정.<br>
 
-----
 ## 진행현황
 
 ### 축제 당일
@@ -40,13 +39,12 @@ docker hub에 배포된 image ( tnfus916/whereqr-front:ver1.4 )
 - 활용 QR코드
 <img width="400" alt="image" src="https://github.com/baek-park/whereQR_Spring_version/assets/74058047/cbf9f76a-e4d7-4264-968f-4034a08f7c80">
 
-- 보완해야할 사항
-1. 예외처리 -> 등록한 예외가 아닐때도 200 ststua로 error handling이 frontend에서 가능하도록 넘겨줘야한다.
-  spring fileter chain에서 exception handler 구조를 변경한다. -> 등록된 exception이 아닐경우, 특정 exception message를 넘기도록 수정하도록 한다.
-2. 회원가입 유효성 검사 로직을 추가한다.
+### 보완해야할 사항
+1. 회원가입 유효성 검사 로직을 추가한다.
+2. 토큰 예외 처리 
 
 - 추가사항
-1. 카카오톡 OAuth를 적용. 변경. 다만, 전화번호는 필수가 아니기에 회원가입 창으로 넘겨서 받도록.
+1. 카카오톡 OAuth를 적용. 변경. 다만, 전화번호는 필수가 아니기에 회원가입 창으로 넘기기
 2. 채팅 내장시키기
 3. 보증금 기능 추가
 

@@ -11,12 +11,6 @@ npm run dev -- --port 3000
 
 ```
 
-### local 실행
-
-`docker compose up -d` 명령어로 실행
-
-
-
 **whereQR이 무엇인가요??**
 
 ![image](https://github.com/baeksoojin/whereQR_Spring_version/assets/74058047/ffeb7b21-9dce-4283-b739-f51d3272ac29)
@@ -29,49 +23,9 @@ npm run dev -- --port 3000
 [whereQr이란?](https://towering-beach-ce0.notion.site/whereQR-sprint1-2a8a1b1f9dba4ee697d6785cd8019f08?pvs=4 ) 에서 확인이 가능합니다.
 
 
-## 🛠 setting
-
-- 개발완료 후 docker multicontainer 하나의 앱으로 관리할 예정입니다.
-
-```
-docker compose up -d
-```
-
-- 개발진행중일 때는 backend는 직접 실행시켜줍니다.
-
-frontend, database
-```
-docker compose up -d
-```
-컨테이너로 빌드합니다.
-database는 본인의 password를 gitignore의 위치에서 ```db_password.txt```를 만들어 입력합니다.
-
-backend
-```
-src/main/java/backend/BackendApplication 
-```
-Run을 시켜줍니다.
-
 ### dockerfile build후 docker hub에 배포
-1. docker hub에 배포된 image ( baeksujin/whereqr-backend:v2.2 )
-<img width="1272" alt="image" src="https://github.com/baek-park/whereQR_Spring_version/assets/74058047/6e605a50-263c-4e83-8381-50f0b77aa2d3">
+docker hub에 배포된 image ( tnfus916/whereqr-front:ver1.4 )
 
-2. qrcode image 저장된 경로 ( docker container 안에서 확인 -> /app/src/main/resources/static/qrcode )
-![img_1.png](img_1.png)
-3. qrcode 이미지 얻는 방법
-```
-docker cp 36730fe5a03a:/app/src/main/resources/static/qrcode .
-```
-
-36730fe5a03a : image container id 입니다.<br>
-. : 해당 명령어를 실행하는 경로로, docker container에 저장된 qrcode folder를 복사할 위치를 의미합니다.<br> 
-
-### NCP Server 배포
-
-- frontend, backend를 한번에 관리 -> docker compose file을 사용.
-- 이때, docker hub의 image를 사용
-
-<img width="697" alt="image" src="https://github.com/baek-park/whereQR_Spring_version/assets/74058047/f904acda-34de-46df-babb-45299fe7eb1a">
 
 
 ### CI/CD 구축 단계(Jenkins 활용)

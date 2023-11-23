@@ -14,6 +14,10 @@ function Header() {
     }, 5000);
   }, []);
 
+  const handleChat = () => {
+    navigate("/chatlist");
+  };
+
   const handleLogout = () => {
     // console.log(localStorage.getItem("token"));
     console.log("logout을 진행");
@@ -39,6 +43,7 @@ function Header() {
         <NavContainer>
           <NavLink to="/qrscan">분실물 신고</NavLink>
           <NavLink to="/mypage">마이페이지</NavLink>
+          <Button onClick={handleChat}>채팅</Button>
           <Button onClick={handleLogout}>로그아웃</Button>
         </NavContainer>
       </HeaderContainer>

@@ -3,7 +3,6 @@ import styled from "styled-components";
 export const AccountPageContainer = styled.div`
   width: 100%;
   height: 100vh;
-  /* background: #ffbc40; */
   box-sizing: border-box;
   display: flex;
   justify-content: center;
@@ -35,6 +34,22 @@ export const AccountForm = styled.form`
   color: black;
 `;
 
+export const FormList = styled.ul`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+`;
+
+export const FormItem = styled.li`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+`;
+
 export const Label = styled.label`
   width: 90%;
   border-radius: 8px;
@@ -44,7 +59,7 @@ export const Label = styled.label`
   justify-content: space-between;
   z-index: 10;
   .red {
-    color: red;
+    color: #f08888;
   }
 `;
 
@@ -52,16 +67,14 @@ export const Input = styled.input`
   margin-top: 1%;
   width: 100%;
   border: 0px;
-  border-bottom: 1px solid black;
-  /* border-radius: 5px; */
+  border: 1px solid #ffbc40;
+  border-radius: 5px;
   line-height: 1rem;
   font-size: 1rem;
-  /* padding-left: 0.5rem; */
-  /* padding-right: 0.5rem; */
   display: flex;
   justify-content: space-between;
   z-index: 10;
-  margin-bottom: 0.5rem;
+  margin: 0.5rem 0 0.7rem 0;
 `;
 
 export const ButtonContainer = styled.div`
@@ -82,12 +95,4 @@ export const Button = styled.button`
   display: inline-block;
   z-index: 10;
   margin-top: 3%;
-
-  /* Second Nav */
-  /* &:hover {
-    transition: all 0.2s ease-in-out;
-    background: #15cdfc;
-    font-size: 1.2rem;
-    font-weight: 700;
-  } */
 `;

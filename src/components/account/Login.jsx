@@ -2,108 +2,92 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import {
-  Label,
   AccountPageContainer,
-  Input,
-  Button,
   AccountForm,
   AccountFormContainer,
   ButtonContainer,
 } from "./AccountStyle";
-import { useAppContext } from "../../AppContext";
+
+import kakaoLogin from "../../assets/kakao_login_medium_narrow.png";
 
 // // 쿠키를 주고받기 위해 설정 ( 쿠키가 브라우저에 제대로 저장된 것이 맞는지 확인위함)
 // axios.defaults.withCredentials = true;
 
-function Login() {
-  const navigate = useNavigate();
-  const { cid } = useAppContext();
+function Login({}) {
+  // oauth 요청 URL
+  const Rest_api_key = "271b6b6b673acb0d6daca27769150dbc"; //REST API KEY
+  const redirect_uri = "http://localhost:3000"; //Redirect URI
+  const kakaoURL = `https://kauth.kakao.com/oauth/authorize?client_id=${Rest_api_key}&redirect_uri=${redirect_uri}&response_type=code`;
 
-  const Signup = () => {
-    navigate(`/signup`);
-  };
-
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+  const [kakaoAccessToken, setKakaoAccessToken] = useState(null);
+  const [kakaoId, setKakaoId] = useState(null);
+  const [username, setUsername] = useState(null);
+  const [accessToken, setAccessToken] = useState(null);
 
   const axiosInstance = axios.create({
-    baseURL: "http://http://27.96.130.127:8080:8080",
+    baseURL: "http://27.96.130.127:8080",
     timeout: 5000,
     headers: {
       "Content-Type": "application/json",
     },
   });
 
-  const handleLogin = (e) => {
-    e.preventDefault();
+  const handleLogin = () => {
+    window.location.href = kakaoURL;
+    const code = new URL(window.location.href).searchParams.get("code");
 
-    const user_data = {
-      username: username,
-      password: password,
-    };
-
+    // 카카오 토큰 받아오기
     axiosInstance
-      .post("/member/login", user_data)
+      .get("/member/kakao/token", code)
       .then((res) => {
-        // 서버에서 받아온 리소스 중 access token
-        // console.log(res);
-        const token = res.data.accessToken;
-        // console.log(token);
-        axiosInstance.defaults.headers["Authorization"] = "Bearer " + token;
-        // console.log(axiosInstance.defaults.headers["Authorization"]);
-        localStorage.setItem("token", token);
-        console.log(cid);
-        if (cid === null) {
-          navigate(`/`);
+        setKakaoAccessToken(res.data.accessToken);
+      })
+      .catch((err) => {
+        console.log("get kakao token error", err);
+      });
+
+    // 카카오 아이디와 이름 받아오기
+    axiosInstance
+      .get("/member/kakao/me", kakaoAccessToken)
+      .then((res) => {
+        setKakaoId(res.data.id);
+        setUsername(res.data.kakao_account.profile.nickname);
+      })
+      .catch((err) => {
+        console.log("get kakaoId and username error", err);
+      });
+
+    // 카카오 아이디로 로그인
+    axiosInstance
+      .post("member/kakao/login", kakaoId)
+      .then((res) => {
+        if (res.data.errorType === "NOT_FOUND") {
+          window.location.href = `/signup?kakaoid=${kakaoId}&username=${username}`; // 회원가입 페이지로 이동
+        } else if (res.data.errorType === "TokenExpiredException") {
+          // 토큰 만료시 토큰 재발급
+          axios
+            .post("/member/auth/refresh", localStorage.getItem("token"))
+            .then((res) => {
+              setAccessToken(res.data.accessToken);
+              localStorage.setItem("token", res.data.refreshToken);
+            });
         } else {
-          navigate(`/qrsave/${cid}`);
+          setAccessToken(res.data.accessToken);
+          localStorage.setItem("token", res.data.refreshToken);
         }
       })
-      .catch((error) => {
-        window.alert(
-          "로그인과 비밀번호가 일치하지 않습니다. 다시 입력해주세요."
-        );
-        console.log(error);
+      .catch((err) => {
+        console.log("whereqr login error", err);
       });
   };
 
-  const onChangeUsername = (e) => {
-    setUsername(e.target.value);
-  };
-  const onChangePassword = (e) => {
-    setPassword(e.target.value);
-  };
   return (
     <>
       <AccountPageContainer className="signin">
         <AccountFormContainer>
           <AccountForm>
-            <Label className="label">아이디</Label>
-            <Input
-              className="user"
-              name="user-id"
-              value={username}
-              required
-              onChange={onChangeUsername}
-            />
-            <br />
-            <Label className="label">비밀번호</Label>
-            <Input
-              className="user"
-              name="user-password"
-              type="password"
-              value={password}
-              required
-              onChange={onChangePassword}
-            />
-            <br />
             <ButtonContainer>
-              <Button className="button" type="primary" onClick={handleLogin}>
-                로그인
-              </Button>
-              <Button className="button" type="primary" onClick={Signup}>
-                회원가입
-              </Button>
+              <img src={kakaoLogin} alt="kakaoLogin" onClick={handleLogin} />
             </ButtonContainer>
           </AccountForm>
         </AccountFormContainer>

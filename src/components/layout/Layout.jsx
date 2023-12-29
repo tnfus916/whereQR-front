@@ -2,6 +2,7 @@ import React from "react";
 import { Outlet } from "react-router-dom";
 import Header from "./Header";
 import { LayoutContainer } from "./LayoutStyle";
+import NavigationBar from './NavigationBar';
 
 function Layout() {
   return (
@@ -9,6 +10,7 @@ function Layout() {
       <LayoutContainer>
         <Header />
         <Outlet />
+        <NavigationBar />
       </LayoutContainer>
     </>
   );

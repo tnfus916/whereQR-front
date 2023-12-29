@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { HeaderContainer, NavLink, NavContainer, Button } from "./HeaderStyle";
-import axiosInstance from "../../api/api";
 import { useNavigate } from "react-router-dom";
+import logo from '../../assets/logo.png';
 
 function Header() {
   const navigate = useNavigate();
@@ -28,22 +28,19 @@ function Header() {
   if (!user) {
     return (
       <HeaderContainer>
+        <img src={logo} height="20" />
         <NavLink to="/">whereQR</NavLink>
         <NavContainer>
-          <NavLink to="/signup">회원가입</NavLink>
           <NavLink to="/login">로그인</NavLink>
-          <NavLink to="/qrscan">분실물 신고</NavLink>
         </NavContainer>
       </HeaderContainer>
     );
   } else {
     return (
       <HeaderContainer>
+        <img src={logo} height="20" />
         <NavLink to="/">whereQR</NavLink>
         <NavContainer>
-          <NavLink to="/qrscan">분실물 신고</NavLink>
-          <NavLink to="/mypage">마이페이지</NavLink>
-          <Button onClick={handleChat}>채팅</Button>
           <Button onClick={handleLogout}>로그아웃</Button>
         </NavContainer>
       </HeaderContainer>

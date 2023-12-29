@@ -27,7 +27,8 @@ export const NavContainer = styled.div`
 `;
 
 export const NavLink = styled(Link)`
-  color: orange;
+  /* color: orange; */
+  color: #5555ef;
   display: flex;
   align-items: center;
   text-decoration: none;
@@ -41,7 +42,8 @@ export const NavLink = styled(Link)`
 
 export const Button = styled.button`
   border: none;
-  color: orange;
+  /* color: orange; */
+  color: #5555ef;
   font-size: 0.7rem;
   font-weight: 700;
   background-color: white;

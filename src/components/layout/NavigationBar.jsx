@@ -11,7 +11,7 @@ function NavigationBar() {
 
   const getCamera = () => {
     console.log('QR 스캔');
-    // navigate('/qrscan'); // 카메라 권한 허용
+    navigate('/qrscan'); // 카메라 권한 허용
   };
 
   const getDashboard = () => {
@@ -31,29 +31,29 @@ function NavigationBar() {
 
   const getMypage = () => {
     console.log('마이페이지');
-    navigate('/mypage');
+    // navigate('/mypage');
   };
 
   return (
     <BarContainer>
       <IconContainer onClick={getCamera}>
-        <img src={qrscan} alt='' />
+        <img src={qrscan} alt="" />
         <Text>QR 스캔</Text>
       </IconContainer>
       <IconContainer onClick={getDashboard}>
-        <img src={dashboard} alt='' />
+        <img src={dashboard} alt="" />
         <Text>대시보드</Text>
       </IconContainer>
       <IconContainer onClick={getHome}>
-        <img src={home} alt='' />
+        <img src={home} alt="" />
         <Text>홈</Text>
       </IconContainer>
       <IconContainer onClick={getChat}>
-        <img src={chat} alt='' />
+        <img src={chat} alt="" />
         <Text>채팅</Text>
       </IconContainer>
       <IconContainer onClick={getMypage}>
-        <img src={mypage} alt='' />
+        <img src={mypage} alt="" />
         <Text>마이</Text>
       </IconContainer>
     </BarContainer>

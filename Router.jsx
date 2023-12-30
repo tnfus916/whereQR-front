@@ -9,7 +9,6 @@ import QRDetail from "./src/components/qrcode/QRDetail";
 import QREdit from "./src/components/qrcode/QREdit";
 import QRSave from "./src/components/qrcode/QRSave";
 import QRRegister from "./src/components/qrcode/QRRegister";
-import Redirection from "./src/Redirection";
 import Login from "./src/components/account/Login";
 function Router() {
   return (
@@ -21,7 +20,6 @@ function Router() {
           <Route path="/qrscan/:ID" element={<QRDetail />} />
           <Route path="/signup" element={<Join />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/redirect" element={<Redirection />} />
           <Route path="/mypage" element={<MyPage />} />
           <Route path="/qrsave" element={<QRSave />} />
           <Route path="/qrsave/:ID" element={<QRRegister />} />

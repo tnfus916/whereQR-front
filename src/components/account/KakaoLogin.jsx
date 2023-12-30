@@ -69,8 +69,8 @@ function KakaoLogin() {
       axios
         .post('/member/auth/refresh', localStorage.getItem('refreshToken'))
         .then((res) => {
-          setAccessToken(res.data.accessToken);
-          localStorage.setItem('token', res.data.refreshToken);
+          setAccessToken(res.data.data.accessToken);
+          localStorage.setItem('token', res.data.data.refreshToken);
         });
     } else if (res) {
       setAccessToken(res.data.data.accessToken);

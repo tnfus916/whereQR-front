@@ -14,7 +14,7 @@ import kakaoLogin from '../../assets/kakao_login_medium_narrow.png';
 function Login() {
   // oauth 요청 URL
   const Rest_api_key = '271b6b6b673acb0d6daca27769150dbc'; //REST API KEY
-  const redirect_uri = 'http://27.96.130.127:3000/kakaologin'; //Redirect URI
+  const redirect_uri = 'http://localhost:3000/kakaologin'; //Redirect URI
   const kakaoURL = `https://kauth.kakao.com/oauth/authorize?client_id=${Rest_api_key}&redirect_uri=${redirect_uri}&response_type=code`;
 
   const handleKakaoLogin = () => {

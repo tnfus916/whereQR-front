@@ -35,7 +35,7 @@ function Join() {
     };
 
     axios
-      .post("http://27.96.130.127:8080/member/create", user_data)
+      .post("http://localhost:8080/member/create", user_data)
       .then((res) => {
         console.log(res.data);
       })

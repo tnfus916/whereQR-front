@@ -66,7 +66,7 @@ function QRRegister() {
 
   useEffect(() => {
     axios
-      .get("http://27.96.130.127:8080/qrcode/scan", { params: { id: id } })
+      .get("http://localhost:8080/qrcode/scan", { params: { id: id } })
       .then((res) => {
         // console.log(res);
         // setTitle(res.data["title"]);

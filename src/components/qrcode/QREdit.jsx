@@ -62,7 +62,7 @@ function QREdit() {
 
   useEffect(() => {
     axios
-      .get("http://27.96.130.127:8080/qrcode/scan/", {
+      .get("http://localhost:8080/qrcode/scan/", {
         params: { id: id["ID"] },
       })
       .then((res) => {

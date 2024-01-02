@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import {
   Label,
   AccountPageContainer,
@@ -10,8 +10,16 @@ import {
   FormItem,
   FormList,
   AccountForm,
-} from "./AccountStyle";
-import axios from "axios";
+} from './AccountStyle';
+import axios from 'axios';
+
+const axiosInstance = axios.create({
+  baseURL: 'http://localhost:8080',
+  timeout: 5000,
+  headers: {
+    'Content-Type': 'application/json',
+  },
+});
 
 function Join() {
   const navigate = useNavigate();
@@ -19,10 +27,10 @@ function Join() {
 
   const queryParams = new URLSearchParams(location.search);
 
-  const kakaoId = queryParams.get("kakaoid");
-  const username = queryParams.get("username");
-  const [phonenum, setPhonenum] = useState("");
-  const [roles, setRoles] = useState(["USER"]);
+  const kakaoId = queryParams.get('kakaoid');
+  const username = queryParams.get('username');
+  const [phonenum, setPhonenum] = useState('');
+  const [roles, setRoles] = useState(['USER']);
 
   const onSubmit = (e) => {
     e.preventDefault();
@@ -34,15 +42,15 @@ function Join() {
       phoneNumber: phonenum,
     };
 
-    axios
-      .post("http://localhost:8080/member/create", user_data)
+    axiosInstance
+      .post('member/create', user_data)
       .then((res) => {
         console.log(res.data);
+        navigate('/login');
       })
       .catch((err) => {
         console.log(err);
-      })
-      .then(() => navigate("/login"));
+      });
   };
 
   const onChangePhonenum = (e) => {

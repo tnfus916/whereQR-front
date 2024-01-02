@@ -1,31 +1,27 @@
-import { useEffect, useState } from "react";
-import { HeaderContainer, NavLink, NavContainer, Button } from "./HeaderStyle";
-import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from 'react';
+import { HeaderContainer, NavLink, NavContainer, Button } from './HeaderStyle';
+import { useNavigate } from 'react-router-dom';
 import logo from '../../assets/logo.png';
 
 function Header() {
   const navigate = useNavigate();
-  const [user, setUser] = useState("");
+  const [isLogin, setIsLogin] = useState(false);
 
   useEffect(() => {
-    setInterval(() => {
-      const token = localStorage.getItem("token");
-      setUser(token);
-    }, 5000);
-  }, []);
-
-  const handleChat = () => {
-    navigate("/chatlist");
-  };
+    const token = localStorage.getItem('refreshToken');
+    if (token) {
+      setIsLogin(true);
+      console.log(token);
+    }
+  });
 
   const handleLogout = () => {
-    // console.log(localStorage.getItem("token"));
-    console.log("logout을 진행");
-    localStorage.removeItem("token");
-    // localStorage.removeItem("user");
-    navigate("/");
+    console.log('logout을 진행');
+    localStorage.removeItem('refreshToken');
+    setIsLogin(false);
+    navigate('/');
   };
-  if (!user) {
+  if (!isLogin) {
     return (
       <HeaderContainer>
         <img src={logo} height="20" />

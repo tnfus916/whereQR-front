@@ -69,12 +69,17 @@ function KakaoLogin() {
               )
               .then((res) => {
                 setAccessToken(res.data.data.accessToken);
-                localStorage.setItem('token', res.data.data.refreshToken);
+                localStorage.setItem('accessToken', res.data.data.accessToken);
+                localStorage.setItem(
+                  'refreshToken',
+                  res.data.data.refreshToken
+                );
               });
           }
           // 로그인 성공시 토큰 저장------------------------------------------------------
           else if (loginRes) {
             setAccessToken(loginRes.data.data.accessToken);
+            localStorage.setItem('accessToken', loginRes.data.data.accessToken);
             localStorage.setItem(
               'refreshToken',
               loginRes.data.data.refreshToken

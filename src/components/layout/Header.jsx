@@ -18,6 +18,7 @@ function Header() {
   const handleLogout = () => {
     console.log('logout을 진행');
     localStorage.removeItem('refreshToken');
+    localStorage.removeItem('accessToken');
     setIsLogin(false);
     navigate('/');
   };

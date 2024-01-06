@@ -12,11 +12,31 @@ import descript from '../../assets/landing_descript.png';
 import user_guide from '../../assets/user_guide.png';
 import helper_guide from '../../assets/helper_guide.png';
 import community from '../../assets/community.png';
+import { useEffect, useState } from 'react';
 
 function Landing() {
+  const [scrollPercentage, setScrollPercentage] = useState(0);
+  const darkness = 0.5 + scrollPercentage * 0.5;
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const newScrollPercentage =
+        (window.scrollY + window.innerHeight) /
+        document.documentElement.scrollHeight;
+      setScrollPercentage(newScrollPercentage);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+
+    // 컴포넌트가 언마운트되면 이벤트 리스너를 제거합니다
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
   return (
     <>
-      <LandingContainer>
+      <LandingContainer darkness={darkness}>
         <ContentsContainer>
           <ImageContainer>
             <img src={title} width="160" alt="" />

@@ -31,7 +31,7 @@ function NavigationBar() {
 
   const getMypage = () => {
     console.log('마이페이지');
-    // navigate('/mypage');
+    navigate('/mypage');
   };
 
   return (
@@ -64,7 +64,7 @@ export default NavigationBar;
 
 const BarContainer = styled.div`
   width: 100%;
-  height: 80px;
+  height: 70px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -72,8 +72,7 @@ const BarContainer = styled.div`
   box-sizing: border-box;
   position: fixed;
   bottom: 0;
-  left: 0;
-  z-index: 100;
+  z-index: 10;
   background-color: white;
 `;
 const IconContainer = styled.div`

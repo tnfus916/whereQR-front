@@ -6,9 +6,10 @@ export const HeaderContainer = styled.div`
   justify-content: space-around;
   align-items: center;
   background-color: white;
-  height: 8%;
+  height: 50px;
   width: 100%;
-  position: relative;
+  position: fixed;
+  top: 0;
   z-index: 10;
   font-size: 0.9rem;
   font-weight: 700;
@@ -28,7 +29,7 @@ export const NavContainer = styled.div`
 
 export const NavLink = styled(Link)`
   /* color: orange; */
-  color: #5555ef;
+  color: rgb(36, 114, 250);
   display: flex;
   align-items: center;
   text-decoration: none;
@@ -43,7 +44,7 @@ export const NavLink = styled(Link)`
 export const Button = styled.button`
   border: none;
   /* color: orange; */
-  color: #5555ef;
+  color: rgb(36, 114, 250);
   font-size: 0.7rem;
   font-weight: 700;
   background-color: white;

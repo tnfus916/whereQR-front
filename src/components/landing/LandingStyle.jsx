@@ -1,11 +1,15 @@
 import styled from 'styled-components';
 
 export const LandingContainer = styled.div`
+  margin-top: 50px;
+  padding-bottom: 100px;
   width: 100%;
-  height: 100vh;
+  height: 500%;
   display: flex;
   justify-content: center;
-  background: linear-gradient(#ffffff, #ffffff, #e8f3fd);
+  ${({ darkness }) => `
+    background: linear-gradient(to bottom, rgba(255, 255, 255, ${darkness}), rgba(224, 238, 251, ${darkness}));
+  `}
 `;
 
 export const ContentsContainer = styled.div`

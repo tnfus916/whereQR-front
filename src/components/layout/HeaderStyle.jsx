@@ -40,13 +40,12 @@ export const NavContainer = styled.div`
 `;
 
 export const NavLink = styled(Link)`
-  /* color: orange; */
   color: rgb(36, 114, 250);
   display: flex;
   align-items: center;
   text-decoration: none;
   padding: 0 0.4rem;
-  height: 100%;
+  height: 20px;
   position: fixed;
   left: 100;
 

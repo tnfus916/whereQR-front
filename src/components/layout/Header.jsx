@@ -23,6 +23,11 @@ function Header() {
     }
   });
 
+  const handleLogin = () => {
+    console.log('login을 진행');
+    navigate('/login');
+  };
+
   const handleLogout = () => {
     console.log('logout을 진행');
     localStorage.removeItem('refreshToken');
@@ -55,10 +60,12 @@ function Header() {
   if (!isLogin) {
     return (
       <HeaderContainer>
-        <img src={logo} height="20" />
+        <LogoContainer>
+          <img src={logo} height="20" />
+        </LogoContainer>
         <NavLink to="/">{title}</NavLink>
         <NavContainer>
-          <NavLink to="/login">로그인</NavLink>
+          <Button onClick={handleLogin}>로그인</Button>
         </NavContainer>
       </HeaderContainer>
     );

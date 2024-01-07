@@ -13,10 +13,8 @@ import kakaoLogin from '../../assets/kakao_login_medium_narrow.png';
 
 function Login() {
   // oauth 요청 URL
-  const Rest_api_key = import.meta.env.VITE_REST_API_KEY; //REST API KEY
-  const redirect_uri = import.meta.env.VITE_REDIRECT_URI; //Redirect URI
-  console.log(Rest_api_key);
-  console.log(redirect_uri);
+  const Rest_api_key = import.meta.env.VITE_REST_API_KEY;
+  const redirect_uri = import.meta.env.VITE_REDIRECT_URI;
   const kakaoURL = `https://kauth.kakao.com/oauth/authorize?client_id=${Rest_api_key}&redirect_uri=${redirect_uri}&response_type=code`;
 
   const handleKakaoLogin = () => {

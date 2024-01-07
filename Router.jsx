@@ -10,8 +10,8 @@ import QREdit from './src/components/qrcode/QREdit';
 import QRSave from './src/components/qrcode/QRSave';
 import QRRegister from './src/components/qrcode/QRRegister';
 import Login from './src/components/account/Login';
-// import Chatlist from './src/page/Chatlist';
-// import Chatroom from './src/page/Chatroom';
+import Chatlist from './src/page/Chatlist';
+import Chatroom from './src/page/Chatroom';
 import KakaoLogin from './src/components/account/KakaoLogin';
 
 function Router() {
@@ -31,6 +31,8 @@ function Router() {
           <Route path="/qredit/:ID" element={<QREdit />} />
           <Route path="/qrlist" />
           {/* <Route path="/qrlist/:ID" /> */}
+          <Route path="/chatlist" element={<Chatlist />} />
+          <Route path="/chatroom/:ID" element={<Chatroom />} />
           <Route path="*" element={<NotFound />} />
         </Route>
       </Routes>

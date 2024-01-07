@@ -1,10 +1,10 @@
-import axios from "axios";
+import axios from 'axios';
 
 const axiosInstance = axios.create({
-  baseURL: "http://localhost:8080",
+  baseURL: import.meta.env.VITE_BASEURI,
   timeout: 5000,
   headers: {
-    "Content-Type": "application/json",
+    'Content-Type': 'application/json',
   },
 });
 

@@ -11,9 +11,19 @@ export const HeaderContainer = styled.div`
   position: fixed;
   top: 0;
   z-index: 10;
-  font-size: 0.9rem;
+  font-size: 1rem;
   font-weight: 700;
-  box-shadow: 0 0 10px 0 rgba(159, 13, 13, 0.1);
+  box-shadow: 0 0 10px 0 rgba(36, 114, 250, 0.1);
+`;
+
+export const LogoContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 10px;
+  position: fixed;
+  left: 0;
+  margin-left: 20px;
 `;
 
 export const NavContainer = styled.div`
@@ -21,7 +31,9 @@ export const NavContainer = styled.div`
   align-items: center;
   white-space: nowrap;
   font-size: 0.7rem;
-  margin-left: 3rem;
+  position: fixed;
+  right: 0;
+  margin-right: 10px;
   /* @media screen and (max-width: 768px) {
     display: none;
   } */
@@ -35,6 +47,9 @@ export const NavLink = styled(Link)`
   text-decoration: none;
   padding: 0 0.4rem;
   height: 100%;
+  position: fixed;
+  left: 100;
+
   /* cursor: pointer;
   &.active {
     color: #15cdfc;

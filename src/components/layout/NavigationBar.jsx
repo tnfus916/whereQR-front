@@ -26,7 +26,7 @@ function NavigationBar() {
 
   const getChat = () => {
     console.log('채팅');
-    navigate('/chat');
+    navigate('/chatlist');
   };
 
   const getMypage = () => {

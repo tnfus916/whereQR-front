@@ -12,7 +12,7 @@ function KakaoLogin() {
   const [code, setCode] = useState(null);
 
   const axiosInstance = axios.create({
-    baseURL: 'http://localhost:8080',
+    baseURL: import.meta.env.VITE_BASE_URI,
     timeout: 5000,
     headers: {
       'Content-Type': 'application/json',

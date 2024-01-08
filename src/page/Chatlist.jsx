@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import ChatPreview from '../components/chat/ChatPreview';
 
-function Chatlist() {
+function ChatList() {
   const navigate = useNavigate();
   const [chatrooms, setChatrooms] = useState([]);
 
@@ -62,7 +62,7 @@ function Chatlist() {
   );
 }
 
-export default Chatlist;
+export default ChatList;
 
 const PageContainer = styled.div`
   display: flex;

@@ -1,7 +1,5 @@
-import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
-import styled from "styled-components";
+import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import {
   Label,
   Input,
@@ -9,30 +7,54 @@ import {
   QRPageContainer,
   QRFormContainer,
   QRForm,
-} from "./QRStyle";
-import axiosInstance from "../../api/api";
-import axios from "axios";
+  Title,
+} from './QRStyle';
+import axiosInstance from '../../api/api';
 
 function QRRegister() {
   const navigate = useNavigate();
   const currentUrl = window.location.href;
-  const id = currentUrl.split("/")[4];
-  // console.log(id);
+  const id = currentUrl.split('/')[4];
 
-  const [title, setTitle] = useState("");
-  const [memo, setMemo] = useState("");
+  const [title, setTitle] = useState('');
+  const [memo, setMemo] = useState('');
+  const [phonenum, setPhonenum] = useState('');
+  const [qrStatus, setQrStatus] = useState('');
+
+  useEffect(() => {
+    const isRegistered = async () => {
+      await axiosInstance
+        .get('/qrcode/scan', {
+          params: { id: id },
+        })
+        .then((res) => {
+          console.log('res', res);
+          if (res.data.status === 'FAILED') {
+            console.log(res.data.data);
+            window.alert(res.data.data.message);
+            navigate('/mypage');
+          } else {
+            if (res.data.data['qrStatus'] !== 'New') {
+              alert('등록된 qr코드입니다.');
+            }
+            navigate('/mypage'); //추후 qrlist로 이동 예정
+          }
+        });
+    };
+    isRegistered();
+  }, []);
+
+  const onChangeTitle = (e) => {
+    console.log(e.target.value);
+    setTitle(e.target.value);
+  };
 
   const onChangeMemo = (e) => {
     setMemo(e.target.value);
   };
-  const onChangeTitle = (e) => {
-    setTitle(e.target.value);
-  };
-  //   const onChangePhone = (e) => {
-  //     setPhonenum(e.target.value);
-  //   };
 
   const onSubmit = (e) => {
+    console.log('버튼 클릭');
     e.preventDefault();
 
     const data = {
@@ -41,43 +63,30 @@ function QRRegister() {
     };
 
     axiosInstance.defaults.headers[
-      "Authorization"
-    ] = `Bearer ${localStorage.getItem("token")}`;
+      'Authorization'
+    ] = `Bearer ${localStorage.getItem('token')}`;
+
     axiosInstance
-      .post("/qrcode/register", data, {
+      .post('/qrcode/register', data, {
         params: { id: id },
       })
       .then((res) => {
-        // console.log(res);
-        navigate(`/mypage`);
+        console.log('res', res);
+        if (res.data.status === 'SUCCESS') {
+          console.log(res.data.data);
+          alert('QR 코드 등록 성공!');
+          navigate(`/mypage`);
+        } else {
+          alert(res.data.data.message);
+          navigate(`/mypage`);
+        }
       });
-
-    // if (localStorage.getItem("token")) {
-    //   //로그인을 안 했다면, 로그인이 필요한 페이지라고 경고.
-    //   let token = localStorage.getItem("token");
-    //   axiosInstance.defaults.headers["Authorization"] = "Token " + token;
-    //   axiosInstance.post("modifyQR/", data).then(() => {
-    //     navigate(`/UserQr`);
-    //   });
-    // } else {
-    //   alert("login필요");
-    // }
   };
-
-  useEffect(() => {
-    axios
-      .get("http://localhost:8080/qrcode/scan", { params: { id: id } })
-      .then((res) => {
-        // console.log(res);
-        // setTitle(res.data["title"]);
-        // setMemo(res.data["memo"]);
-      });
-  }, []);
 
   return (
     <>
       <QRPageContainer className="modifyQR">
-        <Title>QR 코드를 등록해주세요!</Title>
+        <Title>QR 코드에 정보를 입력해주세요!</Title>
         <QRFormContainer>
           <QRForm>
             <Label className="title">제목</Label>
@@ -109,16 +118,3 @@ function QRRegister() {
 }
 
 export default QRRegister;
-
-export const Title = styled.div`
-  width: 100%;
-  height: 20%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 0.8rem;
-  font-weight: bold;
-  padding-left: 10px;
-  padding-top: 10px;
-  color: orange;
-`;

@@ -7,6 +7,10 @@ const QRSave = () => {
   const navigate = useNavigate();
   const [url, setUrl] = useState("");
   const [isScan, setIsScan] = useState(false);
+  const [width, setWidth] = useState(0);
+  const [height, setHeight] = useState(0);
+  const [ratio, setRatio] = useState(0);
+  const [isRatio, setIsRatio] = useState(false);
 
   const getData = (url) => {
     if (url !== "") {
@@ -30,55 +34,68 @@ const QRSave = () => {
     getData(url);
   }, [url]);
 
+  useEffect(() => {
+    getCameraAspectRatio();
+  }, [ratio]);
+
+  const getCameraAspectRatio = async () => {
+    try {
+      const mediaDevices = navigator.mediaDevices;
+      const stream = await mediaDevices.getUserMedia({ video: true });
+      const track = stream.getVideoTracks()[0];
+      const settings = track.getSettings();
+      const width = settings.width;
+      const height = settings.height;
+      const aspectRatio = settings.aspectRatio;
+      setWidth(width);
+      setHeight(height);
+      setRatio(aspectRatio);
+      setIsRatio(true);
+
+      console.log('카메라 비율:', height, width, ratio);
+    } catch (error) {
+      console.error('카메라 접근에 실패했습니다:', error);
+    }
+  };
+
   return (
     <QRReaderContainer>
-      <QRReaderTitle>등록할 QR코드를 인식 시켜주세요</QRReaderTitle>
-      <QrReader
-        onResult={(result) => {
-          handleScan(result);
-        }}
-        containerStyle={{
-          width: "80%",
-          // height: "80%",
-        }}
-        videoContainerStyle={{
-          width: "100%",
-          // height: "100%",
-        }}
-        videoStyle={{
-          width: "100%",
-          // height: "100%",
-          border: "7px solid orange",
-        }}
-      />
+      <QRReaderTitle>등록할 QR 코드를 인식 시켜주세요!</QRReaderTitle>
+      {!isRatio ? (
+        <QrReader
+          onResult={(result) => {
+            handleScan(result);
+          }}
+          containerStyle={{
+            width: '100%',
+          }}
+          videoContainerStyle={{
+            width: '100%',
+          }}
+          videoStyle={{
+            width: '100%',
+            height: `${(height / width) * 100 + 1.2}%`,
+          }}
+        />
+      ) : (
+        <QrReader
+          onResult={(result) => {
+            handleScan(result);
+          }}
+          containerStyle={{
+            width: '100%',
+          }}
+          videoContainerStyle={{
+            width: '100%',
+          }}
+          videoStyle={{
+            width: '100%',
+            height: `${(height / width) * 100 + 1.2}%`,
+            border: '7px solid rgb(36, 114, 250)',
+          }}
+        />
+      )}
     </QRReaderContainer>
-    // <QDiv className="saveQR">
-    //   <Div2>
-    //     <Label className="title">title</Label>
-    //     <Input
-    //       className="title"
-    //       name="qr-title"
-    //       value={title}
-    //       required
-    //       onChange={onChangeTitle}
-    //     />
-    //     <br />
-    //     <Label className="memo">memo</Label>
-    //     <Input
-    //       className="memo"
-    //       name="qr-memo"
-    //       value={memo}
-    //       required
-    //       onChange={onChangeMemo}
-    //     />
-    //     <br />
-    //     <Button className="button" type="primary" onClick={onSubmit}>
-    //       등록하기
-    //     </Button>
-
-    //     <p>주소와 전화번호는 회원가입시 등록했던 정보로 표시됩니다.</p>
-    //   </Div2>
-    // </QDiv>
   );
 };
 

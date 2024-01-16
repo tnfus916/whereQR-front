@@ -6,54 +6,47 @@ import {
   DataContainer,
   Label,
   Data,
-  Title,
-} from "./QRStyle";
-import axios from "axios";
-import { useAppContext } from "../../AppContext";
+} from './QRStyle';
+import axiosInstance from '../../api/api';
 
 function QRDetail() {
   const navigate = useNavigate();
   const currentUrl = window.location.href;
-  const id = currentUrl.split("/")[4];
+  const id = currentUrl.split('/')[4];
   console.log(id);
-  const { setCid, setCqr } = useAppContext();
-  setCid(id);
 
-  const [title, setTitle] = useState("");
-  const [memo, setMemo] = useState("");
-  const [phonenum, setPhonenum] = useState("");
-  const [qrStatus, setQrStatus] = useState("New");
-
-  const registerQR = () => {
-    navigate(`/qrsave/${id}`);
-  };
-
-  const token = localStorage.getItem("token");
+  const [title, setTitle] = useState('');
+  const [memo, setMemo] = useState('');
+  const [phonenum, setPhonenum] = useState('');
+  const [qrStatus, setQrStatus] = useState('');
 
   // axios.defaults.headers["Access-Control-Allow-Origin"] = "*";
   useEffect(() => {
     const getDetail = async () => {
-      await axios
-        .get("http://localhost:8080/qrcode/scan", {
+      await axiosInstance
+        .get('/qrcode/scan', {
           params: { id: id },
         })
         .then((res) => {
-          // console.log("res", res);
-          setTitle(res.data["title"]);
-          setMemo(res.data["memo"]);
-          setPhonenum(res.data["phonenumber"]);
-          setQrStatus(res.data["qrStatus"]);
-          if (qrStatus === "New") {
-            if (token) {
-              registerQR();
+          console.log('res', res);
+          if (res.data.status === 'FAILED') {
+            console.log(res.data.data);
+            window.alert(res.data.data.message);
+            navigate('/');
+          } else {
+            if (res.data.data['qrStatus'] === 'New') {
+              alert('등록되지 않은 qr코드입니다.');
+              navigate('/');
+            } else if (res.data.data['qrStatus'] === 'Saved') {
+              setTitle(res.data.data['title']);
+              setMemo(res.data.data['memo']);
+              setPhonenum(res.data.data['phonenumber']);
+              setQrStatus(res.data.data['qrStatus']);
             } else {
-              navigate(`/login`);
+              alert('유효하지 않은 qr코드입니다.');
+              navigate('/');
             }
           }
-        })
-        .catch((err) => {
-          console.log(err);
-          window.alert("유효하지 않은 qr코드입니다.");
         });
     };
     getDetail();
@@ -63,7 +56,7 @@ function QRDetail() {
     <>
       <QRPageContainer>
         <DataListContainer>
-          {qrStatus === "Saved" ? (
+          {qrStatus === 'Saved' ? (
             <>
               <DataContainer>
                 <Label>제목</Label>
@@ -78,19 +71,8 @@ function QRDetail() {
                 <Data>{phonenum}</Data>
               </DataContainer>
             </>
-          ) : token ? (
-            <>
-              <Title>
-                등록되지 않은 qr코드입니다. 등록 페이지로 이동합니다.
-              </Title>
-            </>
           ) : (
-            <>
-              <DataContainer>
-                <Title>등록되지 않은 qr코드입니다. </Title>
-                <Title>로그인 후 등록 가능합니다.</Title>
-              </DataContainer>
-            </>
+            <></>
           )}
         </DataListContainer>
       </QRPageContainer>

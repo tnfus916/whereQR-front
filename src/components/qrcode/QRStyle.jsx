@@ -1,9 +1,8 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const QRPageContainer = styled.div`
   width: 100%;
   height: 80%;
-  /* background: #ffbc40; */
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
@@ -23,12 +22,13 @@ export const QRReaderContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  margin-top: 50px;
 `;
 
 export const QRReaderTitle = styled.h1`
   font-size: 1rem;
-  margin: 2rem;
-  color: orange;
+  margin-bottom: 2rem;
+  color: rgb(36, 114, 250);
 `;
 
 // qredit page -------------------------------------
@@ -42,7 +42,7 @@ export const QRFormContainer = styled.div`
   background: white;
   border-radius: 5px;
   color: black;
-  box-shadow: 0 0 10px 0 rgba(255, 148, 60, 0.4);
+  box-shadow: 0 0 10px 0 rgba(76, 138, 245, 0.4);
 `;
 
 export const QRForm = styled.div`
@@ -98,7 +98,7 @@ export const DataListContainer = styled.div`
   align-items: center;
   flex-direction: column;
   background: white;
-  box-shadow: 0 0 10px 0 rgba(255, 148, 60, 0.4);
+  box-shadow: 0 0 10px 0 rgba(76, 138, 245, 0.4);
   padding: 50px 15px;
 `;
 
@@ -126,13 +126,13 @@ export const Data = styled.div`
 `;
 
 export const Button = styled.button`
-  background: #ffbc40;
+  background: rgb(36, 114, 250);
   color: #fff;
   font-size: 0.7rem;
   font-weight: 700;
   width: 5rem;
   height: 1.5rem;
-  border: 1px solid #ffbc40;
+  border: 1px solid rgb(36, 114, 250);
   border-radius: 4px;
   display: inline-block;
   z-index: 10;
@@ -143,12 +143,12 @@ export const Title = styled.div`
   width: 100%;
   height: 20%;
   display: flex;
-  justify-content: start;
+  justify-content: center;
   align-items: center;
   font-size: 0.8rem;
   font-weight: bold;
   padding-left: 10px;
   padding-top: 10px;
-  color: orange;
+  color: rgb(36, 114, 250);
   margin-bottom: 5px;
 `;

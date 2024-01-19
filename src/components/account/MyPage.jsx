@@ -1,48 +1,30 @@
-import { useNavigate } from "react-router-dom";
-import styled from "styled-components";
-import { useEffect, useState } from "react";
-import axiosInstance from "../../api/api";
-import { useAppContext } from "../../AppContext";
+import { useNavigate } from 'react-router-dom';
+import styled from 'styled-components';
+import { useEffect, useState } from 'react';
+import axiosInstance from '../../api/api';
 
 function Mypage() {
   const navigate = useNavigate();
-  const { setCqr } = useAppContext();
+  const [username, setUsername] = useState('No result');
+  const [phonenum, setPhonenum] = useState('No result');
 
-  const [isRegistered, setIsRegistered] = useState(false);
-  const [username, setUsername] = useState("No result");
-  // const [age, setAge] = useState("No result");
-  const [phonenum, setPhonenum] = useState("No result");
-  const [qrcode, setQrcode] = useState({ id: "No result" });
-  // const [qrcodeId, setQrcodeId] = useState("");
-  // const [qrcodeTitle, setQrcodeTitle] = useState("");
-  // const [qrcodeMemo, setQrcodeMemo] = useState("");
-  // const [qrcodeImage, setQrcodeImage] = useState("");
-
-  const addClick = () => {
-    navigate("/qrsave");
+  const handleRegister = () => {
+    navigate('/qrsave');
   };
 
-  const editClick = () => {
-    console.log(qrcode[0]["id"]);
-    navigate(`/qredit/${qrcode[0]["id"]}`);
+  const handleManage = () => {
+    navigate('/qrlist');
   };
 
   useEffect(() => {
     axiosInstance.defaults.headers[
-      "Authorization"
-    ] = `Bearer ${localStorage.getItem("token")}`;
-    axiosInstance.get("/member/detail").then((res) => {
-      // console.log(res.data);
-      setUsername(res.data["username"]);
-      setPhonenum(res.data["phoneNumber"]);
-      if (res.data["qrcodes"].length === 0) {
-        setIsRegistered(false);
-      } else {
-        setIsRegistered(true);
-        setQrcode(res.data["qrcodes"]);
-        // console.log(res.data["qrcodes"]);
-        setCqr(true);
-      }
+      'Authorization'
+    ] = `Bearer ${localStorage.getItem('accessToken')}`;
+
+    axiosInstance.get('/member/detail').then((res) => {
+      console.log(res.data);
+      setUsername(res.data.data['username']);
+      setPhonenum(res.data.data['phoneNumber']);
     });
   }, []);
 
@@ -50,43 +32,47 @@ function Mypage() {
     <>
       <PageContainer>
         <UserInfoContainer>
-          <Title>회원정보</Title>
-          <ListItem>
-            <ItemContainer>
+          <TitleContainer>
+            <Title>내 정보</Title>
+          </TitleContainer>
+          <UserInfo>
+            <Image />
+            <UserInfoTextContainer>
               <Text>user: {username}</Text>
-              {/* <div>age: {age}</div> */}
               <Text>phone: {phonenum}</Text>
-            </ItemContainer>
-          </ListItem>
+            </UserInfoTextContainer>
+            <Button>수정</Button>
+          </UserInfo>
         </UserInfoContainer>
-        {isRegistered ? (
-          <QRListContainer>
+        <ContentContainer>
+          <ItemContainer>
             <TitleContainer>
-              <Title>내 QR code</Title>
+              <Title>QR</Title>
             </TitleContainer>
-            <ListItem>
-              <ItemContainer>
-                {/* <QRImg src={qrcode[0]["url"]} /> */}
-                <Text>title: {qrcode[0]["title"]}</Text>
-                <Text>memo: {qrcode[0]["memo"]} </Text>
-              </ItemContainer>
-              <ButtonContainer>
-                <ShortButton onClick={editClick}>수정</ShortButton>
-                {/* <ShortButton onClick={deleteClick}>삭제</ShortButton> */}
-              </ButtonContainer>
-            </ListItem>
-          </QRListContainer>
-        ) : (
-          <QRListContainer>
+            <TextContainer>
+              <Text onClick={handleRegister}>QR 코드 등록</Text>
+              <Text onClick={handleManage}>QR 코드 관리</Text>
+            </TextContainer>
+          </ItemContainer>
+          <ItemContainer>
             <TitleContainer>
-              <Title>QR code 목록</Title>
+              <Title>게시판</Title>
             </TitleContainer>
-            <ListItem>
-              <Text>등록된 QR code가 존재 하지 않습니다.</Text>
-              <LongButton onClick={addClick}>QR code 등록</LongButton>
-            </ListItem>
-          </QRListContainer>
-        )}
+            <TextContainer>
+              <Text>내 게시글 관리</Text>
+              <Text>게시글 즐겨찾기</Text>
+            </TextContainer>
+          </ItemContainer>
+          <ItemContainer>
+            <TitleContainer>
+              <Title>기타</Title>
+            </TitleContainer>
+            <TextContainer>
+              <Text>회원탈퇴</Text>
+              <Text>로그아웃</Text>
+            </TextContainer>
+          </ItemContainer>
+        </ContentContainer>
       </PageContainer>
     </>
   );
@@ -100,42 +86,46 @@ export const PageContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 10px;
+  margin-top: 50px;
+  background-color: #f4f4f5;
 `;
 
 export const UserInfoContainer = styled.div`
-  width: 80%;
-  height: 30%;
-  display: flex;
-  flex-direction: column;
-`;
-
-export const QRListContainer = styled.div`
-  width: 80%;
-  height: 70%;
-  display: flex;
-  flex-direction: column;
-`;
-
-export const TitleContainer = styled.div`
   width: 100%;
-  height: 10%;
+  height: 25%;
   display: flex;
+  flex-direction: column;
   justify-content: space-evenly;
   align-items: center;
+  background-color: white;
+  margin-bottom: 20px;
+  padding: 20px;
 `;
 
-export const Title = styled.div`
+export const UserInfo = styled.div`
   width: 100%;
-  height: 20%;
+  height: 80%;
   display: flex;
-  justify-content: start;
+  flex-direction: row;
+  justify-content: space-evenly;
   align-items: center;
-  font-size: 0.8rem;
-  font-weight: bold;
-  padding-left: 10px;
-  padding-top: 10px;
-  color: orange;
+  margin-left: 20px;
+`;
+
+export const Image = styled.img`
+  width: 50px;
+  height: 50px;
+  margin: 10px;
+  border-radius: 10px;
+  background-color: #dcdcdc;
+`;
+
+export const UserInfoTextContainer = styled.div`
+  width: 80%;
+`;
+
+export const TextContainer = styled.div`
+  width: 100%;
 `;
 
 export const Text = styled.div`
@@ -144,11 +134,63 @@ export const Text = styled.div`
   display: flex;
   justify-content: start;
   align-items: center;
-  font-size: 0.8rem;
+  font-size: 1.2rem;
   /* font-weight: bold; */
-  margin-left: 5px;
-  margin-top: 7px;
-  color: orange;
+  padding: 10px;
+`;
+
+export const Button = styled.button`
+  width: 15%;
+  height: 20%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 30px;
+  flex-direction: column;
+  border-radius: 20%;
+  background-color: rgb(111, 164, 255);
+  border: none;
+  font-size: bold;
+`;
+
+export const ContentContainer = styled.div`
+  width: 100%;
+  height: 75%;
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+`;
+
+export const ItemContainer = styled.div`
+  width: 100%;
+  font-size: 1rem;
+  padding: 25px 0 0 20px;
+`;
+
+export const ListContainer = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  border-bottom: 1px solid #dcdcdc;
+`;
+
+export const TitleContainer = styled.div`
+  width: 100%;
+  height: 10%;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  margin-bottom: 10px;
+`;
+
+export const Title = styled.div`
+  width: 100%;
+  height: 20%;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  font-size: 1.5rem;
+  font-weight: bold;
 `;
 
 export const ListItem = styled.div`
@@ -158,18 +200,22 @@ export const ListItem = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  border: 1px solid orange;
+  border: 1px solid rgb(36, 114, 250);
   border-radius: 10px;
-  box-shadow: 0 0 10px 0 rgba(255, 148, 60, 0.4);
+  box-shadow: 0 0 10px 0 rgba(36, 114, 250, 0.2);
   margin: 5px;
   padding: 20px;
   font-size: 0.7rem;
 `;
 
-export const ItemContainer = styled.div`
+export const Item = styled.div`
   width: 100%;
-  margin: 10px;
+  height: 20%;
+  display: flex;
+  justify-content: start;
+  align-items: center;
   font-size: 0.8rem;
+  /* font-weight: bold; */
 `;
 
 export const ButtonContainer = styled.div`

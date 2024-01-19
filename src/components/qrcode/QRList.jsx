@@ -1,83 +1,72 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
-import { useParams, useNavigate } from "react-router-dom";
-import { QDiv, Div, A, Title, TD2 } from "./QRStyle";
-
-const BaseURL = "http://127.0.0.1:8080/qrcode/";
-
-const axiosInstance = axios.create({
-  baseURL: BaseURL,
-  timeout: 5000,
-  headers: {
-    Authorization: "Token",
-    "Content-Type": "application/json",
-    accept: "application/json",
-  },
-});
+import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import {
+  QRListContainer,
+  QRListItemContainer,
+  QRPageContainer,
+  QRTitle,
+} from './QRStyle';
+import axiosInstance from '../../api/api';
+import QRListItem from './QRListItem';
 
 function QRList() {
   const navigate = useNavigate();
 
-  // response
-  const [qrs, setQrs] = useState(null);
-  //  loading state check
-  const [loading, setLoading] = useState(false);
-  //error check
-  const [error, setError] = useState(null);
+  const [isRegistered, setIsRegistered] = useState(false);
+  const [username, setUsername] = useState('No result');
+  // const [age, setAge] = useState("No result");
+  const [phonenum, setPhonenum] = useState('No result');
+
+  const [qrcode, setQrcode] = useState([]);
+  // const [qrcodeId, setQrcodeId] = useState("");
+  // const [qrcodeTitle, setQrcodeTitle] = useState([]);
+  // const [qrcodeMemo, setQrcodeMemo] = useState([]);
+  // const [qrcodeImage, setQrcodeImage] = useState("");
 
   useEffect(() => {
-    const fetchQrs = async () => {
-      try {
-        setQrs(null);
-        setError(null);
-        setLoading(true);
-        const token = localStorage.getItem("token");
-        console.log(token);
-        axiosInstance.defaults.headers["Authorization"] = "Token " + token;
-        const response = await axiosInstance.get("/qrlist");
+    const fetchQrList = async () => {
+      axiosInstance.defaults.headers[
+        'Authorization'
+      ] = `Bearer ${localStorage.getItem('accessToken')}`;
 
-        setQrs(response.data);
-        console.log(response.data);
-      } catch (e) {
-        setError(e);
+      const res = await axiosInstance.get('/qrcode/my');
+
+      if (res.data.status === 'SUCCESS') {
+        console.log(res.data);
+        setQrcode([
+          ...res.data.data.map((item) => ({
+            id: item['id'],
+            title: item['title'],
+            memo: item['memo'],
+            url: item['url'],
+          })),
+        ]);
       }
-      setLoading(false);
     };
-    fetchQrs();
+    fetchQrList();
   }, []);
 
-  if (loading) return <div>로딩중...</div>;
-  if (error) return <div>에러 발생</div>;
-  if (!qrs) return null;
+  console.log(qrcode);
 
-  const Detail = (data) => {
-    if (data != "no") {
-      console.log(data);
-      navigate(`/qrscan/${data}`);
-    }
-  };
   return (
     <>
-      <QDiv>
-        <Div>
-          <Title> QR LIST</Title>
-          {qrs.map((qr) => (
-            <div key={qr}>
-              {/* <P>{qr.count}번째 qr코드</P> */}
-              <TD2>
-                <A
-                  key={qr.id}
-                  onClick={() => {
-                    Detail(qr.key);
-                  }}
-                >
-                  {qr.title}{" "}
-                </A>
-              </TD2>
-            </div>
-          ))}
-        </Div>
-      </QDiv>
+      <QRPageContainer>
+        <QRTitle>QR코드 목록</QRTitle>
+        {qrcode ? (
+          <QRListContainer>
+            {qrcode.map((data) => (
+              // <QRListItemContainer
+              //   key={data.id}
+              //   onClick={() => navigate(`/qrscan/${data.id}`)}
+              // >
+              <QRListItem key={data.id} data={data} />
+              // </QRListItemContainer>
+            ))}
+          </QRListContainer>
+        ) : (
+          <></>
+        )}
+      </QRPageContainer>
     </>
   );
 }

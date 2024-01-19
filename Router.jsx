@@ -13,6 +13,7 @@ import Login from './src/components/account/Login';
 import ChatList from './src/page/ChatList';
 import ChatRoom from './src/page/ChatRoom';
 import KakaoLogin from './src/components/account/KakaoLogin';
+import QRList from './src/components/qrcode/QRList';
 
 function Router() {
   return (
@@ -29,7 +30,7 @@ function Router() {
           <Route path="/qrsave" element={<QRSave />} />
           <Route path="/qrsave/:ID" element={<QRRegister />} />
           <Route path="/qredit/:ID" element={<QREdit />} />
-          <Route path="/qrlist" />
+          <Route path="/qrlist" element={<QRList />} />
           {/* <Route path="/qrlist/:ID" /> */}
           <Route path="/chatlist" element={<ChatList />} />
           <Route path="/chatroom/:ID" element={<ChatRoom />} />

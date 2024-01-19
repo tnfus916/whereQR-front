@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import axiosInstance from '../../api/api';
 
 function KakaoLogin() {
   const navigate = useNavigate();
@@ -10,14 +11,6 @@ function KakaoLogin() {
   const [username, setUsername] = useState(null);
   const [accessToken, setAccessToken] = useState(null);
   const [code, setCode] = useState(null);
-
-  const axiosInstance = axios.create({
-    baseURL: import.meta.env.VITE_BASE_URI,
-    timeout: 5000,
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  });
 
   useEffect(() => {
     const LoginLogic = async () => {

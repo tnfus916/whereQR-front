@@ -7,7 +7,7 @@ import {
   QRPageContainer,
   QRFormContainer,
   QRForm,
-  Title,
+  QRTitle,
 } from './QRStyle';
 import axiosInstance from '../../api/api';
 
@@ -18,8 +18,6 @@ function QRRegister() {
 
   const [title, setTitle] = useState('');
   const [memo, setMemo] = useState('');
-  const [phonenum, setPhonenum] = useState('');
-  const [qrStatus, setQrStatus] = useState('');
 
   useEffect(() => {
     const isRegistered = async () => {
@@ -64,7 +62,7 @@ function QRRegister() {
 
     axiosInstance.defaults.headers[
       'Authorization'
-    ] = `Bearer ${localStorage.getItem('token')}`;
+    ] = `Bearer ${localStorage.getItem('accessToken')}`;
 
     axiosInstance
       .post('/qrcode/register', data, {
@@ -86,7 +84,7 @@ function QRRegister() {
   return (
     <>
       <QRPageContainer className="modifyQR">
-        <Title>QR 코드에 정보를 입력해주세요!</Title>
+        <QRTitle>QR 코드에 정보를 입력해주세요!</QRTitle>
         <QRFormContainer>
           <QRForm>
             <Label className="title">제목</Label>

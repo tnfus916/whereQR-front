@@ -1,5 +1,5 @@
-import { useState, useEffect } from "react";
-import { useParams, useNavigate, Link } from "react-router-dom";
+import { useState, useEffect } from 'react';
+import { useParams, useNavigate, Link } from 'react-router-dom';
 import {
   QRPageContainer,
   DataListContainer,
@@ -55,9 +55,9 @@ function QRDetail() {
   return (
     <>
       <QRPageContainer>
-        <DataListContainer>
-          {qrStatus === 'Saved' ? (
-            <>
+        {qrStatus === 'Saved' ? (
+          <>
+            <DataListContainer>
               <DataContainer>
                 <Label>제목</Label>
                 <Data>{title}</Data>
@@ -70,11 +70,11 @@ function QRDetail() {
                 <Label>연락처</Label>
                 <Data>{phonenum}</Data>
               </DataContainer>
-            </>
-          ) : (
-            <></>
-          )}
-        </DataListContainer>
+            </DataListContainer>
+          </>
+        ) : (
+          <></>
+        )}
       </QRPageContainer>
     </>
   );

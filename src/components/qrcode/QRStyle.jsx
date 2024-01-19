@@ -25,13 +25,56 @@ export const QRReaderContainer = styled.div`
   margin-top: 50px;
 `;
 
-export const QRReaderTitle = styled.h1`
-  font-size: 1rem;
-  margin-bottom: 2rem;
-  color: rgb(36, 114, 250);
+// qrdetail page -------------------------------------
+
+export const DataListContainer = styled.div`
+  width: 80%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background: white;
+  box-shadow: 0 0 10px 0 rgba(76, 138, 245, 0.4);
+  padding: 50px 15px;
 `;
 
-// qredit page -------------------------------------
+export const DataContainer = styled.div`
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin: 5px;
+`;
+
+export const Data = styled.div`
+  width: 100%;
+  height: 35px;
+  border: 0px;
+  line-height: 1rem;
+  font-size: 0.8rem;
+  display: flex;
+  justify-content: space-between;
+  z-index: 10;
+  margin-bottom: 0.5rem;
+  padding-bottom: 20px;
+`;
+
+// qrwrite, qredit page -------------------------------------
+export const Title = styled.div`
+  width: 100%;
+  height: 20%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 0.8rem;
+  font-weight: bold;
+  padding-left: 10px;
+  padding-top: 10px;
+  color: rgb(36, 114, 250);
+  margin-bottom: 5px;
+`;
+
 export const QRFormContainer = styled.div`
   width: 80%;
   padding: 50px 15px;
@@ -57,28 +100,12 @@ export const QRForm = styled.div`
   color: black;
 `;
 
-export const Image = styled.img`
-  width: 5rem;
-  height: 5rem;
-`;
-
-export const Label = styled.label`
-  width: 80%;
-  border-radius: 8px;
-  font-size: 0.7rem;
-  font-weight: 600;
-  display: inline-block;
-  justify-content: space-between;
-  z-index: 10;
-  margin-bottom: 0.5rem;
-`;
-
 export const Input = styled.input`
   margin-top: 1%;
-  width: 80%;
+  width: 100%;
   border: 0px;
-  border-bottom: 1px solid black;
-  /* border-radius: 5px; */
+  border: 1px solid lightgrey;
+  border-radius: 5px;
   line-height: 1rem;
   font-size: 0.8rem;
   /* padding-left: 0.5rem; */
@@ -87,42 +114,6 @@ export const Input = styled.input`
   justify-content: space-between;
   z-index: 10;
   margin-bottom: 0.5rem;
-`;
-
-// qrdetail page -------------------------------------
-
-export const DataListContainer = styled.div`
-  width: 80%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  background: white;
-  box-shadow: 0 0 10px 0 rgba(76, 138, 245, 0.4);
-  padding: 50px 15px;
-`;
-
-export const DataContainer = styled.div`
-  width: 90%;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: flex-start;
-  margin: 5px;
-`;
-
-export const Data = styled.div`
-  width: 100%;
-  height: 10px;
-  border: 0px;
-  border-bottom: 1px solid black;
-  line-height: 1rem;
-  font-size: 1rem;
-  display: flex;
-  justify-content: space-between;
-  z-index: 10;
-  margin-bottom: 0.5rem;
-  padding-bottom: 20px;
 `;
 
 export const Button = styled.button`
@@ -139,7 +130,64 @@ export const Button = styled.button`
   margin-top: 3%;
 `;
 
-export const Title = styled.div`
+// 공통 컴포넌트 -----------------
+export const Label = styled.label`
+  width: 100%;
+  font-size: 0.7rem;
+  font-weight: 600;
+  display: inline-block;
+  justify-content: space-between;
+  z-index: 10;
+  padding-bottom: 0.5rem;
+  margin-bottom: 0.5rem;
+  border-bottom: 1px solid lightgrey;
+`;
+
+export const QRTitle = styled.h1`
+  font-size: 1rem;
+  margin-bottom: 2rem;
+  color: rgb(36, 114, 250);
+`;
+
+// qrlist page -------------------------------------
+export const QRListContainer = styled.div`
+  width: 100%;
+  height: 70%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background: white;
+  border-radius: 5px;
+  border: 1px solid lightgrey;
+`;
+
+export const QRListItemContainer = styled.div`
+  width: 100%;
+  height: 20%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background: white;
+  border-radius: 5px;
+  border: 1px solid lightgrey;
+`;
+
+// qrlist item component -------------------------------------
+export const ItemContainer = styled.div`
+  width: 100%;
+  height: 30%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background: white;
+  border-radius: 5px;
+  border: 1px solid lightgrey;
+`;
+
+export const ItemText = styled.div`
   width: 100%;
   height: 20%;
   display: flex;
@@ -151,4 +199,10 @@ export const Title = styled.div`
   padding-top: 10px;
   color: rgb(36, 114, 250);
   margin-bottom: 5px;
+`;
+
+// not using -------------------------------------
+export const Image = styled.img`
+  width: 5rem;
+  height: 5rem;
 `;

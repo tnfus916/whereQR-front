@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { QrReader } from 'react-qr-reader';
-import { QRReaderContainer, QRReaderTitle } from './QRStyle';
+import { QRReaderContainer, QRTitle } from './QRStyle';
 
 function QRScan() {
   const navigate = useNavigate();
@@ -60,7 +60,7 @@ function QRScan() {
 
   return (
     <QRReaderContainer>
-      <QRReaderTitle>QR 코드를 인식 시켜주세요!</QRReaderTitle>
+      <QRTitle>QR 코드를 인식 시켜주세요!</QRTitle>
       {!isRatio ? (
         <QrReader
           onResult={(result) => {

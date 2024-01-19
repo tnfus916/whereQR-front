@@ -60,7 +60,7 @@ const QRSave = () => {
 
   return (
     <QRReaderContainer>
-      <QRReaderTitle>등록할 QR 코드를 인식 시켜주세요!</QRReaderTitle>
+      <QRTitle>등록할 QR 코드를 인식 시켜주세요!</QRTitle>
       {!isRatio ? (
         <QrReader
           onResult={(result) => {

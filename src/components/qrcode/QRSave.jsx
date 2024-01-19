@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { QrReader } from "react-qr-reader";
-import { QRReaderContainer, QRReaderTitle } from "./QRStyle";
+import { QRReaderContainer, QRTitle } from './QRStyle';
 
 const QRSave = () => {
   const navigate = useNavigate();

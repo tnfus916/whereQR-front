@@ -1,6 +1,5 @@
-import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
+import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import {
   Label,
   Input,
@@ -8,16 +7,17 @@ import {
   QRPageContainer,
   QRFormContainer,
   QRForm,
-} from "./QRStyle";
-import axios from "axios";
-import axiosInstance from "../../api/api";
+} from './QRStyle';
+import axiosInstance from '../../api/api';
+import axios from 'axios';
 
 function QREdit() {
   const navigate = useNavigate();
-  const id = useParams();
+  const url = window.location.href;
+  const id = url.split('/')[4];
 
-  const [title, setTitle] = useState("");
-  const [memo, setMemo] = useState("");
+  const [title, setTitle] = useState('');
+  const [memo, setMemo] = useState('');
   // const [phonenum, setPhonenum] = useState("");
 
   const onChangeMemo = (e) => {
@@ -36,41 +36,36 @@ function QREdit() {
     const data = {
       title: title,
       memo: memo,
+      phoneNumber: '01062548926',
     };
 
     axiosInstance.defaults.headers[
-      "Authorization"
-    ] = `Bearer ${localStorage.getItem("token")}`;
-    axiosInstance
-      .post("/qrcode/update", data, { params: { id: id["ID"] } })
-      .then((res) => {
-        // console.log(res);
-        navigate(`/mypage`);
-      });
+      'Authorization'
+    ] = `Bearer ${localStorage.getItem('accessToken')}`;
 
-    // if (localStorage.getItem("token")) {
-    //   //로그인을 안 했다면, 로그인이 필요한 페이지라고 경고.
-    //   let token = localStorage.getItem("token");
-    //   axiosInstance.defaults.headers["Authorization"] = "Token " + token;
-    //   axiosInstance.post("modifyQR/", data).then(() => {
-    //     navigate(`/UserQr`);
-    //   });
-    // } else {
-    //   alert("login필요");
-    // }
+    axiosInstance
+      .post('/qrcode/update', data, { params: { id: id } })
+      .then((res) => {
+        console.log(res);
+        // navigate(`/qrlist`);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   useEffect(() => {
-    axios
-      .get("http://localhost:8080/qrcode/scan/", {
-        params: { id: id["ID"] },
+    axiosInstance
+      .get('/qrcode/scan/', {
+        params: { id: id },
       })
       .then((res) => {
-        // console.log(res);
-
-        setTitle(res.data["title"]);
-        setMemo(res.data["memo"]);
-        // setPhonenum(res.data["phonenumber"]);
+        console.log(res);
+        setTitle(res.data.data['title']);
+        setMemo(res.data.data['memo']);
+      })
+      .catch((err) => {
+        console.log(err);
       });
   }, []);
 

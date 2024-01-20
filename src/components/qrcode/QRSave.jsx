@@ -66,6 +66,7 @@ const QRSave = () => {
           onResult={(result) => {
             handleScan(result);
           }}
+          facingMode="environment"
           containerStyle={{
             width: '100%',
           }}

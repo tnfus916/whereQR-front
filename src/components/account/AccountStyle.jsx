@@ -19,7 +19,7 @@ export const AccountFormContainer = styled.div`
   background: white;
   border-radius: 5px;
   color: black;
-  box-shadow: 0 0 10px 0 rgba(255, 148, 60, 0.4);
+  box-shadow: 0 0 10px 0 rgba(0, 92, 251, 0.3);
 `;
 
 export const AccountForm = styled.form`

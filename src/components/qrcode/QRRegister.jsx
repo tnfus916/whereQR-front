@@ -34,8 +34,8 @@ function QRRegister() {
           } else {
             if (res.data.data['qrStatus'] !== 'New') {
               alert('등록된 qr코드입니다.');
+              navigate('/mypage'); //추후 qrlist로 이동 예정
             }
-            navigate('/mypage'); //추후 qrlist로 이동 예정
           }
         });
     };

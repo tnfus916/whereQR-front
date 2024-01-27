@@ -1,11 +1,12 @@
 import { useState, useEffect } from 'react';
-import { useParams, useNavigate, Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import {
   QRPageContainer,
   DataListContainer,
   DataContainer,
   Label,
   Data,
+  Button,
 } from './QRStyle';
 import axiosInstance from '../../api/api';
 
@@ -19,6 +20,7 @@ function QRDetail() {
   const [memo, setMemo] = useState('');
   const [phonenum, setPhonenum] = useState('');
   const [qrStatus, setQrStatus] = useState('');
+  const [qrMemberId, setQrMemberId] = useState('');
 
   // axios.defaults.headers["Access-Control-Allow-Origin"] = "*";
   useEffect(() => {
@@ -42,6 +44,7 @@ function QRDetail() {
               setMemo(res.data.data['memo']);
               setPhonenum(res.data.data['phonenumber']);
               setQrStatus(res.data.data['qrStatus']);
+              setQrMemberId(res.data.data['memberId']);
             } else {
               alert('유효하지 않은 qr코드입니다.');
               navigate('/');
@@ -51,6 +54,40 @@ function QRDetail() {
     };
     getDetail();
   }, []);
+
+  const handleChatting = () => {
+    axiosInstance.defaults.headers[
+      'Authorization'
+    ] = `Bearer ${localStorage.getItem('accessToken')}`;
+
+    axiosInstance.get('/member/me').then((res) => {
+      console.log(res);
+      if (res.data.status === 'SUCCESS') {
+        // 채팅방 id값 받아오기
+
+        const data = {
+          starter: res.data.data, // 내 id
+          participant: qrMemberId, // qr코드 주인 id
+        };
+
+        console.log(data);
+
+        axiosInstance.defaults.headers[
+          'Authorization'
+        ] = `Bearer ${localStorage.getItem('accessToken')}`;
+
+        axiosInstance.post('/chat/create/room/', data).then((res) => {
+          console.log(res);
+          if (res.data.status === 'SUCCESS') {
+            console.log(res);
+            navigate(`/chatroom/${res.data.data}`);
+          } else {
+            alert(res.data.data.message);
+          }
+        });
+      }
+    });
+  };
 
   return (
     <>
@@ -70,6 +107,7 @@ function QRDetail() {
                 <Label>연락처</Label>
                 <Data>{phonenum}</Data>
               </DataContainer>
+              <Button onClick={handleChatting}>채팅하기</Button>
             </DataListContainer>
           </>
         ) : (

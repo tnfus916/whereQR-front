@@ -1,8 +1,11 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import styled from 'styled-components';
 import ChatPreview from '../components/chat/ChatPreview';
+import {
+  ChatroomListContainer,
+  PageContainer,
+} from '../components/chat/ChatStyle';
 
 function ChatList() {
   const navigate = useNavigate();
@@ -63,22 +66,3 @@ function ChatList() {
 }
 
 export default ChatList;
-
-const PageContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: start;
-  align-items: center;
-  height: 100vh;
-  width: 100%;
-  margin-top: 50px;
-`;
-
-const ChatroomListContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: start;
-  align-items: center;
-  width: 100%;
-  margin-top: 1rem;
-`;

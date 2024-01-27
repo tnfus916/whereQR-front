@@ -34,6 +34,7 @@ function QREdit() {
     e.preventDefault();
 
     const data = {
+      id: id,
       title: title,
       memo: memo,
       phoneNumber: '01062548926',
@@ -44,10 +45,10 @@ function QREdit() {
     ] = `Bearer ${localStorage.getItem('accessToken')}`;
 
     axiosInstance
-      .post('/qrcode/update', data, { params: { id: id } })
+      .post('/qrcode/update/', data)
       .then((res) => {
         console.log(res);
-        // navigate(`/qrlist`);
+        navigate(`/qrlist`);
       })
       .catch((err) => {
         console.log(err);

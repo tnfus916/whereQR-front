@@ -34,6 +34,7 @@ function QRRegister() {
           } else {
             if (res.data.data['qrStatus'] !== 'New') {
               alert('등록된 qr코드입니다.');
+
               navigate('/mypage'); //추후 qrlist로 이동 예정
             }
           }
@@ -56,6 +57,7 @@ function QRRegister() {
     e.preventDefault();
 
     const data = {
+      id: id,
       memo: memo,
       title: title,
     };
@@ -64,21 +66,17 @@ function QRRegister() {
       'Authorization'
     ] = `Bearer ${localStorage.getItem('accessToken')}`;
 
-    axiosInstance
-      .post('/qrcode/register', data, {
-        params: { id: id },
-      })
-      .then((res) => {
-        console.log('res', res);
-        if (res.data.status === 'SUCCESS') {
-          console.log(res.data.data);
-          alert('QR 코드 등록 성공!');
-          navigate(`/mypage`);
-        } else {
-          alert(res.data.data.message);
-          navigate(`/mypage`);
-        }
-      });
+    axiosInstance.post('/qrcode/register/', data).then((res) => {
+      console.log('res', res);
+      if (res.data.status === 'SUCCESS') {
+        console.log(res.data.data);
+        alert('QR 코드 등록 성공!');
+        navigate(`/mypage`);
+      } else {
+        alert(res.data.data.message);
+        navigate(`/mypage`);
+      }
+    });
   };
 
   return (

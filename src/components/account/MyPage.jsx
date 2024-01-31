@@ -2,6 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { useEffect, useState } from 'react';
 import axiosInstance from '../../api/api';
+import profile from '../../assets/profile.png';
 
 function Mypage() {
   const navigate = useNavigate();
@@ -31,48 +32,37 @@ function Mypage() {
   return (
     <>
       <PageContainer>
-        <UserInfoContainer>
-          <TitleContainer>
-            <Title>내 정보</Title>
-          </TitleContainer>
-          <UserInfo>
-            <Image />
-            <UserInfoTextContainer>
-              <Text>user: {username}</Text>
-              <Text>phone: {phonenum}</Text>
-            </UserInfoTextContainer>
-            <Button>수정</Button>
-          </UserInfo>
-        </UserInfoContainer>
-        <ContentContainer>
+        <UserContainer>
+          <Image src={profile} />
+          <UserInfoTextContainer>
+            <Text className="name">{username}</Text>
+            <Text>{phonenum}</Text>
+          </UserInfoTextContainer>
+          <Button>프로필 수정</Button>
+        </UserContainer>
+        <MenuContainer>
           <ItemContainer>
-            <TitleContainer>
-              <Title>QR</Title>
-            </TitleContainer>
-            <TextContainer>
+            <Title>QR</Title>
+            <ItemList>
               <Text onClick={handleRegister}>QR 코드 등록</Text>
               <Text onClick={handleManage}>QR 코드 관리</Text>
-            </TextContainer>
+            </ItemList>
           </ItemContainer>
           <ItemContainer>
-            <TitleContainer>
-              <Title>게시판</Title>
-            </TitleContainer>
-            <TextContainer>
+            <Title>게시판</Title>
+            <ItemList>
               <Text>내 게시글 관리</Text>
               <Text>게시글 즐겨찾기</Text>
-            </TextContainer>
+            </ItemList>
           </ItemContainer>
           <ItemContainer>
-            <TitleContainer>
-              <Title>기타</Title>
-            </TitleContainer>
-            <TextContainer>
+            <Title>기타</Title>
+            <ItemList>
               <Text>회원탈퇴</Text>
               <Text>로그아웃</Text>
-            </TextContainer>
+            </ItemList>
           </ItemContainer>
-        </ContentContainer>
+        </MenuContainer>
       </PageContainer>
     </>
   );
@@ -90,42 +80,27 @@ export const PageContainer = styled.div`
   background-color: #f4f4f5;
 `;
 
-export const UserInfoContainer = styled.div`
+export const UserContainer = styled.div`
   width: 100%;
-  height: 25%;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
-  align-items: center;
-  background-color: white;
-  margin-bottom: 20px;
-  padding: 20px;
-`;
-
-export const UserInfo = styled.div`
-  width: 100%;
-  height: 80%;
+  height: 20%;
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
   align-items: center;
-  margin-left: 20px;
+  background-color: white;
+  margin-bottom: 15px;
+  padding: 20px;
 `;
 
 export const Image = styled.img`
-  width: 50px;
-  height: 50px;
-  margin: 10px;
-  border-radius: 10px;
-  background-color: #dcdcdc;
+  width: 80px;
+  height: 60px;
+  margin: 15px;
+  border: none;
 `;
 
 export const UserInfoTextContainer = styled.div`
   width: 80%;
-`;
-
-export const TextContainer = styled.div`
-  width: 100%;
 `;
 
 export const Text = styled.div`
@@ -135,117 +110,70 @@ export const Text = styled.div`
   justify-content: start;
   align-items: center;
   font-size: 1.2rem;
-  /* font-weight: bold; */
-  padding: 10px;
+  padding: 5px;
+  &.name {
+    font-weight: 600;
+    font-size: 1.5rem;
+    color: rgb(36, 114, 250);
+  }
 `;
 
 export const Button = styled.button`
-  width: 15%;
-  height: 20%;
+  width: 180px;
+  height: 42px;
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-right: 30px;
+  margin-right: 15px;
   flex-direction: column;
-  border-radius: 20%;
-  background-color: rgb(111, 164, 255);
+  border-radius: 3px;
+  background-color: rgb(117, 168, 255);
   border: none;
-  font-size: bold;
+  font-size: 1rem;
+  font-weight: bold;
+  padding: 5px;
 `;
 
-export const ContentContainer = styled.div`
+export const MenuContainer = styled.div`
   width: 100%;
   height: 75%;
   display: flex;
   flex-direction: column;
   background-color: white;
+  padding-top: 20px;
 `;
 
 export const ItemContainer = styled.div`
   width: 100%;
-  font-size: 1rem;
-  padding: 25px 0 0 20px;
-`;
-
-export const ListContainer = styled.div`
-  width: 100%;
+  height: 25%;
   display: flex;
   flex-direction: column;
-  border-bottom: 1px solid #dcdcdc;
-`;
-
-export const TitleContainer = styled.div`
-  width: 100%;
-  height: 10%;
-  display: flex;
-  justify-content: space-evenly;
   align-items: center;
-  margin-bottom: 10px;
+  background-color: white;
+  margin-bottom: 20px;
 `;
 
 export const Title = styled.div`
   width: 100%;
-  height: 20%;
+  height: 30%;
   display: flex;
   justify-content: start;
   align-items: center;
   font-size: 1.5rem;
   font-weight: bold;
+  margin-bottom: 8px;
+  padding: 10px 0 15px 25px;
+  border-bottom: 1.9px solid #f4f4f5;
 `;
 
-export const ListItem = styled.div`
+export const ItemList = styled.div`
   width: 100%;
-  /* height: 50%; */
+  height: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-around;
   align-items: center;
-  border: 1px solid rgb(36, 114, 250);
-  border-radius: 10px;
-  box-shadow: 0 0 10px 0 rgba(36, 114, 250, 0.2);
-  margin: 5px;
-  padding: 20px;
-  font-size: 0.7rem;
-`;
-
-export const Item = styled.div`
-  width: 100%;
-  height: 20%;
-  display: flex;
-  justify-content: start;
-  align-items: center;
-  font-size: 0.8rem;
-  /* font-weight: bold; */
-`;
-
-export const ButtonContainer = styled.div`
-  width: 20%;
-  display: flex;
-  flex-direction: column;
-`;
-
-export const LongButton = styled.button`
-  height: 25px;
-  width: 100px;
-  border: none;
-  border-radius: 10px;
-  background-color: #ffdd9e;
-  box-shadow: 0 0 10px 0 rgba(255, 148, 60, 0.4);
-  /* margin: 10px; */
-  font-size: 0.4rem;
-  margin-top: 15px;
-`;
-
-export const ShortButton = styled.button`
-  height: 20px;
-  width: 40px;
-  border: none;
-  border-radius: 10px;
-  background-color: #ffdd9e;
-  box-shadow: 0 0 10px 0 rgba(255, 148, 60, 0.4);
-  margin: 3px;
-  padding: 2px;
-  font-size: 0.5rem;
+  padding: 10px 0 15px 25px;
 `;
 
 export const QRImg = styled.img`

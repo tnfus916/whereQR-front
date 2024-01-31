@@ -88,7 +88,7 @@ export const UserContainer = styled.div`
   justify-content: space-evenly;
   align-items: center;
   background-color: white;
-  margin-bottom: 20px;
+  margin-bottom: 15px;
   padding: 20px;
 `;
 
@@ -163,7 +163,7 @@ export const Title = styled.div`
   font-weight: bold;
   margin-bottom: 8px;
   padding: 10px 0 15px 25px;
-  border-bottom: 1px solid rgb(164, 159, 159);
+  border-bottom: 1.9px solid #f4f4f5;
 `;
 
 export const ItemList = styled.div`

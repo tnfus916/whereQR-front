@@ -38,14 +38,18 @@ docker hub에 배포된 image ( tnfus916/whereqr-frontend:ver0.6 )
 <img width="400" alt="image" src="https://github.com/baek-park/whereQR_Spring_version/assets/74058047/cbf9f76a-e4d7-4264-968f-4034a08f7c80">
 
 ### 구현 기능
-1. 메인페이지 
-![image](https://github.com/baek-park/whereQR-front/assets/83868210/6c2e3cac-44c7-4595-bc2c-6febdfce5d91)
-![image](https://github.com/baek-park/whereQR-front/assets/83868210/3eba0d13-b68c-4f86-861f-f67b9fdbdcad)
+1. 메인페이지
+<div>
+   <img src="https://github.com/baek-park/whereQR-front/assets/83868210/6c2e3cac-44c7-4595-bc2c-6febdfce5d91" />
+   <img src="https://github.com/baek-park/whereQR-front/assets/83868210/3eba0d13-b68c-4f86-861f-f67b9fdbdcad" />
+</div>
 
-2. QR 코드 스캔 및 관리 
-![image](https://github.com/baek-park/whereQR-front/assets/83868210/bb9c0441-18b6-46a2-b667-afa52030d776)
+3. QR 코드 스캔 및 관리
+<div>
+   <img src="https://github.com/baek-park/whereQR-front/assets/83868210/bb9c0441-18b6-46a2-b667-afa52030d776" />
+</div>
 
-3. 소셜 로그인
+5. 소셜 로그인
    
 - 진행중인 추가개발
 1. 채팅 내장시키기

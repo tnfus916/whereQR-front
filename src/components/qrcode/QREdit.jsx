@@ -40,10 +40,6 @@ function QREdit() {
       phoneNumber: '01062548926',
     };
 
-    axiosInstance.defaults.headers[
-      'Authorization'
-    ] = `Bearer ${localStorage.getItem('accessToken')}`;
-
     axiosInstance
       .post('/qrcode/update/', data)
       .then((res) => {

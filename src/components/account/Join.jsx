@@ -11,7 +11,7 @@ import {
   FormList,
   AccountForm,
 } from './AccountStyle';
-import axiosInstance from '../../api/api';
+import axiosInstance from '../../services/api';
 
 function Join() {
   const navigate = useNavigate();

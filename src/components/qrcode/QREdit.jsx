@@ -8,7 +8,7 @@ import {
   QRFormContainer,
   QRForm,
 } from './QRStyle';
-import axiosInstance from '../../api/api';
+import axiosInstance from '../../services/api';
 import axios from 'axios';
 
 function QREdit() {

@@ -8,7 +8,7 @@ import {
   Data,
   Button,
 } from './QRStyle';
-import axiosInstance from '../../api/api';
+import axiosInstance from '../../services/api';
 
 function QRDetail() {
   const navigate = useNavigate();
@@ -56,12 +56,7 @@ function QRDetail() {
   }, []);
 
   const handleChatting = () => {
-    axiosInstance.defaults.headers[
-      'Authorization'
-    ] = `Bearer ${localStorage.getItem('accessToken')}`;
-
     axiosInstance.get('/member/me').then((res) => {
-      console.log(res);
       if (res.data.status === 'SUCCESS') {
         // 채팅방 id값 받아오기
 
@@ -71,10 +66,6 @@ function QRDetail() {
         };
 
         console.log(data);
-
-        axiosInstance.defaults.headers[
-          'Authorization'
-        ] = `Bearer ${localStorage.getItem('accessToken')}`;
 
         axiosInstance.post('/chat/create/room/', data).then((res) => {
           console.log(res);

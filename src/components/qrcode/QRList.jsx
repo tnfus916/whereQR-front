@@ -6,7 +6,7 @@ import {
   QRPageContainer,
   QRTitle,
 } from './QRStyle';
-import axiosInstance from '../../api/api';
+import axiosInstance from '../../services/api';
 import QRListItem from './QRListItem';
 
 function QRList() {
@@ -25,10 +25,6 @@ function QRList() {
 
   useEffect(() => {
     const fetchQrList = async () => {
-      axiosInstance.defaults.headers[
-        'Authorization'
-      ] = `Bearer ${localStorage.getItem('accessToken')}`;
-
       const res = await axiosInstance.get('/qrcode/my');
 
       if (res.data.status === 'SUCCESS') {

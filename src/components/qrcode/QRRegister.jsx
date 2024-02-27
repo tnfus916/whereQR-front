@@ -9,7 +9,7 @@ import {
   QRForm,
   QRTitle,
 } from './QRStyle';
-import axiosInstance from '../../api/api';
+import axiosInstance from '../../services/api';
 
 function QRRegister() {
   const navigate = useNavigate();
@@ -61,10 +61,6 @@ function QRRegister() {
       memo: memo,
       title: title,
     };
-
-    axiosInstance.defaults.headers[
-      'Authorization'
-    ] = `Bearer ${localStorage.getItem('accessToken')}`;
 
     axiosInstance.post('/qrcode/register/', data).then((res) => {
       console.log('res', res);

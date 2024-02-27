@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { useEffect, useState } from 'react';
-import axiosInstance from '../../api/api';
+import axiosInstance from '../../services/api';
 import profile from '../../assets/profile.png';
 
 function Mypage() {
@@ -18,10 +18,6 @@ function Mypage() {
   };
 
   useEffect(() => {
-    axiosInstance.defaults.headers[
-      'Authorization'
-    ] = `Bearer ${localStorage.getItem('accessToken')}`;
-
     axiosInstance.get('/member/detail').then((res) => {
       console.log(res.data);
       setUsername(res.data.data['username']);

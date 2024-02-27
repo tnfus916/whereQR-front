@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import axiosInstance from '../../api/api';
+import axiosInstance from '../../services/api';
 
 function KakaoLogin() {
   const navigate = useNavigate();
@@ -44,33 +44,8 @@ function KakaoLogin() {
               params: { kakaoId: idRes.data.data.kakaoId },
             }
           );
-
-          // 회원정보 없다면 회원가입 페이지로 이동 --------------------------------------
-          if (
-            loginRes.data.status === 'FAILED' &&
-            loginRes.data.data.errorType === 'NOT_FOUND'
-          ) {
-            window.alert('가입 정보가 없습니다. 회원가입 페이지로 이동합니다.');
-            window.location.href = `/signup?kakaoid=${idRes.data.data.kakaoId}&username=${idRes.data.data.username}`;
-          }
-          // 토큰 만료시 토큰 재발급------------------------------------------------------
-          else if (loginRes.data.errorType === 'TokenExpiredException') {
-            axios
-              .post(
-                '/member/auth/refresh',
-                localStorage.getItem('refreshToken')
-              )
-              .then((res) => {
-                setAccessToken(res.data.data.accessToken);
-                localStorage.setItem('accessToken', res.data.data.accessToken);
-                localStorage.setItem(
-                  'refreshToken',
-                  res.data.data.refreshToken
-                );
-              });
-          }
           // 로그인 성공시 토큰 저장------------------------------------------------------
-          else if (loginRes) {
+          if (lodinRes.data.status === 'SUCCESS' && loginRes) {
             setAccessToken(loginRes.data.data.accessToken);
             localStorage.setItem('accessToken', loginRes.data.data.accessToken);
             localStorage.setItem(

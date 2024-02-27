@@ -25,11 +25,19 @@ function NavigationBar() {
   };
 
   const getChat = () => {
+    if (localStorage.getItem('accessToken') === null) {
+      alert('로그인이 필요합니다.');
+      return;
+    }
     console.log('채팅');
     navigate('/chatlist');
   };
 
   const getMypage = () => {
+    if (localStorage.getItem('accessToken') === null) {
+      alert('로그인이 필요합니다.');
+      navigate('/login');
+    }
     console.log('마이페이지');
     navigate('/mypage');
   };

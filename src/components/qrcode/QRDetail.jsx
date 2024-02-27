@@ -76,6 +76,9 @@ function QRDetail() {
             alert(res.data.data.message);
           }
         });
+      } else {
+        alert('로그인이 필요합니다.');
+        navigate('/login');
       }
     });
   };

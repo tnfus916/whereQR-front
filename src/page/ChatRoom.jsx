@@ -21,6 +21,7 @@ function ChatRoom() {
 
   const [client, setClient] = useState(null);
   const [chat, setChat] = useState('');
+  const [oldchat, setOldChat] = useState([]);
   const [chatlist, setChatList] = useState([]);
   const [senderId, setSenderId] = useState('');
 
@@ -76,7 +77,7 @@ function ChatRoom() {
     if (client === null) {
       return;
     }
-    client.off();
+    client.off;
     console.log('채팅이 종료되었습니다.');
     setConnected(false);
   };
@@ -86,6 +87,17 @@ function ChatRoom() {
     axiosInstance.get('/member/me').then((res) => {
       setSenderId(res.data.data);
     });
+
+    axiosInstance
+      .get('/chat/messages/', {
+        params: {
+          chatroomId: chatroomId,
+        },
+      })
+      .then((res) => {
+        console.log(res.data.data);
+        setOldChat(res.data.data);
+      });
 
     connect();
 
@@ -113,26 +125,38 @@ function ChatRoom() {
   };
 
   return (
-    <PageContainer>
-      <ChatContainer>
-        {chatlist.map((c) =>
-          c.senderId === senderId ? (
-            <MyBubbleContainer key={c.key}>
-              <MyBubble>{c.content}</MyBubble>
-            </MyBubbleContainer>
-          ) : (
-            <CounterPartBubbleContainer key={c.key}>
-              <CounterPartBubble>{c.content}</CounterPartBubble>
-            </CounterPartBubbleContainer>
-          )
-        )}
-      </ChatContainer>
-      <InputContainer>
-        <InputBox value={chat} required onChange={onChangeChat} />
-        <Button onClick={sendChat}>전송</Button>
-      </InputContainer>
-      {/* 사용자가 나인지 상대방인지에 따라 버블 디자인 다르게, 날짜 시간 표시 */}
-    </PageContainer>
+    <>
+      <PageContainer>
+        <ChatContainer>
+          {oldchat.map((c) =>
+            c.senderId === senderId ? (
+              <MyBubbleContainer key={c.id}>
+                <MyBubble>{c.content}</MyBubble>
+              </MyBubbleContainer>
+            ) : (
+              <CounterPartBubbleContainer key={c.id}>
+                <CounterPartBubble>{c.content}</CounterPartBubble>
+              </CounterPartBubbleContainer>
+            )
+          )}
+          {chatlist.map((c, index) =>
+            c.senderId === senderId ? (
+              <MyBubbleContainer key={index}>
+                <MyBubble>{c.content}</MyBubble>
+              </MyBubbleContainer>
+            ) : (
+              <CounterPartBubbleContainer key={index}>
+                <CounterPartBubble>{c.content}</CounterPartBubble>
+              </CounterPartBubbleContainer>
+            )
+          )}
+        </ChatContainer>
+        <InputContainer>
+          <InputBox value={chat} required onChange={onChangeChat} />
+          <Button onClick={sendChat}>전송</Button>
+        </InputContainer>
+      </PageContainer>
+    </>
   );
 }
 

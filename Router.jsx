@@ -10,7 +10,7 @@ import QREdit from './src/components/qrcode/QREdit';
 import QRSave from './src/components/qrcode/QRSave';
 import QRRegister from './src/components/qrcode/QRRegister';
 import Login from './src/components/account/Login';
-import ChatList from './src/page/ChatList';
+import ChatList from './src/page/Chatlist';
 import ChatRoom from './src/page/ChatRoom';
 import KakaoLogin from './src/components/account/KakaoLogin';
 import QRList from './src/components/qrcode/QRList';

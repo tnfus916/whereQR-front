@@ -70,10 +70,33 @@ function QRDetail() {
         axiosInstance.post('/chat/create/room/', data).then((res) => {
           console.log(res);
           if (res.data.status === 'SUCCESS') {
-            console.log(res);
+            console.log(res.data.data);
             navigate(`/chatroom/${res.data.data}`);
           } else {
-            alert(res.data.data.message);
+            // 채팅룸 생성 api로 수정하기
+            console.log(data);
+            console.log(res.data.data.message);
+            const data2 = {
+              starterId: data.starter, // 내 id
+              participant: qrMemberId, // qr코드 주인 id
+            };
+            if (
+              res.data.data.message === '이미 진행 중인 채팅방이 존재합니다.'
+            ) {
+              axiosInstance
+                .get('/chat/chatroom/', {
+                  params: {
+                    starterId: data.starter, // 내 id
+                    participantId: qrMemberId, // qr코드 주인 id
+                  },
+                })
+                .then((res) => {
+                  console.log(res.data.data);
+                  navigate(`/chatroom/${res.data.data}`);
+                });
+            } else {
+              alert(res.data.data.message);
+            }
           }
         });
       } else {

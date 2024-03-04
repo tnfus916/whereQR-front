@@ -8,9 +8,6 @@ import {
 
 import kakaoLogin from '../../assets/kakao_login_medium_narrow.png';
 
-// // 쿠키를 주고받기 위해 설정 ( 쿠키가 브라우저에 제대로 저장된 것이 맞는지 확인위함)
-// axios.defaults.withCredentials = true;
-
 function Login() {
   // oauth 요청 URL
   const Rest_api_key = import.meta.env.VITE_REST_API_KEY;

@@ -9,7 +9,6 @@ import helper_guide from '../assets/helper_guide.png';
 import community from '../assets/community.png';
 
 export const LandingContainer = styled.div`
-  margin-top: 50px;
   padding-bottom: 100px;
   width: 100%;
   height: 500%;

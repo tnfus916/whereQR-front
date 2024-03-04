@@ -5,10 +5,9 @@ export const PageContainer = styled.div`
   flex-direction: column;
   justify-content: start;
   align-items: center;
-  height: 100vh;
+  height: 100%;
   width: 100%;
-  margin-top: 50px;
-  position: relative;
+  overflow-y: auto;
 `;
 
 export const ChatroomListContainer = styled.div`
@@ -76,11 +75,9 @@ export const CounterPartBubble = styled.div`
 `;
 
 export const InputContainer = styled.div`
-  display: flex;
-  align-items: center;
   width: 100%;
   bottom: 70px;
-  position: absolute;
+  position: fixed;
 `;
 
 export const InputBox = styled.input`

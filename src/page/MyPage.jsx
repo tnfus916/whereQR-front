@@ -80,7 +80,6 @@ export const PageContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 50px;
   background-color: #f4f4f5;
 `;
 

@@ -1,9 +1,9 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import Landing from './src/components/landing/Landing';
-import NotFound from './src/components/notfound/NotFound';
+import Landing from './src/page/Landing';
+import NotFound from './src/page/NotFound';
 import Layout from './src/components/layout/Layout';
 import Join from './src/components/account/Join';
-import MyPage from './src/components/account/MyPage';
+import MyPage from './src/page/MyPage';
 import QRScan from './src/components/qrcode/QRScan';
 import QRDetail from './src/components/qrcode/QRDetail';
 import QREdit from './src/components/qrcode/QREdit';

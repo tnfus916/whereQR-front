@@ -1,13 +1,24 @@
 import styled from 'styled-components';
-import qrscan from '../../assets/qrscan.png';
-import dashboard from '../../assets/dashboard.png';
-import home from '../../assets/home.png';
-import chat from '../../assets/chat.png';
-import mypage from '../../assets/mypage.png';
-import { useNavigate } from 'react-router-dom';
+import { useMatch, useNavigate } from 'react-router-dom';
+
+import qr from '../../assets/qr_icon.svg';
+import qr_clicked from '../../assets/qr_clicked.svg';
+import dashboard from '../../assets/dashboard_icon.svg';
+import dashboard_clicked from '../../assets/dashboard_clicked.svg';
+import home from '../../assets/home_icon.svg';
+import home_clicked from '../../assets/home_clicked.svg';
+import chat from '../../assets/chat_icon.svg';
+import chat_clicked from '../../assets/chat_clicked.svg';
+import mypage from '../../assets/my_icon.svg';
+import mypage_clicked from '../../assets/my_clicked.svg';
 
 function NavigationBar() {
   const navigate = useNavigate();
+  const isQRScan = useMatch('/qrscan');
+  const isDashboard = useMatch('/dashboard');
+  const isHome = useMatch('/');
+  const isChat = useMatch('/chatlist');
+  const isMypage = useMatch('/mypage');
 
   const getCamera = () => {
     console.log('QR 스캔');
@@ -45,23 +56,31 @@ function NavigationBar() {
   return (
     <BarContainer>
       <IconContainer onClick={getCamera}>
-        <img src={qrscan} alt="" />
+        {isQRScan ? <img src={qr_clicked} alt="" /> : <img src={qr} alt="" />}
         <Text>QR 스캔</Text>
       </IconContainer>
       <IconContainer onClick={getDashboard}>
-        <img src={dashboard} alt="" />
+        {isDashboard ? (
+          <img src={dashboard_clicked} alt="" />
+        ) : (
+          <img src={dashboard} alt="" />
+        )}
         <Text>대시보드</Text>
       </IconContainer>
       <IconContainer onClick={getHome}>
-        <img src={home} alt="" />
+        {isHome ? <img src={home_clicked} alt="" /> : <img src={home} alt="" />}
         <Text>홈</Text>
       </IconContainer>
       <IconContainer onClick={getChat}>
-        <img src={chat} alt="" />
+        {isChat ? <img src={chat_clicked} alt="" /> : <img src={chat} alt="" />}
         <Text>채팅</Text>
       </IconContainer>
       <IconContainer onClick={getMypage}>
-        <img src={mypage} alt="" />
+        {isMypage ? (
+          <img src={mypage_clicked} alt="" />
+        ) : (
+          <img src={mypage} alt="" />
+        )}
         <Text>마이</Text>
       </IconContainer>
     </BarContainer>
@@ -72,7 +91,7 @@ export default NavigationBar;
 
 const BarContainer = styled.div`
   width: 100%;
-  height: 70px;
+  height: 73px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -83,6 +102,7 @@ const BarContainer = styled.div`
   z-index: 10;
   background-color: white;
 `;
+
 const IconContainer = styled.div`
   width: 60px;
   border-radius: 50%;
@@ -97,7 +117,7 @@ const IconContainer = styled.div`
 `;
 
 const Text = styled.div`
-  font-size: 0.8rem;
+  font-size: 10px;
   font-weight: bold;
-  margin-top: 5px;
+  margin-top: 8px;
 `;

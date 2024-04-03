@@ -1,17 +1,59 @@
 import { useEffect, useState, useRef } from 'react';
+import styled from 'styled-components';
 import * as StompJs from '@stomp/stompjs';
 import {
-  Button,
-  ChatContainer,
   CounterPartBubble,
   CounterPartBubbleContainer,
-  InputBox,
-  InputContainer,
   MyBubble,
   MyBubbleContainer,
   PageContainer,
 } from '../components/chat/ChatStyle';
 import axiosInstance from '../services/api';
+
+export const ChatContainer = styled.div`
+  height: 93%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: center;
+  margin-top: 1rem;
+  overflow-y: auto;
+`;
+
+export const InputContainer = styled.div`
+  height: 7%;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: fixed;
+  bottom: 10%;
+  padding: 10px;
+`;
+
+export const InputBox = styled.input`
+  height: 90%;
+  width: 77%;
+  border: none;
+  border-radius: 20px;
+  background-color: #f5f5f5;
+  outline: none;
+  font-size: 16px;
+  font-weight: 600;
+  color: #000;
+`;
+
+export const Button = styled.button`
+  height: 90%;
+  width: 16%;
+  background-color: rgb(124, 172, 255);
+  border: none;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #000;
+`;
 
 function ChatRoom() {
   const [connected, setConnected] = useState(false);
@@ -27,7 +69,7 @@ function ChatRoom() {
 
   const connect = () => {
     const clientdata = new StompJs.Client({
-      brokerURL: 'ws://localhost:8080/chat',
+      brokerURL: import.meta.env.VITE_CHAT_ENDPOINT,
       // connectHeaders: {
       //   // 토큰을 받아 헤더에 실어서 보내기
       //   login: '',

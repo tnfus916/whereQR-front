@@ -19,15 +19,6 @@ export const ChatroomListContainer = styled.div`
   margin-top: 1rem;
 `;
 
-export const ChatContainer = styled.div`
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: start;
-  align-items: center;
-  width: 100%;
-  margin-top: 1rem;
-`;
 export const MyBubbleContainer = styled.div`
   display: flex;
   justify-content: flex-end;
@@ -71,37 +62,5 @@ export const CounterPartBubble = styled.div`
   margin: 3px 0px 5px 20px;
   font-size: 16px;
   line-height: 1.5;
-  color: #000;
-`;
-
-export const InputContainer = styled.div`
-  width: 100%;
-  bottom: 70px;
-  position: fixed;
-`;
-
-export const InputBox = styled.input`
-  width: 77%;
-  height: 50px;
-  border: none;
-  border-radius: 20px;
-  background-color: #f5f5f5;
-  outline: none;
-  padding: 0 10px;
-  margin: 10px 0 10px 10px;
-  font-size: 16px;
-  font-weight: 600;
-  color: #000;
-`;
-
-export const Button = styled.button`
-  width: 16%;
-  background-color: rgb(124, 172, 255);
-  border: none;
-  border-radius: 20px;
-  padding: 10px 20px;
-  margin: 10px;
-  font-size: 14px;
-  font-weight: 600;
   color: #000;
 `;

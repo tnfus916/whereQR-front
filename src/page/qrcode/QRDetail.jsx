@@ -7,14 +7,13 @@ import {
   Label,
   Data,
   Button,
-} from './QRStyle';
+} from '../../components/qrcode/QRStyle';
 import axiosInstance from '../../services/api';
 
 function QRDetail() {
   const navigate = useNavigate();
   const currentUrl = window.location.href;
   const id = currentUrl.split('/')[4];
-  console.log(id);
 
   const [title, setTitle] = useState('');
   const [memo, setMemo] = useState('');
@@ -22,23 +21,31 @@ function QRDetail() {
   const [qrStatus, setQrStatus] = useState('');
   const [qrMemberId, setQrMemberId] = useState('');
 
-  // axios.defaults.headers["Access-Control-Allow-Origin"] = "*";
   useEffect(() => {
-    const getDetail = async () => {
+    const returnResult = async () => {
       await axiosInstance
         .get('/qrcode/scan', {
           params: { id: id },
         })
         .then((res) => {
-          console.log('res', res);
+          // qr코드가 유효하지 않은 경우
           if (res.data.status === 'FAILED') {
-            console.log(res.data.data);
             window.alert(res.data.data.message);
             navigate('/');
           } else {
+            // qr코드가 등록되지 않은 경우
             if (res.data.data['qrStatus'] === 'New') {
-              alert('등록되지 않은 qr코드입니다.');
-              navigate('/');
+              const refreshToken = localStorage.getItem('refreshToken');
+              if (refreshToken) {
+                alert(
+                  '등록되지 않은 코드입니다. QR 코드 등록 페이지로 이동합니다.'
+                );
+                navigate(`/qrregister/${id}`);
+              } else {
+                alert('등록되지 않은 코드입니다. 로그인이 필요합니다.');
+                navigate('/login');
+                // 로그인 후 등록 페이지로 이동하도록 react-query..?
+              }
             } else if (res.data.data['qrStatus'] === 'Saved') {
               setTitle(res.data.data['title']);
               setMemo(res.data.data['memo']);
@@ -52,34 +59,23 @@ function QRDetail() {
           }
         });
     };
-    getDetail();
+    returnResult();
   }, []);
 
   const handleChatting = () => {
     axiosInstance.get('/member/me').then((res) => {
       if (res.data.status === 'SUCCESS') {
         // 채팅방 id값 받아오기
-
         const data = {
           starter: res.data.data, // 내 id
           participant: qrMemberId, // qr코드 주인 id
         };
 
-        console.log(data);
-
         axiosInstance.post('/chat/create/room/', data).then((res) => {
-          console.log(res);
           if (res.data.status === 'SUCCESS') {
-            console.log(res.data.data);
             navigate(`/chatroom/${res.data.data}`);
           } else {
-            // 채팅룸 생성 api로 수정하기
-            console.log(data);
-            console.log(res.data.data.message);
-            const data2 = {
-              starterId: data.starter, // 내 id
-              participant: qrMemberId, // qr코드 주인 id
-            };
+            // 이미 진행 중인 채팅방이 있다면 해당 채팅방으로 이동
             if (
               res.data.data.message === '이미 진행 중인 채팅방이 존재합니다.'
             ) {
@@ -91,7 +87,6 @@ function QRDetail() {
                   },
                 })
                 .then((res) => {
-                  console.log(res.data.data);
                   navigate(`/chatroom/${res.data.data}`);
                 });
             } else {
@@ -102,6 +97,7 @@ function QRDetail() {
       } else {
         alert('로그인이 필요합니다.');
         navigate('/login');
+        // 로그인 후 채팅방으로 이동하도록 react-query..?
       }
     });
   };

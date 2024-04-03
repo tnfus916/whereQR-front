@@ -1,13 +1,14 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import axiosInstance from '../../services/api';
+
+import QRListItem from '../../components/qrcode/QRListItem';
 import {
   QRListContainer,
   QRListItemContainer,
   QRPageContainer,
   QRTitle,
-} from './QRStyle';
-import axiosInstance from '../../services/api';
-import QRListItem from './QRListItem';
+} from '../../components/qrcode/QRStyle';
 
 function QRList() {
   const navigate = useNavigate();

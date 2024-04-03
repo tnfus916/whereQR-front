@@ -10,7 +10,7 @@ function Mypage() {
   const [phonenum, setPhonenum] = useState('No result');
 
   const handleRegister = () => {
-    navigate('/qrsave');
+    navigate('/qrscan');
   };
 
   const handleManage = () => {

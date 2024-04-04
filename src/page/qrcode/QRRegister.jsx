@@ -8,7 +8,7 @@ import {
   QRFormContainer,
   QRForm,
   QRTitle,
-} from './QRStyle';
+} from '../../components/qrcode/QRStyle';
 import axiosInstance from '../../services/api';
 
 function QRRegister() {
@@ -18,30 +18,6 @@ function QRRegister() {
 
   const [title, setTitle] = useState('');
   const [memo, setMemo] = useState('');
-
-  useEffect(() => {
-    const isRegistered = async () => {
-      await axiosInstance
-        .get('/qrcode/scan', {
-          params: { id: id },
-        })
-        .then((res) => {
-          console.log('res', res);
-          if (res.data.status === 'FAILED') {
-            console.log(res.data.data);
-            window.alert(res.data.data.message);
-            navigate('/mypage');
-          } else {
-            if (res.data.data['qrStatus'] !== 'New') {
-              alert('등록된 qr코드입니다.');
-
-              navigate('/mypage'); //추후 qrlist로 이동 예정
-            }
-          }
-        });
-    };
-    isRegistered();
-  }, []);
 
   const onChangeTitle = (e) => {
     console.log(e.target.value);

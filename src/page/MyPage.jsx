@@ -1,8 +1,8 @@
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { useEffect, useState } from 'react';
-import axiosInstance from '../../services/api';
-import profile from '../../assets/profile.png';
+import axiosInstance from '../services/api';
+import profile from '../assets/profile.png';
 
 function Mypage() {
   const navigate = useNavigate();
@@ -10,11 +10,19 @@ function Mypage() {
   const [phonenum, setPhonenum] = useState('No result');
 
   const handleRegister = () => {
-    navigate('/qrsave');
+    navigate('/qrscan');
   };
 
   const handleManage = () => {
     navigate('/qrlist');
+  };
+
+  const getMyPost = () => {
+    navigate('/mypost');
+  };
+
+  const getBookmark = () => {
+    navigate('/bookmark');
   };
 
   useEffect(() => {
@@ -47,8 +55,8 @@ function Mypage() {
           <ItemContainer>
             <Title>게시판</Title>
             <ItemList>
-              <Text>내 게시글 관리</Text>
-              <Text>게시글 즐겨찾기</Text>
+              <Text onClick={getMyPost}>내 게시글 관리</Text>
+              <Text onClick={getBookmark}>게시글 즐겨찾기</Text>
             </ItemList>
           </ItemContainer>
           <ItemContainer>
@@ -72,7 +80,6 @@ export const PageContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 50px;
   background-color: #f4f4f5;
 `;
 

@@ -24,7 +24,7 @@ ChatPreview.propTypes = {
   participantName: PropTypes.string.isRequired,
   lastMessage: PropTypes.string.isRequired,
   lastMessageTime: PropTypes.string.isRequired,
-  notReadCount: PropTypes.string.isRequired,
+  notReadCount: PropTypes.number.isRequired,
   onClick: PropTypes.func.isRequired,
 };
 

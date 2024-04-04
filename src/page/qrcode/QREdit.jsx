@@ -7,9 +7,8 @@ import {
   QRPageContainer,
   QRFormContainer,
   QRForm,
-} from './QRStyle';
+} from '../../components/qrcode/QRStyle';
 import axiosInstance from '../../services/api';
-import axios from 'axios';
 
 function QREdit() {
   const navigate = useNavigate();

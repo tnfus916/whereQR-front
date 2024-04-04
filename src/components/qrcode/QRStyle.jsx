@@ -22,7 +22,6 @@ export const QRReaderContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin-top: 50px;
 `;
 
 // qrdetail page -------------------------------------

@@ -45,7 +45,7 @@ function KakaoLogin() {
             }
           );
           // 로그인 성공시 토큰 저장------------------------------------------------------
-          if (lodinRes.data.status === 'SUCCESS' && loginRes) {
+          if (loginRes.data.status === 'SUCCESS' && loginRes) {
             setAccessToken(loginRes.data.data.accessToken);
             localStorage.setItem('accessToken', loginRes.data.data.accessToken);
             localStorage.setItem(
@@ -56,9 +56,11 @@ function KakaoLogin() {
           }
         } else {
           console.log('카카오 id 받아오기 실패');
+          navigate('/login');
         }
       } else {
         console.log('카카오 토큰 받아오기 실패');
+        navigate('/login');
       }
     };
 

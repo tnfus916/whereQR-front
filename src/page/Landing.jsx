@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
-import qrcode from '../assets/qrcode_image.png';
-import title from '../assets/landing_title.png';
-import descript from '../assets/landing_descript.png';
-import user_guide from '../assets/user_guide.png';
-import helper_guide from '../assets/helper_guide.png';
-import community from '../assets/community.png';
+import qrcode from '../assets/qrcode_image.svg';
+import title from '../assets/landing_title.svg';
+import descript from '../assets/landing_descript.svg';
+import user_guide from '../assets/user_guide.svg';
+import helper_guide from '../assets/helper_guide.svg';
+import community from '../assets/community.svg';
 
 export const LandingContainer = styled.div`
   padding-bottom: 100px;
@@ -90,33 +90,33 @@ function Landing() {
 
   return (
     <>
-      <LandingContainer darkness={darkness}>
+      <LandingContainer darkness={ darkness }>
         <ContentsContainer>
           <ImageContainer>
-            <img src={title} width="160" alt="" />
+            <img src={ title } width="160" alt="" />
           </ImageContainer>
           <ImageContainer>
-            <img src={qrcode} width="160" alt="" />
+            <img src={ qrcode } width="160" alt="" />
           </ImageContainer>
           <ImageContainer>
-            <img src={descript} width="160" alt="" />
+            <img src={ descript } width="160" alt="" />
           </ImageContainer>
           <GuideContainer>
             <Text>사용자 가이드 </Text>
             <ImageContainer>
-              <img src={user_guide} width="160" alt="" />
+              <img src={ user_guide } width="160" alt="" />
             </ImageContainer>
           </GuideContainer>
           <GuideContainer>
             <Text>습득자 가이드 </Text>
             <ImageContainer>
-              <img src={helper_guide} width="160" alt="" />
+              <img src={ helper_guide } width="160" alt="" />
             </ImageContainer>
           </GuideContainer>
           <GuideContainer>
             <Text>커뮤니티</Text>
             <ImageContainer>
-              <img src={community} width="160" alt="" />
+              <img src={ community } width="160" alt="" />
             </ImageContainer>
           </GuideContainer>
         </ContentsContainer>

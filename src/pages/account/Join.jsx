@@ -10,8 +10,8 @@ import {
   FormItem,
   FormList,
   AccountForm,
-} from './AccountStyle';
-import axiosInstance from '../../services/api';
+} from '../../components/account/AccountStyle';
+import axiosInstance from '../../services/axios';
 
 function Join() {
   const navigate = useNavigate();
@@ -22,13 +22,11 @@ function Join() {
   const kakaoId = queryParams.get('kakaoid');
   const username = queryParams.get('username');
   const [phonenum, setPhonenum] = useState('');
-  const [roles, setRoles] = useState(['USER']);
 
   const onSubmit = (e) => {
     e.preventDefault();
 
     const user_data = {
-      roles: roles,
       kakaoId: kakaoId,
       username: username,
       phoneNumber: phonenum,
@@ -60,14 +58,14 @@ function Join() {
                 <Input
                   className="user"
                   name="user-phonenum"
-                  value={phonenum}
+                  value={ phonenum }
                   required
-                  onChange={onChangePhonenum}
+                  onChange={ onChangePhonenum }
                 />
               </FormItem>
             </FormList>
             <ButtonContainer>
-              <Button className="button" type="primary" onClick={onSubmit}>
+              <Button className="button" type="primary" onClick={ onSubmit }>
                 가입하기
               </Button>
             </ButtonContainer>

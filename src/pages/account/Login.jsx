@@ -4,7 +4,7 @@ import {
   AccountForm,
   AccountFormContainer,
   ButtonContainer,
-} from './AccountStyle';
+} from '../../components/account/AccountStyle';
 
 import kakaoLogin from '../../assets/kakao_login_medium_narrow.png';
 
@@ -25,9 +25,9 @@ function Login() {
           <AccountForm>
             <ButtonContainer>
               <img
-                src={kakaoLogin}
+                src={ kakaoLogin }
                 alt="kakaoLogin"
-                onClick={handleKakaoLogin}
+                onClick={ handleKakaoLogin }
               />
             </ButtonContainer>
           </AccountForm>

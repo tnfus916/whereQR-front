@@ -1,8 +1,8 @@
 import styled from 'styled-components';
 import { Outlet, useMatch } from 'react-router-dom';
 
-import Header from './Header';
-import NavigationBar from './NavigationBar';
+import Header from '../components/layout/Header';
+import NavigationBar from '../components/layout/NavigationBar';
 
 export const LayoutContainer = styled.div`
   display: flex;
@@ -38,7 +38,7 @@ function Layout() {
 
   return (
     <>
-      {!isChat ? (
+      { !isChat ? (
         <LayoutContainer>
           <Header />
           <OutletContainer>
@@ -54,7 +54,7 @@ function Layout() {
           </ChatOutletContainer>
           <NavigationBar />
         </LayoutContainer>
-      )}
+      ) }
     </>
   );
 }

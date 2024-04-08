@@ -1,8 +1,8 @@
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
-import SearchBar from '../components/dashboard/SearchBar';
-import PostList from '../components/dashboard/PostList';
+import SearchBar from '../../components/dashboard/SearchBar';
+import PostList from '../../components/dashboard/PostList';
 
 const DashboardPageContainer = styled.div`
   display: flex;
@@ -40,7 +40,7 @@ function Dashboard() {
       <DashboardPageContainer>
         <SearchBar />
         <PostList />
-        <AddButton onClick={gotoWritePage}>+</AddButton>
+        <AddButton onClick={ gotoWritePage }>+</AddButton>
       </DashboardPageContainer>
     </>
   );

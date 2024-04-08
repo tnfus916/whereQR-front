@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import axiosInstance from '../../services/api';
+import axiosInstance from '../../services/axios';
 
 import QRListItem from '../../components/qrcode/QRListItem';
 import {

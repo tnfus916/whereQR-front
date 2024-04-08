@@ -9,7 +9,7 @@ import {
   QRForm,
   QRTitle,
 } from '../../components/qrcode/QRStyle';
-import axiosInstance from '../../services/api';
+import axiosInstance from '../../services/axios';
 
 function QRRegister() {
   const navigate = useNavigate();

@@ -8,7 +8,7 @@ import {
   Data,
   Button,
 } from '../../components/qrcode/QRStyle';
-import axiosInstance from '../../services/api';
+import axiosInstance from '../../services/axios';
 
 function QRDetail() {
   const navigate = useNavigate();

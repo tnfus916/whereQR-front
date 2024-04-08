@@ -1,18 +1,18 @@
 import axios from 'axios';
 
 const axiosInstance = axios.create({
-    baseURL: import.meta.env.VITE_BASE_URI,
-    timeout: 5000,
-    headers: {
-        'Content-Type': 'application/json',
-    },
-    withCredentials: 'true',
+  baseURL: import.meta.env.VITE_BASE_URI,
+  timeout: 5000,
+  headers: {
+    'Content-Type': 'application/json',
+  },
+  withCredentials: 'true',
 });
 
 // 요청 인터셉터
 axiosInstance.interceptors.request.use(
   (config) => {
-    const accessToken = localStorage.getItem('accessToken');
+    const accessToken = localStorage.getItem('accessToken'); //tmp 
     const refreshToken = localStorage.getItem('refreshToken');
 
     if (accessToken) {
@@ -35,18 +35,21 @@ axiosInstance.interceptors.request.use(
 axiosInstance.interceptors.response.use(
   (response) => {
     if (response.data.status === 'FAILED') {
+      console.log('failed');
       if (response.data.data.errorType === 'TokenExpiredException') {
         // 토큰 만료시 토큰 재발급
         axios
           .post('/member/auth/refresh', localStorage.getItem('refreshToken'))
           .then((res) => {
-            setAccessToken(res.data.data.accessToken);
-            localStorage.setItem('accessToken', res.data.data.accessToken);
             localStorage.setItem('refreshToken', res.data.data.refreshToken);
           });
       } else if (response.data.data.errorType === 'NOT_FOUND') {
         window.alert('가입 정보가 없습니다. 회원가입 페이지로 이동합니다.');
-        window.location.href = `/signup?kakaoid=${idRes.data.data.kakaoId}&username=${idRes.data.data.username}`;
+        const kakaoId = localStorage.getItem('kakaoId');
+        const username = localStorage.getItem('username');
+        window.location.href = `/signup?kakaoid=${kakaoId}&username=${username}`;
+      } else {
+        window.location.href = '/';
       }
     }
     return response;

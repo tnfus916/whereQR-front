@@ -67,7 +67,7 @@ export const Input = styled.input`
   margin-top: 1%;
   width: 100%;
   border: 0px;
-  border: 1px solid #ffbc40;
+  border: 1px solid #3877f5;
   border-radius: 5px;
   line-height: 1rem;
   font-size: 1rem;
@@ -85,12 +85,12 @@ export const ButtonContainer = styled.div`
 `;
 
 export const Button = styled.button`
-  background: #ffbc40;
+  background: #3877f5;
   color: #fff;
   font-size: 0.7rem;
   font-weight: 500;
   width: 50%;
-  border: 1px solid #ffbc40;
+  border: 1px solid #3877f5;
   border-radius: 4px;
   display: inline-block;
   z-index: 10;

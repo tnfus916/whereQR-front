@@ -11,8 +11,8 @@ export const LandingContainer = styled.div`
   width: 100%;
   display: flex;
   justify-content: center;
-  ${({ darkness }) => `
-    background: linear-gradient(to bottom, rgba(255, 255, 255, ${darkness}), rgba(188, 206, 251, ${darkness}));
+  ${({ $darkness }) => `
+    background: linear-gradient(to bottom, rgba(255, 255, 255, ${$darkness}), rgba(188, 206, 251, ${$darkness}));
   `}
 `;
 
@@ -80,7 +80,7 @@ function Landing() {
 
   return (
     <>
-      <LandingContainer darkness={ darkness }>
+      <LandingContainer $darkness={ darkness }>
         <ContentsContainer>
           <Image src={ title } width="160" alt="" />
           <Image src={ qrcode } width="160" alt="" />

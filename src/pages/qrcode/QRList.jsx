@@ -49,20 +49,20 @@ function QRList() {
     <>
       <QRPageContainer>
         <QRTitle>QR코드 목록</QRTitle>
-        {qrcode ? (
+        { qrcode ? (
           <QRListContainer>
-            {qrcode.map((data) => (
+            { qrcode.map((data) => (
               // <QRListItemContainer
               //   key={data.id}
               //   onClick={() => navigate(`/qrscan/${data.id}`)}
               // >
-              <QRListItem key={data.id} data={data} />
+              <QRListItem key={ data.id } data={ data } />
               // </QRListItemContainer>
-            ))}
+            )) }
           </QRListContainer>
         ) : (
           <></>
-        )}
+        ) }
       </QRPageContainer>
     </>
   );

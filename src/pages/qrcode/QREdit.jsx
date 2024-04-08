@@ -74,18 +74,18 @@ function QREdit() {
             <Input
               className="title"
               name="qr-title"
-              value={title}
+              value={ title }
               required
-              onChange={onChangeTitle}
+              onChange={ onChangeTitle }
             />
             <br />
             <Label className="memo">메모</Label>
             <Input
               className="memo"
               name="qr-memo"
-              value={memo}
+              value={ memo }
               required
-              onChange={onChangeMemo}
+              onChange={ onChangeMemo }
             />
             <br />
             {/* <Label className="phonenum">연락처</Label>
@@ -97,7 +97,7 @@ function QREdit() {
               onChange={onChangePhone}
             />
             <br /> */}
-            <Button className="button" type="primary" onClick={onSubmit}>
+            <Button className="button" type="primary" onClick={ onSubmit }>
               수정하기
             </Button>
           </QRForm>

@@ -105,27 +105,27 @@ function QRDetail() {
   return (
     <>
       <QRPageContainer>
-        {qrStatus === 'Saved' ? (
+        { qrStatus === 'Saved' ? (
           <>
             <DataListContainer>
               <DataContainer>
                 <Label>제목</Label>
-                <Data>{title}</Data>
+                <Data>{ title }</Data>
               </DataContainer>
               <DataContainer>
                 <Label>메모</Label>
-                <Data>{memo}</Data>
+                <Data>{ memo }</Data>
               </DataContainer>
               <DataContainer>
                 <Label>연락처</Label>
-                <Data>{phonenum}</Data>
+                <Data>{ phonenum }</Data>
               </DataContainer>
-              <Button onClick={handleChatting}>채팅하기</Button>
+              <Button onClick={ handleChatting }>채팅하기</Button>
             </DataListContainer>
           </>
         ) : (
           <></>
-        )}
+        ) }
       </QRPageContainer>
     </>
   );

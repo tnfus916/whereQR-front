@@ -1,6 +1,6 @@
 import React from 'react';
-import PostList from '../components/dashboard/PostList';
-import { PageContainer } from './MyPage';
+import PostList from '../../components/dashboard/PostList';
+import { PageContainer } from '../account/MyPage';
 
 function MyPost() {
   return (

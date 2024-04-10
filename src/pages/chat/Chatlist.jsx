@@ -27,24 +27,24 @@ function ChatList() {
 
   return (
     <>
-      {loading ? (
+      { loading ? (
         <PageContainer>
           <ChatroomListContainer>
-            {chatrooms.map((c) => (
+            { chatrooms.map((c) => (
               <ChatPreview
-                key={c.id}
-                participantName={c.opponentUsername}
-                lastMessage={c.lastContent}
-                lastMessageTime={c.lastDate}
-                notReadCount={c.notReadMessageCount}
-                onClick={() => handleChatPreviewClick(c.id)}
+                key={ c.id }
+                participantName={ c.opponentUsername }
+                lastMessage={ c.lastContent }
+                lastMessageTime={ c.lastDate }
+                notReadCount={ c.notReadMessageCount }
+                onClick={ () => handleChatPreviewClick(c.id) }
               />
-            ))}
+            )) }
           </ChatroomListContainer>
         </PageContainer>
       ) : (
         <div>로딩중</div>
-      )}
+      ) }
     </>
   );
 }

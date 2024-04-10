@@ -1,13 +1,14 @@
-import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import { useEffect, useState } from 'react';
-import axiosInstance from '../services/api';
-import profile from '../assets/profile.png';
+import { useNavigate } from 'react-router-dom';
+import { useQuery } from 'react-query';
+
+import { getUserInfo } from '../../services/api';
+import profile from './../../assets/profile.png';
 
 function Mypage() {
   const navigate = useNavigate();
-  const [username, setUsername] = useState('No result');
-  const [phonenum, setPhonenum] = useState('No result');
+
+  const { isLoading, data } = useQuery("userinfo", getUserInfo);
 
   const handleRegister = () => {
     navigate('/qrscan');
@@ -25,49 +26,42 @@ function Mypage() {
     navigate('/bookmark');
   };
 
-  useEffect(() => {
-    axiosInstance.get('/member/detail').then((res) => {
-      console.log(res.data);
-      setUsername(res.data.data['username']);
-      setPhonenum(res.data.data['phoneNumber']);
-    });
-  }, []);
-
   return (
     <>
-      <PageContainer>
-        <UserContainer>
-          <Image src={profile} />
-          <UserInfoTextContainer>
-            <Text className="name">{username}</Text>
-            <Text>{phonenum}</Text>
-          </UserInfoTextContainer>
-          <Button>프로필 수정</Button>
-        </UserContainer>
-        <MenuContainer>
-          <ItemContainer>
-            <Title>QR</Title>
-            <ItemList>
-              <Text onClick={handleRegister}>QR 코드 등록</Text>
-              <Text onClick={handleManage}>QR 코드 관리</Text>
-            </ItemList>
-          </ItemContainer>
-          <ItemContainer>
-            <Title>게시판</Title>
-            <ItemList>
-              <Text onClick={getMyPost}>내 게시글 관리</Text>
-              <Text onClick={getBookmark}>게시글 즐겨찾기</Text>
-            </ItemList>
-          </ItemContainer>
-          <ItemContainer>
-            <Title>기타</Title>
-            <ItemList>
-              <Text>회원탈퇴</Text>
-              <Text>로그아웃</Text>
-            </ItemList>
-          </ItemContainer>
-        </MenuContainer>
-      </PageContainer>
+      { !isLoading &&
+        <PageContainer>
+          <UserContainer>
+            <Image src={ profile } />
+            <UserInfoTextContainer>
+              <Text className="name">{ data?.username }</Text>
+              <Text>{ data?.phoneNumber }</Text>
+            </UserInfoTextContainer>
+            <Button>프로필 수정</Button>
+          </UserContainer>
+          <MenuContainer>
+            <ItemContainer>
+              <Title>QR</Title>
+              <ItemList>
+                <Text onClick={ handleRegister }>QR 코드 등록</Text>
+                <Text onClick={ handleManage }>QR 코드 관리</Text>
+              </ItemList>
+            </ItemContainer>
+            <ItemContainer>
+              <Title>게시판</Title>
+              <ItemList>
+                <Text onClick={ getMyPost }>내 게시글 관리</Text>
+                <Text onClick={ getBookmark }>게시글 즐겨찾기</Text>
+              </ItemList>
+            </ItemContainer>
+            <ItemContainer>
+              <Title>기타</Title>
+              <ItemList>
+                <Text>회원탈퇴</Text>
+                <Text>로그아웃</Text>
+              </ItemList>
+            </ItemContainer>
+          </MenuContainer>
+        </PageContainer> }
     </>
   );
 }

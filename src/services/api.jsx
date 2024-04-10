@@ -1,60 +1,46 @@
-import axios from 'axios';
+import axiosInstance from "./axios";
 
-const axiosInstance = axios.create({
-  baseURL: import.meta.env.VITE_BASE_URI,
-  timeout: 5000,
-  headers: {
-    'Content-Type': 'application/json',
-    withCredentials: 'true',
-  },
-});
+export const getUserInfo = async () => {
+    const res = await axiosInstance.get('/member/detail');
 
-// 요청 인터셉터
-axiosInstance.interceptors.request.use(
-  (config) => {
-    const accessToken = localStorage.getItem('accessToken');
-    const refreshToken = localStorage.getItem('refreshToken');
-
-    if (accessToken) {
-      config.headers['Authorization'] = 'Bearer ' + accessToken;
+    if (res.data.status === 'SUCCESS') {
+        return res.data.data;
+    } else {
+        alert(res.data.message);
     }
-    // Refresh 토큰을 보낼 경우 사용하고자 하는 커스텀 인증 헤더를 사용하면 된다.
-    if (refreshToken) {
-      config.headers['x-refresh-token'] = refreshToken;
+}
+
+export const getUserQRCode = async () => {
+    const res = await axiosInstance.get('/qrcode/my');
+
+    if (res.data.status === 'SUCCESS') {
+        return res.data.data;
+    } else {
+        alert(res.data.message);
     }
+};
 
-    return config;
-  },
-  (error) => {
-    // 요청 에러 처리
-    return Promise.reject(error);
-  }
-);
+export const getUserChatId = async () => {
+    const res = await axiosInstance.get('/member/me');
+    return res.data.data;
+}
 
-// 응답 인터셉터
-axiosInstance.interceptors.response.use(
-  (response) => {
-    if (response.data.status === 'FAILED') {
-      if (response.data.data.errorType === 'TokenExpiredException') {
-        // 토큰 만료시 토큰 재발급
-        axios
-          .post('/member/auth/refresh', localStorage.getItem('refreshToken'))
-          .then((res) => {
-            setAccessToken(res.data.data.accessToken);
-            localStorage.setItem('accessToken', res.data.data.accessToken);
-            localStorage.setItem('refreshToken', res.data.data.refreshToken);
-          });
-      } else if (response.data.data.errorType === 'NOT_FOUND') {
-        window.alert('가입 정보가 없습니다. 회원가입 페이지로 이동합니다.');
-        window.location.href = `/signup?kakaoid=${idRes.data.data.kakaoId}&username=${idRes.data.data.username}`;
-      }
+export const getChatRoomList = async () => {
+    const res = await axiosInstance.get('/chat/chatrooms/');
+
+    if (res.data.status === 'SUCCESS') {
+        return res.data.data;
+    } else {
+        alert(res.data.message);
     }
-    return response;
-  },
-  async (error) => {
-    // 2xx 범위 외의 상태 코드는 기타 에러 처리
-    return Promise.reject(error);
-  }
-);
+}
 
-export default axiosInstance;
+export const getChatHistory = async (chatroomId) => {
+    const res = await axiosInstance.get('/chat/messages/', { params: { chatroomId: chatroomId, } });
+
+    if (res.data.status === 'SUCCESS') {
+        return res.data.data;
+    } else {
+        alert(res.data.message);
+    }
+}

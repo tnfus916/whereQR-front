@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { useNavigate, useMatch } from 'react-router-dom';
 import styled from 'styled-components';
 import propTypes from 'prop-types';
-import axiosInstance from '../services/api';
+import axiosInstance from '../../services/axios';
 
 const PageContainer = styled.div`
   height: 100%;
@@ -106,10 +106,10 @@ function WritePost() {
         <Title>분실물 신고</Title>
         <TitleInput placeholder="제목"></TitleInput>
         <ContentInput placeholder="내용"></ContentInput>
-        {/* 시구 선택, 카테고리 선택 UI */}
+        {/* 시구 선택, 카테고리 선택 UI */ }
         <ButtonContainer>
-          <Button onClick={handleClick}>등록</Button>
-          <Button onClick={handleCancel}>취소</Button>
+          <Button onClick={ handleClick }>등록</Button>
+          <Button onClick={ handleCancel }>취소</Button>
         </ButtonContainer>
         <Guide>
           제목을 기반으로 게시글이 검색되기 때문에 제목에 키워드를 넣어주시면

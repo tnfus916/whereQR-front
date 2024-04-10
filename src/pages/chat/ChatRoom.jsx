@@ -170,32 +170,32 @@ function ChatRoom() {
     <>
       <PageContainer>
         <ChatContainer>
-          {oldchat.map((c) =>
+          { oldchat.map((c) =>
             c.senderId === senderId ? (
-              <MyBubbleContainer key={c.id}>
-                <MyBubble>{c.content}</MyBubble>
+              <MyBubbleContainer key={ c.id }>
+                <MyBubble>{ c.content }</MyBubble>
               </MyBubbleContainer>
             ) : (
-              <CounterPartBubbleContainer key={c.id}>
-                <CounterPartBubble>{c.content}</CounterPartBubble>
+              <CounterPartBubbleContainer key={ c.id }>
+                <CounterPartBubble>{ c.content }</CounterPartBubble>
               </CounterPartBubbleContainer>
             )
-          )}
-          {chatlist.map((c, index) =>
+          ) }
+          { chatlist.map((c, index) =>
             c.senderId === senderId ? (
-              <MyBubbleContainer key={index}>
-                <MyBubble>{c.content}</MyBubble>
+              <MyBubbleContainer key={ index }>
+                <MyBubble>{ c.content }</MyBubble>
               </MyBubbleContainer>
             ) : (
-              <CounterPartBubbleContainer key={index}>
-                <CounterPartBubble>{c.content}</CounterPartBubble>
+              <CounterPartBubbleContainer key={ index }>
+                <CounterPartBubble>{ c.content }</CounterPartBubble>
               </CounterPartBubbleContainer>
             )
-          )}
+          ) }
         </ChatContainer>
         <InputContainer>
-          <InputBox value={chat} required onChange={onChangeChat} />
-          <Button onClick={sendChat}>전송</Button>
+          <InputBox value={ chat } required onChange={ onChangeChat } />
+          <Button onClick={ sendChat }>전송</Button>
         </InputContainer>
       </PageContainer>
     </>

@@ -1,4 +1,4 @@
-import React from 'react';
+
 import styled from 'styled-components';
 
 function NotFound() {
@@ -13,7 +13,7 @@ function NotFound() {
 
 export default NotFound;
 
-export const NotFoundContainer = styled.div`
+const NotFoundContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -27,7 +27,7 @@ export const NotFoundContainer = styled.div`
   position: relative;
 `;
 
-export const NotFoundContent = styled.div`
+const NotFoundContent = styled.div`
   position: relative;
   top: -150px;
   width: 100%;

@@ -9,7 +9,7 @@ import {
   QRForm,
   QRTitle,
 } from '../../components/qrcode/QRStyle';
-import axiosInstance from '../../services/api';
+import axiosInstance from '../../services/axios';
 
 function QRRegister() {
   const navigate = useNavigate();
@@ -61,21 +61,21 @@ function QRRegister() {
             <Input
               className="title"
               name="qr-title"
-              value={title}
+              value={ title }
               required
-              onChange={onChangeTitle}
+              onChange={ onChangeTitle }
             />
             <br />
             <Label className="memo">메모</Label>
             <Input
               className="memo"
               name="qr-memo"
-              value={memo}
+              value={ memo }
               required
-              onChange={onChangeMemo}
+              onChange={ onChangeMemo }
             />
             <br />
-            <Button className="button" type="primary" onClick={onSubmit}>
+            <Button className="button" type="primary" onClick={ onSubmit }>
               등록하기
             </Button>
           </QRForm>

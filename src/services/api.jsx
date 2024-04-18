@@ -44,3 +44,15 @@ export const getChatHistory = async (chatroomId) => {
         alert(res.data.message);
     }
 }
+// 대시보드 -----------------
+export const getDashboardPosts = async () => {
+  const res = await axiosInstance.get("/dashboard/", {
+    params: { search: "", offset: 0, limit: 10 },
+  });
+
+  if (res.data.status === "SUCCESS") {
+    return res.data.data.data;
+  } else {
+    alert(res.data.message);
+  }
+};

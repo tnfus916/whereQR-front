@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 export const PageContainer = styled.div`
   display: flex;
@@ -63,4 +63,53 @@ export const CounterPartBubble = styled.div`
   font-size: 16px;
   line-height: 1.5;
   color: #000;
+`;
+
+export const ChatContainer = styled.div`
+  height: 93%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: center;
+  margin-top: 1rem;
+  overflow-y: visible;
+`;
+
+export const InputContainer = styled.div`
+  height: 7%;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: fixed;
+  bottom: 10%;
+  padding: 10px;
+`;
+
+export const InputBox = styled.input`
+  height: 90%;
+  width: 77%;
+  border: none;
+  border-radius: 20px;
+  background-color: #f5f5f5;
+  outline: none;
+  font-size: 16px;
+  font-weight: 600;
+  color: #000;
+`;
+
+export const Button = styled.button`
+  height: 90%;
+  width: 16%;
+  background-color: rgb(124, 172, 255);
+  border: none;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #000;
+  &:disabled {
+    background-color: #f5f5f5;
+    color: #7e7878;
+  }
 `;

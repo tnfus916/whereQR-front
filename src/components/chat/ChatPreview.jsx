@@ -88,8 +88,8 @@ const LastMessageTime = styled.div`
   justify-content: end;
   align-items: center;
   width: 100%;
-  font-size: 0.6rem;
-  color: #9a9ba7;
+  font-size: 0.7rem;
+  color: #121213;
   padding-bottom: 12px;
 `;
 
@@ -97,11 +97,10 @@ const NotReadCount = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 15px;
-  height: 15px;
+  width: 1.1rem;
+  height: 1.1rem;
   font-size: 0.6rem;
   font-weight: 600;
   border-radius: 50%;
-  padding: 4px;
   background-color: rgb(197, 218, 255);
 `;

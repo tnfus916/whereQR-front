@@ -16,7 +16,7 @@ const DashboardPageContainer = styled.div`
 `;
 
 const AddButton = styled.button`
-  position: absolute;
+  position: fixed;
   bottom: 90px;
   right: 10px;
   width: 50px;

@@ -1,4 +1,4 @@
-name: NodeJS with Webpack
+name: Build and Deploy
 
 on:
   push:
@@ -9,17 +9,40 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-
     strategy:
       matrix:
         node-version: [14.x, 16.x, 18.x, 21.x]
 
     steps:
+    - name: Checkout Repository
     - uses: actions/checkout@v4
-    - name: Use Node.js 
+    
+    - name: Setup node
       uses: actions/setup-node@v4
       with:
         node-version: '21.x'
-    - name: Build
+        cache: npm
+        
+    - name: Log in to Docker Hub
+      uses: docker/login-action@v3
+      with:
+        username: ${{ secrets.DOCKERHUB_USERNAME }}
+        password: ${{ secrets.DOCKERHUB_TOKEN }}
+        
+    - name: Build and Push Docker image
       run: |
-        npm install --legacy-peer-deps
+        docker build --platform linux/amd64 -t tnfus916/whereqr-frontend:latest .
+        docker tag whereqr-frontend:latest tnfus916/whereqr-frontend:latest
+        docker push tnfus916/whereqr-frontend:latest
+      
+        
+    - name: Deploy to NCP
+      env:
+        SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+      run: |
+        mkdir -p ~/.ssh
+        echo "$SSH_PRIVATE_KEY" > ~/.ssh/server_key
+        chmod 600 ~/.ssh/server_key
+        ssh-keyscan -p 12321 210.89.181.89 >> ~/.ssh/known_hosts
+        ssh -i ~/.ssh/server_key -p 12321 root@210.89.181.89 '
+          echo "Connected to NCP Server"

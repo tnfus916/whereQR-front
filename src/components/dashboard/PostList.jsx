@@ -1,56 +1,72 @@
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-
-const ListContainer = styled.div`
-  height: 100%;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  margin-top: 10px;
-  padding: 10px;
-  background-color: #fff;
-`;
+import props from 'prop-types';
 
 const ListItem = styled.div`
   width: 100%;
-  height: 100px;
   display: flex;
-  align-items: center;
+  flex-direction: column;
   justify-content: space-between;
+  align-items: start;
+  gap: 0.5rem;
   border-bottom: 1px solid lightgray;
-  padding: 10px;
+  padding: 0.6rem;
 `;
 
-function PostList() {
-  const tmp = [
-    {
-      title: '에어팟을 잃어버렸습니다.',
-      content:
-        '광진구 뭐시기에서 28일 18시쯤에 잃어버렸습니다. 습득하신 분이 있다면 연락주세요! 사례하겠습니다.',
-      author: '박수련',
-    },
-    {
-      title: '에어팟을 잃어버렸습니다.',
-      content:
-        '광진구 뭐시기에서 28일 18시쯤에 잃어버렸습니다. 습득하신 분이 있다면 연락주세요! 사례하겠습니다.',
-      author: '김철수',
-    },
-  ];
+const Title = styled.h3`
+  font-size: 0.8rem;
+  font-weight: 500;
+`;
+
+const Content = styled.span`
+  font-size: 0.6rem;
+  color: gray;
+`;
+
+const SmallInfo = styled.div`
+  width: 100%;
+  display: flex;
+  gap: 0.4rem;
+  font-size: 0.6rem;
+  color: #b3b1b1;
+`;
+
+function PostList({ posts }) {
+  const navigate = useNavigate();
+
+  const handleClick = (id) => {
+    navigate(`/dashboard/${id}`);
+  };
 
   return (
-    <ListContainer>
-      {tmp.map((item, index) => {
-        return (
-          <ListItem key={index}>
-            <div>
-              <h3>{item.title}</h3>
-              <p>{item.content}</p>
-              <p>{item.author}</p>
-            </div>
-          </ListItem>
-        );
-      })}
-    </ListContainer>
+    <>
+      {posts.map((post) => (
+        <ListItem
+          key={post.dashboard_id}
+          onClick={() => handleClick(post.dashboard_id)}
+        >
+          <Title>
+            {post.title && post.title.length > 23
+              ? post.title.slice(0, 23) + '...'
+              : post.title}
+          </Title>
+          <Content>
+            {post.content && post.content.length > 33
+              ? post.content.slice(0, 33) + '...'
+              : post.content}
+          </Content>
+          <SmallInfo>
+            <p>{post.author_id}</p>
+            <p>{new Date(post.createdAt).toLocaleDateString()}</p>
+          </SmallInfo>
+        </ListItem>
+      ))}
+    </>
   );
 }
 
 export default PostList;
+
+PostList.propTypes = {
+  posts: props.array.isRequired,
+};

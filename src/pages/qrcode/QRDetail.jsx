@@ -35,8 +35,8 @@ function QRDetail() {
           } else {
             // qr코드가 등록되지 않은 경우
             if (res.data.data['qrStatus'] === 'New') {
-              const refreshToken = localStorage.getItem('refreshToken');
-              if (refreshToken) {
+              const accessToken = localStorage.getItem('accessToken');
+              if (accessToken) {
                 alert(
                   '등록되지 않은 코드입니다. QR 코드 등록 페이지로 이동합니다.'
                 );

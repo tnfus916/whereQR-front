@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 import logo from '../../assets/logo.png';
-import axiosInstance from "../../services/axios";
 
 export const HeaderContainer = styled.div`
   display: flex;
@@ -77,23 +76,22 @@ function Header() {
   const [title, setTitle] = useState('whereQR');
 
   useEffect(() => {
-    const token = localStorage.getItem('refreshToken');
+    const token = localStorage.getItem('accessToken');
     if (token) {
       setIsLogin(true);
-      console.log(token);
     }
   }, []);
 
   const handleLogin = () => {
-    console.log("login을 진행");
-    navigate("/login");
+    console.log('login을 진행');
+    navigate('/login');
   };
 
   const handleLogout = () => {
-    console.log("logout을 진행");
-    localStorage.removeItem("accessToken");
+    console.log('logout을 진행');
+    localStorage.removeItem('accessToken');
     setIsLogin(false);
-    navigate("/");
+    navigate('/');
   };
 
   useEffect(() => {

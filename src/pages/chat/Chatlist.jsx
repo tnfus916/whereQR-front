@@ -1,24 +1,20 @@
-import { useState } from 'react';
-import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import ChatPreview from '../components/chat/ChatPreview';
+import { useQuery } from 'react-query';
+
+import { getChatRoomList } from '../../services/api';
+
+import ChatPreview from '../../components/chat/ChatPreview';
 import {
   ChatroomListContainer,
   PageContainer,
-} from '../components/chat/ChatStyle';
-import axiosInstance from '../services/api';
+} from '../../components/chat/ChatStyle';
 
 function ChatList() {
   const navigate = useNavigate();
-  const [chatrooms, setChatrooms] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const chatlist = useQuery('chatList', getChatRoomList).data;
 
-  useEffect(() => {
-    axiosInstance.get('/chat/chatrooms/').then((res) => {
-      console.log(res.data.data);
-      setChatrooms(res.data.data);
-    });
-  }, []);
+  chatlist?.sort((a, b) => new Date(b.lastDate) - new Date(a.lastDate));
+  console.log(chatlist);
 
   const handleChatPreviewClick = (chatroomId) => {
     console.log(chatroomId);
@@ -27,10 +23,10 @@ function ChatList() {
 
   return (
     <>
-      { loading ? (
+      { chatlist && (
         <PageContainer>
           <ChatroomListContainer>
-            { chatrooms.map((c) => (
+            { chatlist?.map((c) => (
               <ChatPreview
                 key={ c.id }
                 participantName={ c.opponentUsername }
@@ -42,8 +38,6 @@ function ChatList() {
             )) }
           </ChatroomListContainer>
         </PageContainer>
-      ) : (
-        <div>로딩중</div>
       ) }
     </>
   );

@@ -65,9 +65,11 @@ function QRScan() {
         <QrReader
           onResult={(result) => {
             handleScan(result);
-          }}
-          facingMode="environment"
-          containerStyle={{
+          } }
+          constraints={
+            { facingMode: "environment" }
+          }
+          containerStyle={ {
             width: '100%',
           }}
           videoContainerStyle={{
@@ -82,8 +84,11 @@ function QRScan() {
         <QrReader
           onResult={(result) => {
             handleScan(result);
-          }}
-          containerStyle={{
+          } }
+          constraints={
+            { facingMode: "environment" }
+          }
+          containerStyle={ {
             width: '100%',
           }}
           videoContainerStyle={{

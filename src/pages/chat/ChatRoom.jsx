@@ -1,83 +1,56 @@
-import { useEffect, useState, useRef } from 'react';
-import styled from 'styled-components';
 import * as StompJs from '@stomp/stompjs';
+import { useEffect, useRef, useState } from 'react';
+import { useQuery } from 'react-query';
+
+import { getChatHistory, getUserChatId } from '../../services/api';
+
 import {
+  ChatContainer,
   CounterPartBubble,
   CounterPartBubbleContainer,
+  InputBox,
+  InputContainer,
   MyBubble,
   MyBubbleContainer,
   PageContainer,
-} from '../components/chat/ChatStyle';
-import axiosInstance from '../services/api';
-
-export const ChatContainer = styled.div`
-  height: 93%;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: start;
-  align-items: center;
-  margin-top: 1rem;
-  overflow-y: auto;
-`;
-
-export const InputContainer = styled.div`
-  height: 7%;
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  position: fixed;
-  bottom: 10%;
-  padding: 10px;
-`;
-
-export const InputBox = styled.input`
-  height: 90%;
-  width: 77%;
-  border: none;
-  border-radius: 20px;
-  background-color: #f5f5f5;
-  outline: none;
-  font-size: 16px;
-  font-weight: 600;
-  color: #000;
-`;
-
-export const Button = styled.button`
-  height: 90%;
-  width: 16%;
-  background-color: rgb(124, 172, 255);
-  border: none;
-  border-radius: 20px;
-  font-size: 14px;
-  font-weight: 600;
-  color: #000;
-`;
-
+  Button
+} from '../../components/chat/ChatStyle';
 function ChatRoom() {
-  const [connected, setConnected] = useState(false);
+  const chatroomId = window.location.href.split('/')[4];
 
-  const currentUrl = window.location.href;
-  const chatroomId = currentUrl.split('/')[4];
+  const { isLoading: isUserIdLoading, data: userId } = useQuery('userChatId', getUserChatId);
+  const { isLoading: isChatLoading, data: chatData } = useQuery('chatHistory', () => getChatHistory(chatroomId));
 
   const [client, setClient] = useState(null);
   const [chat, setChat] = useState('');
-  const [oldchat, setOldChat] = useState([]);
-  const [chatlist, setChatList] = useState([]);
-  const [senderId, setSenderId] = useState('');
+  const [buttonDisabled, setButtonDisabled] = useState(true);
 
-  const connect = () => {
+  const scrollY = useRef(); // 스크롤값을 저장하기 위한 상태
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [chatData]);
+
+  const scrollToBottom = () => {
+    if (scrollY.current) {
+      scrollY.current.scrollTop = scrollY.current.scrollHeight;
+    }
+  };
+
+  useEffect(() => {
+    if (!isChatLoading && chatData && !isUserIdLoading && userId) {
+      connect(userId);
+    }
+
+    return () => {
+      disconnect();
+    };
+  }, [userId]);
+
+
+  const connect = (userId) => {
     const clientdata = new StompJs.Client({
       brokerURL: import.meta.env.VITE_CHAT_ENDPOINT,
-      // connectHeaders: {
-      //   // 토큰을 받아 헤더에 실어서 보내기
-      //   login: '',
-      //   passcode: 'password',
-      // },
-      debug: function (str) {
-        console.log(str);
-      },
       reconnectDelay: 60000, // 1분마다 자동 재연결
       heartbeatIncoming: 4000,
       heartbeatOutgoing: 4000,
@@ -85,94 +58,87 @@ function ChatRoom() {
 
     clientdata.onConnect = () => {
       console.log('채팅이 연결되었습니다.');
-      setConnected(true);
-      clientdata.subscribe('/subscribe/' + chatroomId, callback);
-    };
+
+      clientdata.subscribe('/subscribe/' + chatroomId, (message) => callback(
+        {
+          message: message,
+          userId: userId,
+        }
+      ));
+
+    }
 
     clientdata.activate();
     setClient(clientdata);
   };
 
-  const callback = (message) => {
-    let messageContent = message.body;
-    let senderMatch = messageContent.match(/sender=([0-9a-f-]+)/);
-    let receiverMatch = messageContent.match(/receiver=([0-9a-f-]+)/);
-    let contentMatch = messageContent.match(/content='([^']+)'/);
+  const callback = async (data) => {
+    const messageContent = await data.message.body;
+    const id = messageContent.match(/id=([0-9a-f-]+)/)[1];
+    const sender = messageContent.match(/sender=([0-9a-f-]+)/)[1];
+    const receiver = messageContent.match(/receiver=([0-9a-f-]+)/)[1];
+    const isRead = messageContent.match(/isRead=([a-z]+)/)[1];
+    const content = messageContent.match(/content='([^']+)'/)[1];
 
-    if (senderMatch && receiverMatch && contentMatch) {
-      let sender = senderMatch[1];
-      let receiver = receiverMatch[1];
-      let content = contentMatch[1];
+    console.log("get", sender);
+    console.log(receiver);
+    console.log(id);
+    console.log(content);
+    console.log("i", isRead);
 
-      // 추출된 값을 이용
-      console.log(sender); // 출력: 3abc3278-96ed-4899-8dc5-98f3b5682481
-      console.log(receiver); // 출력: 1e73f73b-c5e9-4e50-b064-22f5c30faa3f
-      console.log(content); // 출력: [object Object]
-      setChatList((chats) => [
-        ...chats,
-        { senderId: sender, content: content },
-      ]);
+    // 내가 보낸 메세지가 아니라면 읽음 처리, 맞다면 읽음 처리 확인 후 읽었다면 읽음 처리
+    if (sender !== data.userId) {
+      console.log('read');
+    } else {
+      //   console.log(data);
     }
+
+    chatData.push({
+      id: id,
+      senderId: sender,
+      receiverId: receiver,
+      content: content,
+      isRead: isRead,
+    });
   };
 
   const disconnect = () => {
+
     if (client === null) {
       return;
     }
     client.off;
     console.log('채팅이 종료되었습니다.');
-    setConnected(false);
   };
 
-  useEffect(() => {
-    // memberId 불러오기
-    axiosInstance.get('/member/me').then((res) => {
-      setSenderId(res.data.data);
-    });
-
-    axiosInstance
-      .get('/chat/messages/', {
-        params: {
-          chatroomId: chatroomId,
-        },
-      })
-      .then((res) => {
-        console.log(res.data.data);
-        setOldChat(res.data.data);
-      });
-
-    connect();
-
-    return () => {
-      disconnect();
-    };
-  }, []);
-
   const onChangeChat = (e) => {
+    console.log(e.target.value);
     setChat(e.target.value);
+    if (e.target.value === '') {
+      setButtonDisabled(true);
+    } else {
+      setButtonDisabled(false);
+    }
   };
 
   const sendChat = () => {
-    // if (chat === '') {
-    //   return;
-    // }
-
-    console.log(chat);
     client.publish({
-      destination: '/publish/send/' + senderId + '/' + chatroomId,
+      destination: '/publish/send/' + userId + '/' + chatroomId,
       body: chat,
     });
 
+    setButtonDisabled(true);
     setChat('');
   };
 
   return (
     <>
-      <PageContainer>
+      <PageContainer ref={ scrollY }>
         <ChatContainer>
-          { oldchat.map((c) =>
-            c.senderId === senderId ? (
+          { chatData?.map((c) =>
+            c.senderId === userId ? (
               <MyBubbleContainer key={ c.id }>
+                <span>{ c.isRead ? "" : 1 }</span>
                 <MyBubble>{ c.content }</MyBubble>
               </MyBubbleContainer>
             ) : (
@@ -181,21 +147,10 @@ function ChatRoom() {
               </CounterPartBubbleContainer>
             )
           ) }
-          { chatlist.map((c, index) =>
-            c.senderId === senderId ? (
-              <MyBubbleContainer key={ index }>
-                <MyBubble>{ c.content }</MyBubble>
-              </MyBubbleContainer>
-            ) : (
-              <CounterPartBubbleContainer key={ index }>
-                <CounterPartBubble>{ c.content }</CounterPartBubble>
-              </CounterPartBubbleContainer>
-            )
-          ) }
         </ChatContainer>
         <InputContainer>
           <InputBox value={ chat } required onChange={ onChangeChat } />
-          <Button onClick={ sendChat }>전송</Button>
+          <Button onClick={ sendChat } disabled={ buttonDisabled }>전송</Button>
         </InputContainer>
       </PageContainer>
     </>

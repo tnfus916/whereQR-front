@@ -53,9 +53,9 @@ jobs:
           echo "Connected to NCP Server"
           docker pull tnfus916/whereqr-frontend:latest
           echo "Docker image pull: $?"
-          docker stop where_qr_container || true
+          docker stop frontend || true
           echo "Docker container stop: $?"
-          docker rm where_qr_container || true
+          docker rm frontend || true
           echo "Docker container removal: $?"
-          docker run -d --name where_qr_container -p 8090:8090 tnfus916/whereqr-frontend:latest
+          docker run -d --name frontend -p 3000:3000 tnfus916/whereqr-frontend:latest
           echo "Docker container run: $?"

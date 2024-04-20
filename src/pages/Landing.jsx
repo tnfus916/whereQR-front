@@ -1,19 +1,17 @@
-import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
 import qrcode from '../assets/qrcode_image.svg';
 import title from '../assets/landing_title.svg';
 import descript from '../assets/landing_descript.svg';
-
 export const LandingContainer = styled.div`
   padding-top: 50px;
   padding-bottom: 100px;
+  height: 200%;
   width: 100%;
   display: flex;
   justify-content: center;
-  ${({ $darkness }) => `
-    background: linear-gradient(to bottom, rgba(255, 255, 255, ${$darkness}), rgba(188, 206, 251, ${$darkness}));
-  `}
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0.5), rgba(188, 206, 251,0.5));
+  
 `;
 
 export const ContentsContainer = styled.div`
@@ -39,10 +37,10 @@ export const GuideContainer = styled.div`
   flex-direction: column;
   align-items: flex-start;
   justify-content: center;
-  background-color: rgba(255, 255, 255, 0.4);
+  background-color: rgba(255, 255, 255, 0.218);
   padding: 1.2rem;
   border-radius: 10px;
-  box-shadow: rgba(83, 83, 83, 0.2) 0px 8px 20px;
+  box-shadow: rgba(83, 83, 83, 0.1) 0px 0px 10px inset;
 `;
 
 export const Title = styled.div`
@@ -59,28 +57,9 @@ export const Text = styled.div`
 `;
 
 function Landing() {
-  const [scrollPercentage, setScrollPercentage] = useState(0);
-  const darkness = 0.5 + scrollPercentage * 0.5;
-
-  useEffect(() => {
-    const handleScroll = () => {
-      const newScrollPercentage =
-        (window.scrollY + window.innerHeight) /
-        document.documentElement.scrollHeight;
-      setScrollPercentage(newScrollPercentage);
-    };
-
-    window.addEventListener('scroll', handleScroll);
-
-    // 컴포넌트가 언마운트되면 이벤트 리스너를 제거합니다
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
-  }, []);
-
   return (
     <>
-      <LandingContainer $darkness={ darkness }>
+      <LandingContainer>
         <ContentsContainer>
           <Image src={ title } width="160" alt="" />
           <Image src={ qrcode } width="160" alt="" />

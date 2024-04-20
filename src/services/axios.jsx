@@ -12,42 +12,36 @@ const axiosInstance = axios.create({
 // 요청 인터셉터
 axiosInstance.interceptors.request.use(
   (config) => {
-    const accessToken = localStorage.getItem('accessToken'); //tmp 
-    const refreshToken = localStorage.getItem('refreshToken');
+    const accessToken = localStorage.getItem("accessToken");
 
     if (accessToken) {
-      config.headers['Authorization'] = 'Bearer ' + accessToken;
-    }
-    // Refresh 토큰을 보낼 경우 사용하고자 하는 커스텀 인증 헤더를 사용하면 된다.
-    if (refreshToken) {
-      config.headers['x-refresh-token'] = refreshToken;
+      config.headers["Authorization"] = "Bearer " + accessToken;
     }
 
     return config;
   },
   (error) => {
     // 요청 에러 처리
-    return Promise.reject(error);
+    console.log("error", error);
+    return error;
   }
 );
 
 // 응답 인터셉터
 axiosInstance.interceptors.response.use(
-  (response) => {
-    if (response.data.status === 'FAILED') {
-      console.log('failed');
-      if (response.data.data.errorType === 'TokenExpiredException') {
-        // 토큰 만료시 토큰 재발급
-        axios
-          .post('/member/auth/refresh', localStorage.getItem('refreshToken'))
-          .then((res) => {
-            localStorage.setItem('refreshToken', res.data.data.refreshToken);
-          });
-      } else if (response.data.data.errorType === 'NOT_FOUND') {
-        window.alert('가입 정보가 없습니다. 회원가입 페이지로 이동합니다.');
-        const kakaoId = localStorage.getItem('kakaoId');
-        const username = localStorage.getItem('username');
-        window.location.href = `/signup?kakaoid=${kakaoId}&username=${username}`;
+  async (response) => {
+    if (response.data.status === "FAILED") {
+      if (response.data.data.errorType === "UNAUTHORIZED") {
+        console.log("토큰 만료");
+        const res = axiosInstance.post("/member/auth/refresh");
+        if (res.data.status === "SUCCESS") {
+          localStorage.setItem("accessToken", res.data.data.accessToken);
+          window.location.reload(); // 새로고침
+        } else {
+          localStorage.removeItemItem("accessToken", res.data.data.accessToken);
+          alert("세션이 만료되었습니다. 다시 로그인해주세요.");
+          window.location.href = "/login";
+        }
       } else {
         window.location.href = '/';
       }

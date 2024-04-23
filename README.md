@@ -41,7 +41,7 @@ whereQR은 분실물을 위한 중개 플랫폼입니다.
 <img width="334" alt="image" src="https://github.com/baek-park/whereQR-front/assets/83868210/496f65fe-e986-40cf-a7e5-f7cdbd3f5f5b">
 <img width="334" alt="image" src="https://github.com/baek-park/whereQR-front/assets/83868210/0fdd15cf-764e-45b7-bf53-e4daf8a3a7d3">
 <img width="334" alt="image" src="https://github.com/baek-park/whereQR-front/assets/83868210/80fedefd-314a-4879-a6a3-37b195fcf3fd">
-<img width="334" alt="image" src="https://github.com/baek-park/whereQR-front/assets/83868210/9cb7268c-b306-4574-98b1-7fbe96e998c0">
+<img width="310" alt="image" src="https://github.com/baek-park/whereQR-front/assets/83868210/9cb7268c-b306-4574-98b1-7fbe96e998c0">
 
 <br>
 

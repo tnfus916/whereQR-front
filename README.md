@@ -104,6 +104,6 @@ Docker hub에 배포된 image: tnfus916/whereqr-frontend:latest
 <img width="700" alt="image" src="https://github.com/baeksoojin/whereQR_Spring_version/assets/74058047/c3a5fe3f-e35d-4e91-8c21-3b5952c4a042">
 <img width="700" alt="image" src="https://github.com/baeksoojin/whereQR_Spring_version/assets/74058047/8ee698a5-b3d0-4840-8ca2-481a7a080abd">
 <img width="700" alt="image" src="https://github.com/baeksoojin/whereQR_Spring_version/assets/74058047/e4109fce-aa20-4a31-a352-a73544e40498">
-<img width="700" alt="image" src="https://github.com/baeksoojin/whereQR_Spring_version/assets/74058047/a06392c1-b880-432c-a31e-b670fda016fa">
+<img width="700" alt="image" src="https://github.com/baeksoojin/whereQR_Spring_version/assets/74058047/a06392c1-b880-432c-a31e-b670fda016fa">
 
 

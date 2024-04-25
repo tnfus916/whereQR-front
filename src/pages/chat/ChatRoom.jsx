@@ -13,15 +13,22 @@ import {
   MyBubble,
   MyBubbleContainer,
   PageContainer,
-  Button
+  Button,
 } from '../../components/chat/ChatStyle';
 function ChatRoom() {
   const chatroomId = window.location.href.split('/')[4];
 
-  const { isLoading: isUserIdLoading, data: userId } = useQuery('userChatId', getUserChatId);
-  const { isLoading: isChatLoading, data: chatData } = useQuery('chatHistory', () => getChatHistory(chatroomId));
+  const { isLoading: isUserIdLoading, data: userId } = useQuery(
+    'userChatId',
+    getUserChatId
+  );
+  const { isLoading: isChatLoading, data: chatData } = useQuery(
+    'chatHistory',
+    () => getChatHistory(chatroomId)
+  );
 
-  const [client, setClient] = useState(null);
+  const client = useRef(null);
+
   const [chat, setChat] = useState('');
   const [buttonDisabled, setButtonDisabled] = useState(true);
 
@@ -45,8 +52,7 @@ function ChatRoom() {
     return () => {
       disconnect();
     };
-  }, [userId]);
-
+  }, [userId, chatData]);
 
   const connect = (userId) => {
     const clientdata = new StompJs.Client({
@@ -54,22 +60,20 @@ function ChatRoom() {
       reconnectDelay: 60000, // 1분마다 자동 재연결
       heartbeatIncoming: 4000,
       heartbeatOutgoing: 4000,
+      onConnect: () => {
+        console.log('채팅이 연결되었습니다.');
+
+        client.current.subscribe('/subscribe/' + chatroomId, (message) =>
+          callback({
+            message: message,
+            userId: userId,
+          })
+        );
+      },
     });
 
-    clientdata.onConnect = () => {
-      console.log('채팅이 연결되었습니다.');
-
-      clientdata.subscribe('/subscribe/' + chatroomId, (message) => callback(
-        {
-          message: message,
-          userId: userId,
-        }
-      ));
-
-    }
-
+    client.current = clientdata;
     clientdata.activate();
-    setClient(clientdata);
   };
 
   const callback = async (data) => {
@@ -89,8 +93,31 @@ function ChatRoom() {
     // 내가 보낸 메세지가 아니라면 읽음 처리, 맞다면 읽음 처리 확인 후 읽었다면 읽음 처리
     if (sender !== data.userId) {
       console.log('read');
+
+      client.current.publish(
+        {
+          destination:
+            '/publish/read/' + receiver + '/' + chatroomId + '/' + id,
+        },
+        (data) => {
+          console.log(data);
+          console.log('읽음 처리 완료');
+        }
+      );
     } else {
-      //   console.log(data);
+      client.current.subscribe(
+        '/subscribe/' + chatroomId + '/' + id,
+        async (data) => {
+          const messageContent = await data.body;
+          const id = messageContent.match(/id=([0-9a-f-]+)/)[1];
+          const isRead = messageContent.match(/isRead=([a-z]+)/)[1];
+
+          console.log('my message subscribe', id, isRead, chatroomId);
+          if (isRead === 'true') {
+            chatData.find((c) => c.id === id).isRead = true;
+          }
+        }
+      );
     }
 
     chatData.push({
@@ -103,8 +130,7 @@ function ChatRoom() {
   };
 
   const disconnect = () => {
-
-    if (client === null) {
+    if ((client === null) | (client === undefined)) {
       return;
     }
     client.off;
@@ -122,7 +148,7 @@ function ChatRoom() {
   };
 
   const sendChat = () => {
-    client.publish({
+    client.current.publish({
       destination: '/publish/send/' + userId + '/' + chatroomId,
       body: chat,
     });

@@ -35,7 +35,7 @@ jobs:
     
     - name: Build and Push Docker image
       run: |
-        docker buildx build --platform linux/amd64 --push --tag tnfus916/whereqr-frontend:0409-3 -f Dockerfile .
+        docker buildx build --platform linux/amd64 --push --tag tnfus916/whereqr-frontend:latest -f Dockerfile .
     
     - name: Deploy to NCP
       env:

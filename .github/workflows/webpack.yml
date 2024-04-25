@@ -23,6 +23,14 @@ jobs:
       with:
         node-version: '21.x'
         cache: npm
+
+    - name: Copy .env.production
+      run: |
+          touch .env.production
+          echo VITE_REST_API_KEY=${{ secrets.REST_API_KEY }} >> .env
+          echo VITE_REDIRECT_URI=${{ secrets.REDIRECT_URI }} >> .env
+          echo VITE_BASE_URI=${{secrets.BASE_URI }} >> .env
+          echo VITE_CHAT_ENDPOINT=${{secrets.CHAT_ENDPOINT }} >> .env
         
     - name: Log in to Docker Hub
       uses: docker/login-action@v3

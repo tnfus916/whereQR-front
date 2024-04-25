@@ -48,7 +48,7 @@ jobs:
         ssh -i ~/.ssh/server_key -p 12321 root@210.89.181.89 '
           echo "Connected to NCP Server"
           # 이미지 Pull 및 컨테이너 재시작
-          docker pull tnfus916/whereqr-frontend:0409-3
+          docker pull tnfus916/whereqr-frontend:latest
           docker stop backend || true
           docker compose up -d
           '
